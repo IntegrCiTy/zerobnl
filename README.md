@@ -1,3 +1,3 @@
 # zerobnl
 
-Co-simulation tool based on zeromq, docker and python.
+Distributed co-simulation tool based on ZeroMQ, Docker (Swarm and Compose) developped in Python.
