@@ -1,28 +1,20 @@
-import os
 import ast
 import zmq
 
-from docopt import docopt
-
-from zerobnl import __version__
 from zerobnl.logs import logger
+
 
 # This doc is used to make the wrapper callable by command line and gather easily all the given parameters
 doc = """>>> ZEROBNL node wrapper command <<<
 Usage:
-    node.py (<name> <group> <zmq-sub> <zmq-push>) [<inputs-map> <outputs>]
+    node.py (<name> <group>)
     node.py -h | --help
     node.py --version
 
 Options
     <name>          name of the node
     <group>         simulation group of the node
-    <zmq-sub>       tcp address and port used to subscribe to orchestrator's messages
-    <zmq-push>      tcp address and port used to push messages to orchestrator
-    
-    <inputs-map>    dictionary mapping other nodes attributes to node's attributes to set
-    <outputs>       list of output attributes (used by other nodes)
-     
+
     -h --help       show this
     --version       show version
 """
@@ -72,11 +64,14 @@ class Node:
         logger.info("{} -> EXIT".format(self._name))
 
     def update_inputs(self, state):
+        """The update_inputs() method is called to update the input of the node with values from other nodes"""
         logger.debug("{} -> UPDATE inputs".format(self._name))
         for attr_to_set, (from_node, from_attr) in self._inputs_map:
             self.set_attribute(attr_to_set, state[from_node][from_attr])
 
     def run(self):
+        """The run() method is the main method of the node, it triggers the other methods
+        and sorts the messages from the orchestrator"""
         self._sender.send_string('{}'.format(self._name))
         logger.debug("{} -> RUNNING ...".format(self._name))
 
@@ -103,24 +98,3 @@ class Node:
     @property
     def internal_state(self):
         return {attr: self.get_attribute(attr) for attr in self._outputs}
-
-
-if __name__ == '__main__':
-    args = docopt(Node.DOC, version=__version__)
-
-    if not args["<inputs-map>"]:
-        args["<inputs-map>"] = {}
-
-    if not args["<outputs>"]:
-        args["<outputs>"] = []
-
-    node = Node(
-        name=args["<name>"], 
-        group=args["<group>"],
-        zmq_sub=args["<zmq-sub>"],
-        zmq_push=args["<zmq-push>"],
-        inputs_map=args["<inputs-map>"],
-        outputs=args["<outputs>"]
-        )
-    # Uncomment the following line to launch the node
-    # node.run()
