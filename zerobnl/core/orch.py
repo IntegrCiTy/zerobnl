@@ -1,3 +1,4 @@
+import json
 import zmq
 
 from zerobnl.logs import logger
@@ -7,13 +8,15 @@ from docopt import docopt
 # This doc is used to make the orchestrator callable by command line and gather easily all the given parameters
 doc = """>>> ZEROBNL orchestrator command <<<
 Usage:
-    node.py (<name> <group>) [--cmd=CMD]
-    node.py -h | --help
-    node.py --version
+    orch.py [--port-pub=<pub> --port-pull=<pull>]
+    orch.py -h | --help
+    orch.py --version
 Options
-    -h --help   show this
-    --version   show version
-    --cmd       optional list of commands to run wrapper
+    --port-pub=<pub>    TCP port used to publish messages to nodes [default: 5556]
+    --port-pull=<pull>  TCP port used to pull messages from nodes [default: 5557]
+
+    -h --help           show this
+    --version           show version
 """
 
 
@@ -22,14 +25,16 @@ class Orch:
 
     CONTEXT = zmq.Context()
     DOC = doc
+    SEQUENCE_FILE = "sequence.json"
+    STEPS_FILE = "steps.json"
 
-    def __init__(self, sequence, steps, port_pub=5556, port_pull=5557):
+    def __init__(self, sequence, steps, port_pub, port_pull):
 
         self._sequence = sequence
         self._steps = steps
         self._state = {}
 
-        logger.debug("Orchestrator created")
+        logger.debug("ORCH -> created")
 
         self._pub = self.CONTEXT.socket(zmq.PUB)
         self._pub.bind("tcp://*:{}".format(port_pub))
@@ -64,11 +69,11 @@ class Orch:
             self._receiver.recv_string()
             ack += 1
 
-    def make_step(self, step, grp, nbr):
+    def make_step(self, step, unit, grp, nbr):
         """The make_step() method allow to make a simulation step for a group,
         and used at each step for each group defined in the simulation sequence."""
         logger.debug("ORCH -> GRP {}, STEP {}".format(grp, step))
-        self._pub.send_string("{} | {} | {}".format(grp, "STEP", step))
+        self._pub.send_string("{} | {} | {}:{}".format(grp, "STEP", step, unit))
 
         ack = 0
         while ack < nbr:
@@ -88,14 +93,33 @@ class Orch:
         """The run() method is the main method of the orchestrator, it triggers the other methods."""
         self.wait_all_nodes_to_connect()
 
-        for idx_step, step in enumerate(self._steps):
-            logger.info("ORCH -> STEP {}/{}: {} sec".format(idx_step, len(self._steps), step))
+        for idx_step, (step, unit) in enumerate(self._steps):
+            logger.info("ORCH -> STEP {}/{}: {} {}".format(idx_step, len(self._steps), step, unit))
 
             for j, grp in enumerate(self._sequence):
                 if j != 0 and idx_step == 0:
                     self.update_attributes(step, grp[0], grp[1])
-                self.make_step(step, grp[0], grp[1])
+                self.make_step(step, unit, grp[0], grp[1])
 
         logger.info("ORCH -> Work done, sending EXIT to all nodes")
         self._pub.send_string("{} | {} | {}".format("ALL", "END", 0))
+
+
+if __name__ == "__main__":
+    args = docopt(Orch.DOC, version="0.0.1")
+
+    with open(Orch.SEQUENCE_FILE) as json_data:
+        sequence = json.load(json_data)
+
+    with open(Orch.STEPS_FILE) as json_data:
+        steps = json.load(json_data)
+
+    orch = Orch(
+        sequence=sequence,
+        steps=steps,
+        port_pub=args["--port-pub"],
+        port_pull=args["--port-pull"]
+    )
+
+    orch.run()
 

@@ -1,3 +1,4 @@
+import os
 import ast
 import zmq
 
@@ -25,8 +26,11 @@ class Node:
 
     CONTEXT = zmq.Context()
     DOC = doc
+    ATTRIBUTE_FILE = "node_attributes.json"
+    INIT_VALUES_FILE = "init_values.json"
+    UNIT = {"seconds": 1, "minutes": 60, "hours": 3600}
 
-    def __init__(self, name, group, zmq_sub, zmq_push, inputs_map, outputs):
+    def __init__(self, name, group, inputs_map, outputs, init_values):
 
         self._name = name
         self._group = group
@@ -36,16 +40,19 @@ class Node:
         logger.debug("Node {} created in group {}".format(name, group))
 
         self._sub = self.CONTEXT.socket(zmq.SUB)
-        self._sub.connect(zmq_sub)
+        self._sub.connect(os.environ["ZMQ_SUB_ADDRESS"])
         self._sub.setsockopt_string(zmq.SUBSCRIBE, self._group)
         self._sub.setsockopt_string(zmq.SUBSCRIBE, "ALL")
 
-        logger.debug("{} -> SUB to {}".format(self._name, zmq_sub))
+        logger.debug("{} -> SUB to {}".format(self._name, os.environ["ZMQ_SUB_ADDRESS"]))
 
         self._sender = self.CONTEXT.socket(zmq.PUSH)
-        self._sender.connect(zmq_push)
+        self._sender.connect(os.environ["ZMQ_PUSH_ADDRESS"])
 
-        logger.debug("{} -> PUSH to {}".format(self._name, zmq_push))
+        logger.debug("{} -> PUSH to {}".format(self._name, os.environ["ZMQ_PUSH_ADDRESS"]))
+
+        for attr, value in init_values.items():
+            self.set_attribute(attr, value)
 
     def set_attribute(self, attr, value):
         """[TO OVERRIDE] The set_attribute() method is called to set an attribute of the model to a given value."""
