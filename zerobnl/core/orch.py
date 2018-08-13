@@ -2,6 +2,7 @@ import json
 import zmq
 
 from zerobnl.logs import logger
+from zerobnl.config import port_pub_sub, port_push_pull
 
 from docopt import docopt
 
@@ -12,12 +13,12 @@ Usage:
     orch.py -h | --help
     orch.py --version
 Options
-    --port-pub=<pub>    TCP port used to publish messages to nodes [default: 5556]
-    --port-pull=<pull>  TCP port used to pull messages from nodes [default: 5557]
+    --port-pub=<pub>    TCP port used to publish messages to nodes [default: {}]
+    --port-pull=<pull>  TCP port used to pull messages from nodes [default: {}]
 
     -h --help           show this
     --version           show version
-"""
+""".format(port_pub_sub, port_push_pull)
 
 
 class Orch:
@@ -109,14 +110,14 @@ if __name__ == "__main__":
     args = docopt(Orch.DOC, version="0.0.1")
 
     with open(Orch.SEQUENCE_FILE) as json_data:
-        sequence = json.load(json_data)
+        seq = json.load(json_data)
 
     with open(Orch.STEPS_FILE) as json_data:
-        steps = json.load(json_data)
+        ste = json.load(json_data)
 
     orch = Orch(
-        sequence=sequence,
-        steps=steps,
+        sequence=seq,
+        steps=ste,
         port_pub=args["--port-pub"],
         port_pull=args["--port-pull"]
     )

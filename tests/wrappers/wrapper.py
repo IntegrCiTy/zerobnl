@@ -34,7 +34,7 @@ if __name__ == '__main__':
         attrs = json.load(json_data)
 
     with open(Node.INIT_VALUES_FILE) as json_data:
-        init_values = json.load(json_data)
+        init_val = json.load(json_data)
 
     i_map = attrs["to_set"]
     o_list = attrs["to_get"]
@@ -44,7 +44,7 @@ if __name__ == '__main__':
         group=args["<group>"],
         inputs_map=i_map,
         outputs=o_list,
-        init_values=init_values
+        init_values=init_val
     )
 
     node.run()
