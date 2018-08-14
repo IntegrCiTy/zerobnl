@@ -1,6 +1,6 @@
 FROM python:3
 
-ENV AAA 1000
+ENV AAA 0
 
 RUN git clone -b develop https://gitlab.com/ppuerto/zerobnl.git
 
