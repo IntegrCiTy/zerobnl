@@ -8,8 +8,8 @@ INIT_VALUES_FILE = "init_values.json"
 ATTRIBUTE_FILE = "node_attributes.json"
 
 ORCH_FOLDER = "ORCH"
-INTERACTION_GRAPH_FILE = "interaction_graph.json"
-STEP_SEQUENCE_FILE = "step_sequence.json"
+SEQUENCE_FILE = "sequence.json"
+STEPS_FILE = "steps.json"
 
 DOCKERFILE_FOLDER = "Dockerfiles"
 DOCKER_COMPOSE_FILE = "docker-compose.yml"

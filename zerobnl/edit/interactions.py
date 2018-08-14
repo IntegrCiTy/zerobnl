@@ -36,6 +36,7 @@ class GraphCreator:
         self.models = {}
         self.graph = nx.MultiDiGraph()
 
+        self.groups = {}
         self.sequence = []
         self.steps = []
 
@@ -185,10 +186,15 @@ class GraphCreator:
             ],
         }
 
-    def create_group(self, *nodes):
+    @property
+    def group_sequence(self):
+        return [[grp[0], len(grp[1])] for grp in self.sequence]
+
+    def create_group(self, name, *nodes):
         """
         Create a group for the simulation sequence verifying that none of the group's nodes are directly connected
 
+        :param name: the name of the group
         :param nodes: some nodes names
         :return: selected nodes names as a list
         """
@@ -196,6 +202,8 @@ class GraphCreator:
         try:
             assert len(h.edges) == 0
             logger.info("The group {} have been created.".format(nodes))
+            self.groups[name] = nodes
+            return [name, nodes]
         except AssertionError:
             for get_node, set_node, _ in h.edges:
                 logger.warning("A direct link exists from {} to {} !".format(get_node, set_node))

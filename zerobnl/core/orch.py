@@ -2,7 +2,7 @@ import json
 import zmq
 
 from zerobnl.logs import logger
-from zerobnl.config import port_pub_sub, port_push_pull
+from zerobnl.config import port_pub_sub, port_push_pull, SEQUENCE_FILE, STEPS_FILE
 
 from docopt import docopt
 
@@ -28,13 +28,13 @@ class Orch:
 
     CONTEXT = zmq.Context()
     DOC = doc
-    SEQUENCE_FILE = "sequence.json"
-    STEPS_FILE = "steps.json"
+    SEQUENCE_FILE = SEQUENCE_FILE
+    STEPS_FILE = STEPS_FILE
 
     def __init__(self, sequence, steps, port_pub, port_pull):
 
-        self._sequence = sequence
-        self._steps = steps
+        self._sequence = sequence  # [["GRP1", 2], ["GRP2", 1]]
+        self._steps = steps  # [60, 60, 60, 60] (in sec)
         self._state = {}
 
         logger.debug("ORCH -> created")

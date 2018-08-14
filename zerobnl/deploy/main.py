@@ -11,18 +11,17 @@ class Simulator:
         self.edit = GraphCreator()
 
     def _deploy_files_and_folders(self):
-        logger.info("Starting the deployment of the simulation...")
+        logger.info("Starting the simulation's deployment...")
         orch_folder = create_sub_folder_in_temporary_folder(ORCH_FOLDER)
 
-        # TODO: Adapt json files to new orchestrator
-        dump_dict_to_json_in_folder(orch_folder, self.edit.interaction_graph, INTERACTION_GRAPH_FILE)
-        dump_dict_to_json_in_folder(
-            orch_folder, {"steps": self.edit.steps, "sequence": self.edit.sequence}, STEP_SEQUENCE_FILE
-        )
+        dump_dict_to_json_in_folder(orch_folder, self.edit.group_sequence, SEQUENCE_FILE)
+        dump_dict_to_json_in_folder(orch_folder, self.edit.steps, STEPS_FILE)
 
         # add orch.py to orchestrator's sub-folder
         this_dir, _ = os.path.split(__file__)
         copy_files_to_folder(orch_folder, os.path.join(this_dir, "..", "core", "orch.py"))
+
+        logger.debug("ORCH sub-folder is ready")
 
         nodes = self.edit.nodes
 
@@ -30,12 +29,30 @@ class Simulator:
             # Create the node's sub-folder
             node_folder = create_sub_folder_in_temporary_folder(node_name)
 
-            # Create the node's init_values json file
+            # Create the node's init_values json file -> {"attr": value}
             dump_dict_to_json_in_folder(node_folder, node["init_values"], INIT_VALUES_FILE)
 
-            # TODO: Create needed attribute file from graph and meta-model
-            # Create the node's attributes json file
-            dump_dict_to_json_in_folder(node_folder, node["init_values"], ATTRIBUTE_FILE)
+            # Create the node's attributes json file -> {"a": ["NODE", "b"]}
+            attr_to_set = {
+                l["set_attr"]: [l["get_node"], l["get_attr"]]
+                for _, l in self.edit.links.iterrows()
+                if l["set_node"] == node_name
+            }
+
+            attr_data = {"to_set": attr_to_set, "to_get": node["to_get"]}
+            dump_dict_to_json_in_folder(node_folder, attr_data, ATTRIBUTE_FILE)
 
             # Copy additional files to the node's sub-folder
-            copy_files_to_folder(node_folder, *node["files"])
+            copy_files_to_folder(node_folder, node["wrapper"], *node["files"])
+        logger.debug("Nodes sub-folder are ready")
+
+    def run_simulation(self):
+        self._deploy_files_and_folders()
+        groups_to_compose = {
+            grp: [(node, os.path.basename(self.edit.nodes[node]["wrapper"])) for node in nodes]
+            for grp, nodes in self.edit.groups.items()
+        }
+        create_yaml_docker_compose(groups_to_compose)
+        logger.debug("docker-compose.yaml file created, ready to launch simulation")
+        logger.info("Launching simulation...")
+        run_docker_compose()

@@ -28,8 +28,8 @@ def fix_create():
     sim.edit.add_link(get_node="Base0", get_attr="b", set_node="Base1", set_attr="a")
     sim.edit.add_link(get_node="Base1", get_attr="b", set_node="Base0", set_attr="a")
 
-    grp0 = sim.edit.create_group("Base0")
-    grp1 = sim.edit.create_group("Base1")
+    grp0 = sim.edit.create_group("GRP0", "Base0")
+    grp1 = sim.edit.create_group("GRP1", "Base1")
 
     sim.edit.create_sequence(grp0, grp1)
     sim.edit.create_steps([60] * 10)
