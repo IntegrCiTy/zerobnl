@@ -1,4 +1,4 @@
-from zerobnl.edit.interactions import GraphCreator
+from zerobnl.edit import GraphCreator
 from zerobnl.deploy.compose import *
 
 

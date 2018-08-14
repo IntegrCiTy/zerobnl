@@ -126,13 +126,10 @@ def create_yaml_docker_compose(groups):
         logger.debug("Created complete docker-compose file in {}".format(DOCKER_COMPOSE_FILE))
 
 
-def run_docker_compose(build=True):
+def run_docker_compose():
     """
 
-    :param build:
     :return:
     """
     cmd = ["docker-compose", "-f", os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE), "up"]
-    if build:
-        cmd.append("--build")
     subprocess.run(cmd)
