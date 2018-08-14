@@ -131,5 +131,5 @@ def run_docker_compose():
 
     :return:
     """
-    cmd = ["docker-compose", "-f", os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE), "up"]
+    cmd = ["docker-compose", "-f", os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE), "up", "--build"]
     subprocess.run(cmd)
