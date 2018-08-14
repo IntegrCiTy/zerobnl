@@ -10,9 +10,7 @@ def test_execute_node_help_return_help():
 
 def test_execute_node_without_map_and_outputs():
     full_cmd = "python {} NODE1 GRP1 {} {}".format(
-        os.path.join("zerobnl", "core", "node.py"),
-        os.environ["ZMQ_SUB_ADDRESS"],
-        os.environ["ZMQ_PUSH_ADDRESS"],
+        os.path.join("zerobnl", "core", "node.py"), os.environ["ZMQ_SUB_ADDRESS"], os.environ["ZMQ_PUSH_ADDRESS"]
     )
     stdout = subprocess.check_output(full_cmd, shell=True)
     assert stdout.decode("utf-8") is ""
@@ -24,7 +22,7 @@ def test_execute_node():
         os.environ["ZMQ_SUB_ADDRESS"],
         os.environ["ZMQ_PUSH_ADDRESS"],
         {"a": ("NODE2", "b")},
-        ["b", "c"]
+        ["b", "c"],
     )
     stdout = subprocess.check_output(full_cmd, shell=True)
     assert stdout.decode("utf-8") is ""

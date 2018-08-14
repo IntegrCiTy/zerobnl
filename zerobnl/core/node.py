@@ -3,6 +3,7 @@ import ast
 import zmq
 
 from zerobnl.logs import logger
+from zerobnl.config import *
 
 
 # This doc is used to make the wrapper callable by command line and gather easily all the given parameters
@@ -26,9 +27,9 @@ class Node:
 
     CONTEXT = zmq.Context()
     DOC = doc
-    ATTRIBUTE_FILE = "node_attributes.json"
-    INIT_VALUES_FILE = "init_values.json"
-    UNIT = {"seconds": 1, "minutes": 60, "hours": 3600}
+    ATTRIBUTE_FILE = ATTRIBUTE_FILE
+    INIT_VALUES_FILE = INIT_VALUES_FILE
+    UNIT = UNIT
 
     def __init__(self, name, group, inputs_map, outputs, init_values):
 
@@ -79,7 +80,7 @@ class Node:
     def run(self):
         """The run() method is the main method of the node, it triggers the other methods
         and sorts the messages from the orchestrator"""
-        self._sender.send_string('{}'.format(self._name))
+        self._sender.send_string("{}".format(self._name))
         logger.debug("{} -> RUNNING ...".format(self._name))
 
         while True:
@@ -87,18 +88,18 @@ class Node:
             logger.debug("{} received {}".format(self._name, string))
             grp, act, value = string.split(" | ")
 
-            if act == 'UPDATE':
+            if act == "UPDATE":
                 self.update_inputs(ast.literal_eval(value))
-                self._sender.send_string('{} | Update | Done'.format(self._name))
+                self._sender.send_string("{} | Update | Done".format(self._name))
 
-            elif act == 'STEP':
+            elif act == "STEP":
                 step, unit = value.split(":")
                 self.step(step, unit)
 
-                self._sender.send_string('{} | {} | {}'.format(self._name, "STATE", self.internal_state))
+                self._sender.send_string("{} | {} | {}".format(self._name, "STATE", self.internal_state))
                 logger.info("{} is waiting ...".format(self._name))
 
-            elif act == 'END':
+            elif act == "END":
                 self.exit()
                 break
 

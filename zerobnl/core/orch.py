@@ -18,7 +18,9 @@ Options
 
     -h --help           show this
     --version           show version
-""".format(port_pub_sub, port_push_pull)
+""".format(
+    port_pub_sub, port_push_pull
+)
 
 
 class Orch:
@@ -115,12 +117,6 @@ if __name__ == "__main__":
     with open(Orch.STEPS_FILE) as json_data:
         ste = json.load(json_data)
 
-    orch = Orch(
-        sequence=seq,
-        steps=ste,
-        port_pub=args["--port-pub"],
-        port_pull=args["--port-pull"]
-    )
+    orch = Orch(sequence=seq, steps=ste, port_pub=args["--port-pub"], port_pull=args["--port-pull"])
 
     orch.run()
-

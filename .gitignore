@@ -23,6 +23,7 @@ eggs/
 .cache
 coverage.xml
 .pytest_cache/
+TMP_FOLDER/
 
 # Jupyter Notebook
 .ipynb_checkpoints

@@ -1,13 +1,21 @@
 import os
 import yaml
+import json
 import shutil
 import subprocess
 
 from zerobnl.logs import logger
-from zerobnl.config import dockerfile_folder, temporary_folder, port_pub_sub, port_push_pull, docker_compose_file
+from zerobnl.config import *
 
 # docker-compose.yml skeleton to fill out using "service" entries.
-BASE = {'services': {"redis": {"image": "redis:alpine"}}, 'version': '3'}
+BASE = {"services": {"redis": {"image": "redis:alpine"}}, "version": "3"}
+
+
+def dump_dict_to_json_in_folder(folder, data, filename):
+    data_json = os.path.join(folder, filename)
+    with open(data_json, "w") as outfile:
+        json.dump(data, outfile)
+        logger.debug("Data dumped in {}".format(outfile.name))
 
 
 def create_sub_folder_in_temporary_folder(sub_folder_name):
@@ -16,9 +24,10 @@ def create_sub_folder_in_temporary_folder(sub_folder_name):
     :param sub_folder_name:
     :return:
     """
-    sub_folder = os.path.join(temporary_folder, sub_folder_name)
+    sub_folder = os.path.join(TEMP_FOLDER, sub_folder_name)
     os.makedirs(sub_folder)
     logger.debug("Folder {} created for {}".format(sub_folder, sub_folder_name))
+    return sub_folder
 
 
 def copy_files_to_folder(folder, *files):
@@ -38,11 +47,11 @@ def clean_temp_folder():
 
     :return:
     """
-    if os.path.isdir(temporary_folder):
-        shutil.rmtree(temporary_folder)
-        logger.debug("Deleted {}".format(temporary_folder))
+    if os.path.isdir(TEMP_FOLDER):
+        shutil.rmtree(TEMP_FOLDER)
+        logger.debug("Deleted {}".format(TEMP_FOLDER))
     else:
-        logger.warning("{} does not exist".format(temporary_folder))
+        logger.warning("{} does not exist".format(TEMP_FOLDER))
 
 
 def create_yaml_orch_entry():
@@ -52,12 +61,12 @@ def create_yaml_orch_entry():
     """
     entry = {
         "build": {
-            "context": os.path.join(temporary_folder, "ORCH"),
-            "dockerfile": os.path.join(dockerfile_folder, "Dockerfile")
+            "context": os.path.join(TEMP_FOLDER, ORCH_FOLDER),
+            "dockerfile": os.path.join(DOCKERFILE_FOLDER, "Dockerfile"),
         },
         "container_name": "orch",
         "command": "orch.py",
-        "depends_on": ["redis"]
+        "depends_on": ["redis"],
     }
     logger.debug("Created yaml orchestrator entry")
     return entry
@@ -80,7 +89,7 @@ def create_yaml_node_entry(node, group, wrapper, image=None, dockerfile=None):
             "ZMQ_SUB_ADDRESS": "tcp://orch:{}".format(port_pub_sub),
         },
         "command": "{} {} {}".format(wrapper, node, group),
-        "depends_on": ["orch"]
+        "depends_on": ["orch"],
     }
 
     if image:
@@ -91,8 +100,8 @@ def create_yaml_node_entry(node, group, wrapper, image=None, dockerfile=None):
             dockerfile = "Dockerfile"
 
         entry["build"] = {
-            "context": os.path.join(temporary_folder, node),
-            "dockerfile": os.path.join(dockerfile_folder, dockerfile)
+            "context": os.path.join(TEMP_FOLDER, node),
+            "dockerfile": os.path.join(DOCKERFILE_FOLDER, dockerfile),
         }
 
     logger.debug("Created yaml node entry for {}".format(node))
@@ -112,9 +121,9 @@ def create_yaml_docker_compose(groups):
         for (node, wrapper) in nodes:
             to_dump["services"][node] = create_yaml_node_entry(node, group, wrapper)
 
-    with open(os.path.join(temporary_folder, docker_compose_file), 'w') as yaml_file:
+    with open(os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE), "w") as yaml_file:
         yaml.dump(to_dump, yaml_file, default_flow_style=False, indent=2)
-        logger.debug("Created complete docker-compose file in {}".format(docker_compose_file))
+        logger.debug("Created complete docker-compose file in {}".format(DOCKER_COMPOSE_FILE))
 
 
 def run_docker_compose(build=True):
@@ -123,7 +132,7 @@ def run_docker_compose(build=True):
     :param build:
     :return:
     """
-    cmd = ["docker-compose", "-f", os.path.join(temporary_folder, docker_compose_file), "up"]
+    cmd = ["docker-compose", "-f", os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE), "up"]
     if build:
         cmd.append("--build")
     subprocess.run(cmd)

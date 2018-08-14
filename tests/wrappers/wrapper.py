@@ -6,6 +6,7 @@ from zerobnl.core import Node
 
 class MyNode(Node):
     """docstring for Model"""
+
     def __init__(self, name, group, inputs_map, outputs, init_values):
         super(MyNode, self).__init__(name, group, inputs_map, outputs, init_values)
 
@@ -27,7 +28,7 @@ class MyNode(Node):
         self.b = self.a + self.c
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     args = docopt(Node.DOC, version="0.0.1")
 
     with open(Node.ATTRIBUTE_FILE) as json_data:
@@ -39,12 +40,6 @@ if __name__ == '__main__':
     i_map = attrs["to_set"]
     o_list = attrs["to_get"]
 
-    node = MyNode(
-        name=args["<name>"],
-        group=args["<group>"],
-        inputs_map=i_map,
-        outputs=o_list,
-        init_values=init_val
-    )
+    node = MyNode(name=args["<name>"], group=args["<group>"], inputs_map=i_map, outputs=o_list, init_values=init_val)
 
     node.run()
