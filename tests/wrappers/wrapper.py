@@ -40,6 +40,8 @@ if __name__ == "__main__":
     i_map = attrs["to_set"]
     o_list = attrs["to_get"]
 
+    print("INPUT_MAP: {}".format(i_map))
+
     node = MyNode(name=args["<name>"], group=args["<group>"], inputs_map=i_map, outputs=o_list, init_values=init_val)
 
     node.run()

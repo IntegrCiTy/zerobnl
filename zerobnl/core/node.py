@@ -73,8 +73,8 @@ class Node:
     def update_inputs(self, state):
         """The update_inputs() method is called to update the input of the node with values from other nodes"""
         logger.debug("{} -> UPDATE inputs".format(self._name))
-        for attr_to_set, (from_node, from_attr) in self._inputs_map:
-            self.set_attribute(attr_to_set, state[from_node][from_attr])
+        for attr_to_set, to_get in self._inputs_map:
+            self.set_attribute(attr_to_set, state[to_get[0]][to_get[1]])
 
     def run(self):
         """The run() method is the main method of the node, it triggers the other methods
