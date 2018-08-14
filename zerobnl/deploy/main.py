@@ -52,6 +52,7 @@ class Simulator:
         logger.debug("Nodes sub-folder are ready")
 
     def run_simulation(self):
+        clean_temp_folder()
         self._deploy_files_and_folders()
 
         groups_to_compose = {

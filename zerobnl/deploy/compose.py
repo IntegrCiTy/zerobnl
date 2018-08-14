@@ -51,7 +51,7 @@ def clean_temp_folder():
         shutil.rmtree(TEMP_FOLDER)
         logger.debug("Deleted {}".format(TEMP_FOLDER))
     else:
-        logger.warning("{} does not exist".format(TEMP_FOLDER))
+        logger.debug("{} does not exist".format(TEMP_FOLDER))
 
 
 def create_yaml_orch_entry():
