@@ -96,13 +96,13 @@ class Orch:
         """The run() method is the main method of the orchestrator, it triggers the other methods."""
         self.wait_all_nodes_to_connect()
 
-        for idx_step, (step, unit) in enumerate(self._steps):
-            logger.info("ORCH -> STEP {}/{}: {} {}".format(idx_step, len(self._steps), step, unit))
+        for idx_step, step in enumerate(self._steps):
+            logger.info("ORCH -> STEP {}/{}: {} {}".format(idx_step, len(self._steps), step, "seconds"))
 
             for j, grp in enumerate(self._sequence):
                 if j != 0 and idx_step == 0:
                     self.update_attributes(step, grp[0], grp[1])
-                self.make_step(step, unit, grp[0], grp[1])
+                self.make_step(step, "seconds", grp[0], grp[1])
 
         logger.info("ORCH -> Work done, sending EXIT to all nodes")
         self._pub.send_string("{} | {} | {}".format("ALL", "END", 0))

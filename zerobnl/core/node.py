@@ -38,6 +38,8 @@ class Node:
         self._inputs_map = inputs_map
         self._outputs = outputs
 
+        self._init_values = init_values
+
         logger.debug("Node {} created in group {}".format(name, group))
 
         self._sub = self.CONTEXT.socket(zmq.SUB)
@@ -51,9 +53,6 @@ class Node:
         self._sender.connect(os.environ["ZMQ_PUSH_ADDRESS"])
 
         logger.debug("{} -> PUSH to {}".format(self._name, os.environ["ZMQ_PUSH_ADDRESS"]))
-
-        for attr, value in init_values.items():
-            self.set_attribute(attr, value)
 
     def set_attribute(self, attr, value):
         """[TO OVERRIDE] The set_attribute() method is called to set an attribute of the model to a given value."""
@@ -80,6 +79,11 @@ class Node:
     def run(self):
         """The run() method is the main method of the node, it triggers the other methods
         and sorts the messages from the orchestrator"""
+
+        logger.debug("init_values: {}".format(self._init_values))
+        for attr, value in self._init_values.items():
+            self.set_attribute(attr, value)
+
         self._sender.send_string("{}".format(self._name))
         logger.debug("{} -> RUNNING ...".format(self._name))
 

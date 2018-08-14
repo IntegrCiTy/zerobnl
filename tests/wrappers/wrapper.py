@@ -13,7 +13,7 @@ class MyNode(Node):
         self.a = 0
         self.b = 0
 
-        self.c = None
+        self.c = 1.5
 
     def set_attribute(self, attr, value):
         super(MyNode, self).set_attribute(attr, value)
