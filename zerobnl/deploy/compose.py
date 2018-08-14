@@ -8,7 +8,8 @@ from zerobnl.logs import logger
 from zerobnl.config import *
 
 # docker-compose.yml skeleton to fill out using "service" entries.
-BASE = {"services": {"redis": {"image": "redis:alpine", "container_name": "redis"}}, "version": "3"}
+# BASE = {"services": {"redis": {"image": "redis:alpine", "container_name": "redis"}}, "version": "3"}
+BASE = {"services": {}, "version": "3"}
 
 
 def dump_dict_to_json_in_folder(folder, data, filename):
@@ -66,7 +67,7 @@ def create_yaml_orch_entry():
         },
         "container_name": ORCH_FOLDER,
         "command": "orch.py",
-        "depends_on": ["redis"],
+        # "depends_on": ["redis"],
     }
     logger.debug("Created yaml orchestrator entry")
     return entry
@@ -131,5 +132,13 @@ def run_docker_compose():
 
     :return:
     """
-    cmd = ["docker-compose", "-f", os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE), "up", "--build"]
+    cmd = [
+        "docker-compose",
+        "-f",
+        os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE),
+        "up",
+        "--build",
+        "--force-recreate",
+        "--abort-on-container-exit"
+    ]
     subprocess.run(cmd)
