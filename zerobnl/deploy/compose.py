@@ -8,7 +8,7 @@ from zerobnl.logs import logger
 from zerobnl.config import *
 
 # docker-compose.yml skeleton to fill out using "service" entries.
-BASE = {"services": {"redis": {"image": "redis:alpine"}}, "version": "3"}
+BASE = {"services": {"redis": {"image": "redis:alpine", "container_name": "redis"}}, "version": "3"}
 
 
 def dump_dict_to_json_in_folder(folder, data, filename):
@@ -24,7 +24,7 @@ def create_sub_folder_in_temporary_folder(sub_folder_name):
     :param sub_folder_name:
     :return:
     """
-    sub_folder = os.path.join(TEMP_FOLDER, sub_folder_name)
+    sub_folder = os.path.join(TEMP_FOLDER, sub_folder_name.lower())
     os.makedirs(sub_folder)
     logger.debug("Folder {} created for {}".format(sub_folder, sub_folder_name))
     return sub_folder
@@ -61,10 +61,10 @@ def create_yaml_orch_entry():
     """
     entry = {
         "build": {
-            "context": os.path.join(TEMP_FOLDER, ORCH_FOLDER),
-            "dockerfile": os.path.join(DOCKERFILE_FOLDER, "Dockerfile"),
+            "context": ORCH_FOLDER,
+            "dockerfile": "Dockerfile",
         },
-        "container_name": "orch",
+        "container_name": ORCH_FOLDER,
         "command": "orch.py",
         "depends_on": ["redis"],
     }
@@ -83,13 +83,13 @@ def create_yaml_node_entry(node, group, wrapper, image=None, dockerfile=None):
     :return:
     """
     entry = {
-        "container_name": node,
+        "container_name": node.lower(),
         "environment": {
             "ZMQ_PUSH_ADDRESS": "tcp://orch:{}".format(port_push_pull),
             "ZMQ_SUB_ADDRESS": "tcp://orch:{}".format(port_pub_sub),
         },
         "command": "{} {} {}".format(wrapper, node, group),
-        "depends_on": ["orch"],
+        "depends_on": [ORCH_FOLDER],
     }
 
     if image:
@@ -100,8 +100,8 @@ def create_yaml_node_entry(node, group, wrapper, image=None, dockerfile=None):
             dockerfile = "Dockerfile"
 
         entry["build"] = {
-            "context": os.path.join(TEMP_FOLDER, node),
-            "dockerfile": os.path.join(DOCKERFILE_FOLDER, dockerfile),
+            "context": node.lower(),
+            "dockerfile": dockerfile,
         }
 
     logger.debug("Created yaml node entry for {}".format(node))
@@ -115,11 +115,11 @@ def create_yaml_docker_compose(groups):
     :return: nothing
     """
     to_dump = dict(BASE)
-    to_dump["services"]["orch"] = create_yaml_orch_entry()
+    to_dump["services"][ORCH_FOLDER] = create_yaml_orch_entry()
 
     for group, nodes in groups.items():
         for (node, wrapper) in nodes:
-            to_dump["services"][node] = create_yaml_node_entry(node, group, wrapper)
+            to_dump["services"][node.lower()] = create_yaml_node_entry(node, group, wrapper)
 
     with open(os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE), "w") as yaml_file:
         yaml.dump(to_dump, yaml_file, default_flow_style=False, indent=2)
@@ -135,4 +135,4 @@ def run_docker_compose(build=True):
     cmd = ["docker-compose", "-f", os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE), "up"]
     if build:
         cmd.append("--build")
-    subprocess.run(cmd)
+    p = subprocess.run(cmd)

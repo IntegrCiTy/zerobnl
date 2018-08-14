@@ -21,6 +21,8 @@ class Simulator:
         this_dir, _ = os.path.split(__file__)
         copy_files_to_folder(orch_folder, os.path.join(this_dir, "..", "core", "orch.py"))
 
+        copy_files_to_folder(orch_folder, os.path.join(DOCKERFILE_FOLDER, "Dockerfile"))
+
         logger.debug("ORCH sub-folder is ready")
 
         nodes = self.edit.nodes
@@ -28,6 +30,9 @@ class Simulator:
         for node_name, node in nodes.iterrows():
             # Create the node's sub-folder
             node_folder = create_sub_folder_in_temporary_folder(node_name)
+
+            if node["dockerfile"]:
+                copy_files_to_folder(node_folder, os.path.join(DOCKERFILE_FOLDER, node["dockerfile"]))
 
             # Create the node's init_values json file -> {"attr": value}
             dump_dict_to_json_in_folder(node_folder, node["init_values"], INIT_VALUES_FILE)
@@ -48,8 +53,11 @@ class Simulator:
 
     def run_simulation(self):
         self._deploy_files_and_folders()
+
+        logger.debug("NODES: {}".format(self.edit.nodes.index))
+
         groups_to_compose = {
-            grp: [(node, os.path.basename(self.edit.nodes[node]["wrapper"])) for node in nodes]
+            grp: [(node, os.path.basename(self.edit.nodes.loc[node, "wrapper"])) for node in nodes]
             for grp, nodes in self.edit.groups.items()
         }
         create_yaml_docker_compose(groups_to_compose)

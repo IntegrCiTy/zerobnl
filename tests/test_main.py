@@ -39,4 +39,10 @@ def fix_create():
 
 def test_all_needed_files_are_in_sub_folders():
     test_sim = fix_create()
-    test_sim._deploy_files_and_folders()
+    # test_sim._deploy_files_and_folders()
+
+
+def test_run_simulation():
+    test_sim = fix_create()
+    test_sim.run_simulation()
+    assert False

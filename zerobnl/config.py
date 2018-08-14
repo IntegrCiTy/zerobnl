@@ -7,7 +7,7 @@ TEMP_FOLDER = "TMP_FOLDER"
 INIT_VALUES_FILE = "init_values.json"
 ATTRIBUTE_FILE = "node_attributes.json"
 
-ORCH_FOLDER = "ORCH"
+ORCH_FOLDER = "orch"
 SEQUENCE_FILE = "sequence.json"
 STEPS_FILE = "steps.json"
 
