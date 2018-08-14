@@ -54,8 +54,6 @@ class Simulator:
     def run_simulation(self):
         self._deploy_files_and_folders()
 
-        logger.debug("NODES: {}".format(self.edit.nodes.index))
-
         groups_to_compose = {
             grp: [(node, os.path.basename(self.edit.nodes.loc[node, "wrapper"])) for node in nodes]
             for grp, nodes in self.edit.groups.items()

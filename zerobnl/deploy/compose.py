@@ -135,4 +135,4 @@ def run_docker_compose(build=True):
     cmd = ["docker-compose", "-f", os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE), "up"]
     if build:
         cmd.append("--build")
-    p = subprocess.run(cmd)
+    subprocess.run(cmd)
