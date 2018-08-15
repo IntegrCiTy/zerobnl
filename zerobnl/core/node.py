@@ -72,6 +72,7 @@ class Node:
 
     def update_inputs(self, state):
         """The update_inputs() method is called to update the input of the node with values from other nodes"""
+        print("STATE: {}".format(state))
         logger.debug("{} -> UPDATE inputs".format(self._name))
         for attr_to_set, (from_node, from_attr) in self._inputs_map.items():
             self.set_attribute(attr_to_set, state[from_node][from_attr])
