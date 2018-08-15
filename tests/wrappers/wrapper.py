@@ -17,6 +17,7 @@ class MyNode(Node):
 
     def set_attribute(self, attr, value):
         super(MyNode, self).set_attribute(attr, value)
+        print("set {} to {}".format(attr, value))
         setattr(self, attr, value)
 
     def get_attribute(self, attr):
