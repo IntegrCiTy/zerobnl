@@ -25,6 +25,8 @@ class MyNode(Node):
 
     def step(self, value, unit):
         super(MyNode, self).step(value, unit)
+        print("A: {}".format(self.a))
+        print("C: {}".format(self.c))
         self.b = self.a + self.c
 
 
