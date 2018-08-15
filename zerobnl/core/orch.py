@@ -1,5 +1,6 @@
 import json
 import zmq
+import ast
 
 from zerobnl.logs import logger
 from zerobnl.config import port_pub_sub, port_push_pull, SEQUENCE_FILE, STEPS_FILE
@@ -81,11 +82,15 @@ class Orch:
         ack = 0
         while ack < nbr:
             string = self._receiver.recv_string()
-            node, attr, value = string.split(" | ")
+            node, _, value = string.split(" | ")
+
+            node_state = ast.literal_eval(value)
 
             if node not in self._state.keys():
                 self._state[node] = {}
-            self._state[node][attr] = value
+
+            for attr, value in node_state.items():
+                self._state[node][attr] = value
 
             ack += 1
             logger.debug("ORCH -> STEP {} {}/{}".format(step, ack, nbr))

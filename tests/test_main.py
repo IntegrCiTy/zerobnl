@@ -21,7 +21,7 @@ def fix_create():
         dockerfile="Dockerfile",
     )
 
-    sim.edit.add_node(name="Base0", model="BaseModel", init_values={"c": 0.5})
+    sim.edit.add_node(name="Base0", model="BaseModel", init_values={"c": 0.50})
 
     sim.edit.add_node(name="Base1", model="BaseModel", init_values={"c": 0.25})
 

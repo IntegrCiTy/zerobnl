@@ -2,6 +2,8 @@ FROM python:3
 
 ENV AAA 20
 
+RUN pip install --upgrade pip
+
 RUN git clone -b develop https://gitlab.com/ppuerto/zerobnl.git
 
 RUN cd zerobnl && pip install --no-cache-dir -r requirements.txt
