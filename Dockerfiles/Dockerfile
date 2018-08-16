@@ -1,6 +1,6 @@
 FROM python:3
 
-ENV A 18
+ENV A 19
 
 RUN pip install --upgrade pip
 
