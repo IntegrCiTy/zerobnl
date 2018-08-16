@@ -105,8 +105,8 @@ class Orch:
             logger.info("ORCH -> STEP {}/{}: {} {}".format(idx_step, len(self._steps), step, "seconds"))
 
             for j, grp in enumerate(self._sequence):
-                if j != 0 and idx_step == 0:
-                    self.update_attributes(step, grp[0], grp[1])
+                # if j != 0 and idx_step != 0:
+                self.update_attributes(step, grp[0], grp[1])
                 self.make_step(step, "seconds", grp[0], grp[1])
 
         logger.info("ORCH -> Work done, sending EXIT to all nodes")

@@ -64,7 +64,7 @@ class Node:
 
     def step(self, value, unit):
         """[TO OVERRIDE] The step() method is called to make a step with the model with a given step size and unit."""
-        logger.debug("{} -> STEP {} {}".format(self._name, value, unit))
+        logger.info("{} -> STEP {} {}".format(self._name, value, unit))
 
     def exit(self):
         """[TO OVERRIDE (if an exit action is needed)] The exit() method is called to properly close the model"""

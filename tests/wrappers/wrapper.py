@@ -22,13 +22,11 @@ class MyNode(Node):
 
     def get_attribute(self, attr):
         super(MyNode, self).get_attribute(attr)
-        getattr(self, attr)
+        return getattr(self, attr)
 
     def step(self, value, unit):
         super(MyNode, self).step(value, unit)
-        print("A: {}".format(self.a))
         self.b = self.a + self.c
-        print("NODE STATE: {}".format(self.internal_state))
 
 
 if __name__ == "__main__":
