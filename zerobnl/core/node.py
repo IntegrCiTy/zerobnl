@@ -1,6 +1,7 @@
 import os
 import ast
 import zmq
+import redis
 
 from zerobnl.logs import logger
 from zerobnl.config import *
@@ -39,6 +40,8 @@ class Node:
         self._outputs = outputs
 
         self._init_values = init_values
+
+        self.redis = redis.StrictRedis.from_url(os.environ["REDIS_URL"])
 
         logger.debug("Node {} created in group {}".format(name, group))
 

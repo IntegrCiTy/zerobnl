@@ -8,8 +8,7 @@ from zerobnl.logs import logger
 from zerobnl.config import *
 
 # docker-compose.yml skeleton to fill out using "service" entries.
-# BASE = {"services": {"redis": {"image": "redis:alpine", "container_name": "redis"}}, "version": "3"}
-BASE = {"services": {}, "version": "3"}
+BASE = {"services": {"redis_db": {"image": "redis:alpine", "container_name": "redis"}}, "version": "3"}
 
 
 def dump_dict_to_json_in_folder(folder, data, filename):
@@ -88,6 +87,7 @@ def create_yaml_node_entry(node, group, wrapper, image=None, dockerfile=None):
         "environment": {
             "ZMQ_PUSH_ADDRESS": "tcp://orch:{}".format(port_push_pull),
             "ZMQ_SUB_ADDRESS": "tcp://orch:{}".format(port_pub_sub),
+            "REDIS_URL": "redis://redis_db:6379"
         },
         "command": "{} {} {}".format(wrapper, node, group),
         "depends_on": [ORCH_FOLDER],
@@ -139,6 +139,6 @@ def run_docker_compose():
         "up",
         "--build",
         # "--force-recreate",
-        # "--abort-on-container-exit"
+        "--abort-on-container-exit"
     ]
     subprocess.run(cmd)

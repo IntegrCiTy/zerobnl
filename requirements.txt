@@ -1,6 +1,7 @@
 zmq
 docopt
 pyyaml
+redis
 numpy==1.15
 networkx
 pandas
