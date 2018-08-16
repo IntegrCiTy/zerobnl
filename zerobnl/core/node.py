@@ -44,7 +44,8 @@ class Node:
 
         self._time = pd.to_datetime(start)
 
-        self._redis = redis.StrictRedis.from_url(os.environ["REDIS_URL"])
+        # self._redis = redis.StrictRedis.from_url(os.environ["REDIS_URL"])
+        self._redis = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0)
 
         logger.debug("Node {} created in group {}".format(name, group))
 
@@ -125,7 +126,7 @@ class Node:
                     self._send_attribute_value_to_results_db(attr, opt="OUT")
 
                 self._sender.send_string("{} | {} | {}".format(self._name, "STATE", self.internal_state))
-                logger.info("{} is waiting ...".format(self._name))
+                logger.debug("{} is waiting ...".format(self._name))
 
             elif act == "END":
                 self.exit()

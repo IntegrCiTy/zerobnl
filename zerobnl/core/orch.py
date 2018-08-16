@@ -60,7 +60,7 @@ class Orch:
         while ack < val:
             self._receiver.recv()
             ack += 1
-            logger.debug("Nodes connected: {}/{}".format(ack, val))
+            logger.info("Nodes connected: {}/{}".format(ack, val))
 
     def update_attributes(self, step, grp, nbr):
         """The update_attributes() method is used to send to nodes the last state of the complete system

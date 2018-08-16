@@ -15,3 +15,6 @@ DOCKERFILE_FOLDER = "Dockerfiles"
 DOCKER_COMPOSE_FILE = "docker-compose.yml"
 
 START = "2000/01/01"
+
+REDIS_HOST = "172.17.01"
+REDIS_PORT = 6379

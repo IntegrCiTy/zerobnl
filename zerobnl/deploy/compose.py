@@ -1,6 +1,7 @@
 import os
 import yaml
 import json
+import docker
 import shutil
 import subprocess
 
@@ -8,7 +9,7 @@ from zerobnl.logs import logger
 from zerobnl.config import *
 
 # docker-compose.yml skeleton to fill out using "service" entries.
-BASE = {"services": {"redis_db": {"image": "redis:alpine", "container_name": "redis"}}, "version": "3"}
+BASE = {"services": {}, "version": "3"}
 
 
 def dump_dict_to_json_in_folder(folder, data, filename):
@@ -54,6 +55,23 @@ def clean_temp_folder():
         logger.debug("{} does not exist".format(TEMP_FOLDER))
 
 
+def run_redis():
+    """
+
+    :return:
+    """
+    client = docker.from_env()
+
+    try:
+        client.containers.run("redis:alpine", name="redis_db", ports={"6379/tcp": REDIS_PORT}, detach=True,
+                              auto_remove=True)
+        while client.containers.get("ict_red").status != "running":
+            pass
+        logger.debug("RedisDB is running")
+    except docker.errors.APIError:
+        logger.debug("RedisDB is already running")
+
+
 def create_yaml_orch_entry():
     """
 
@@ -66,7 +84,6 @@ def create_yaml_orch_entry():
         },
         "container_name": ORCH_FOLDER,
         "command": "orch.py",
-        "depends_on": ["redis_db"],
     }
     logger.debug("Created yaml orchestrator entry")
     return entry
@@ -139,6 +156,6 @@ def run_docker_compose():
         "up",
         "--build",
         # "--force-recreate",
-        "--abort-on-container-exit"
+        # "--abort-on-container-exit"
     ]
     subprocess.run(cmd)

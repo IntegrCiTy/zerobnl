@@ -57,6 +57,8 @@ class Simulator:
         clean_temp_folder()
         self._deploy_files_and_folders()
 
+        run_redis()
+
         groups_to_compose = {
             grp: [(node, os.path.basename(self.edit.nodes.loc[node, "wrapper"])) for node in nodes]
             for grp, nodes in self.edit.groups.items()
