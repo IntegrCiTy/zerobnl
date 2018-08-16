@@ -13,3 +13,5 @@ STEPS_FILE = "steps.json"
 
 DOCKERFILE_FOLDER = "Dockerfiles"
 DOCKER_COMPOSE_FILE = "docker-compose.yml"
+
+START = "2000/01/01"

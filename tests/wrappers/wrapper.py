@@ -5,8 +5,6 @@ from zerobnl.core import Node
 
 import numpy as np
 
-np.random.seed(0)
-
 
 class MyNode(Node):
     """docstring for Model"""
@@ -16,6 +14,8 @@ class MyNode(Node):
 
         self.a = 0
         self.b = 0
+
+        self.y = None
 
         self.c = None
 
@@ -29,7 +29,9 @@ class MyNode(Node):
 
     def step(self, value, unit):
         super(MyNode, self).step(value, unit)
-        self.b = self.a + np.random.choice([-1, 1]) * self.c
+        self.y = np.random.choice([-1, 1])
+        self.b = self.a + self.y * self.c
+        self.save_attribute("y")
 
 
 if __name__ == "__main__":
