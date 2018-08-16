@@ -1,6 +1,7 @@
 import os
 import yaml
 import json
+import redis
 import docker
 import shutil
 import subprocess
@@ -69,6 +70,8 @@ def run_redis():
             pass
         logger.debug("RedisDB is running")
     except docker.errors.APIError:
+        redis_db = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0)
+        redis_db.flushall()
         logger.debug("RedisDB is already running")
 
 

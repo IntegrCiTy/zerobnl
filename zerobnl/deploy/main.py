@@ -1,6 +1,7 @@
 from time import time
 
 from zerobnl.edit import GraphCreator
+from zerobnl.deploy import SimResultsGetter
 from zerobnl.deploy.compose import *
 
 
@@ -11,6 +12,7 @@ class Simulator:
 
     def __init__(self):
         self.edit = GraphCreator()
+        self.results = SimResultsGetter()
 
     def _deploy_files_and_folders(self):
         logger.info("Starting the simulation's deployment...")
