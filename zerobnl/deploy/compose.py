@@ -1,4 +1,5 @@
 import os
+import sys
 import yaml
 import json
 import redis
@@ -161,4 +162,5 @@ def run_docker_compose():
         # "--force-recreate",
         # "--abort-on-container-exit"
     ]
-    subprocess.run(cmd)
+    with open('node.logs', "w") as outfile:
+        subprocess.call(cmd, stdout=outfile)

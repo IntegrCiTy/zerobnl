@@ -25,7 +25,7 @@ class Simulator:
         this_dir, _ = os.path.split(__file__)
         copy_files_to_folder(orch_folder, os.path.join(this_dir, "..", "core", "orch.py"))
 
-        copy_files_to_folder(orch_folder, os.path.join(DOCKERFILE_FOLDER, "Dockerfile"))
+        copy_files_to_folder(orch_folder, os.path.join(this_dir, "..", "..", "Dockerfiles", "Dockerfile"))
 
         logger.debug("ORCH sub-folder is ready")
 
@@ -36,7 +36,7 @@ class Simulator:
             node_folder = create_sub_folder_in_temporary_folder(node_name)
 
             if node["dockerfile"]:
-                copy_files_to_folder(node_folder, os.path.join(DOCKERFILE_FOLDER, node["dockerfile"]))
+                copy_files_to_folder(node_folder, node["dockerfile"])
 
             # Create the node's init_values json file -> {"attr": value}
             dump_dict_to_json_in_folder(node_folder, node["init_values"], INIT_VALUES_FILE)

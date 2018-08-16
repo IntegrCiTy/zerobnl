@@ -18,7 +18,7 @@ def fix_create():
         name="BaseModel",
         meta="BaseMeta",
         wrapper=os.path.join("tests", "wrappers", "wrapper.py"),
-        dockerfile="Dockerfile",
+        dockerfile=os.path.join("Dockerfiles", "Dockerfile"),
     )
 
     sim.edit.add_node(name="Base0", model="BaseModel", init_values={"c": 0.50})
