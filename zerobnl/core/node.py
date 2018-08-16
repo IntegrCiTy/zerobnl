@@ -70,8 +70,7 @@ class Node:
 
     def step(self, value, unit):
         """[TO OVERRIDE] The step() method is called to make a step with the model with a given step size and unit."""
-        logger.debug("Offset: type={} {}".format(type(value), unit))
-        self._time += pd.DateOffset(**{unit: int(value)})
+        self._time += pd.DateOffset(**{unit: value})
         logger.info("{} -> STEP {} {}".format(self._name, value, unit))
 
     def exit(self):
@@ -120,7 +119,7 @@ class Node:
 
             elif act == "STEP":
                 step, unit = value.split(":")
-                self.step(step, unit)
+                self.step(int(step), unit)
 
                 for attr in self._outputs:
                     self._send_attribute_value_to_results_db(attr, opt="OUT")
