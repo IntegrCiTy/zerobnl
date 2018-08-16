@@ -3,6 +3,10 @@ import json
 from docopt import docopt
 from zerobnl.core import Node
 
+import numpy as np
+
+np.random.seed(0)
+
 
 class MyNode(Node):
     """docstring for Model"""
@@ -13,7 +17,7 @@ class MyNode(Node):
         self.a = 0
         self.b = 0
 
-        self.c = 1.5
+        self.c = None
 
     def set_attribute(self, attr, value):
         super(MyNode, self).set_attribute(attr, value)
@@ -25,7 +29,7 @@ class MyNode(Node):
 
     def step(self, value, unit):
         super(MyNode, self).step(value, unit)
-        self.b = self.a + self.c
+        self.b = self.a + np.random.choice([-1, 1]) * self.c
 
 
 if __name__ == "__main__":

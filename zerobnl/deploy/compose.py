@@ -138,7 +138,7 @@ def run_docker_compose():
         os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE),
         "up",
         "--build",
-        "--force-recreate",
-        "--abort-on-container-exit"
+        # "--force-recreate",
+        # "--abort-on-container-exit"
     ]
     subprocess.run(cmd)

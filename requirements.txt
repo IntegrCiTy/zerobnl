@@ -1,6 +1,6 @@
 zmq
 docopt
 pyyaml
-numpy>1.8
+numpy==1.15
 networkx
 pandas
