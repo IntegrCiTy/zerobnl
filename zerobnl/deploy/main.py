@@ -1,3 +1,5 @@
+from time import time
+
 from zerobnl.edit import GraphCreator
 from zerobnl.deploy.compose import *
 
@@ -61,5 +63,8 @@ class Simulator:
         }
         create_yaml_docker_compose(groups_to_compose)
         logger.debug("docker-compose.yaml file created, ready to launch simulation")
-        logger.info("Launching simulation...")
+        logger.info("Starting simulation...")
+        start = time()
         run_docker_compose()
+        stop = time() - start
+        logger.info("Simulation finished in {} min and {} sec".format(int(stop // 60), int(round(stop % 60, 0))))
