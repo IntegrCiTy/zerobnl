@@ -70,6 +70,7 @@ class Node:
 
     def step(self, value, unit):
         """[TO OVERRIDE] The step() method is called to make a step with the model with a given step size and unit."""
+        logger.debug("TYPE offset {}".format(type(**{unit: value})))
         self._time += pd.DateOffset(**{unit: value})
         logger.info("{} -> STEP {} {}".format(self._name, value, unit))
 

@@ -40,6 +40,7 @@ def fix_create():
 def test_run_simulation():
     test_sim = fix_create()
     test_sim.run_simulation()
+    assert False
 
 
 def test_run_simulation_logs(caplog):

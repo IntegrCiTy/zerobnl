@@ -66,7 +66,7 @@ def create_yaml_orch_entry():
         },
         "container_name": ORCH_FOLDER,
         "command": "orch.py",
-        # "depends_on": ["redis"],
+        "depends_on": ["redis_db"],
     }
     logger.debug("Created yaml orchestrator entry")
     return entry
