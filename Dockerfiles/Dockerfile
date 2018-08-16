@@ -1,6 +1,6 @@
 FROM python:3
 
-ENV AAA 5
+ENV AAA 6
 
 RUN pip install --upgrade pip
 
