@@ -159,8 +159,9 @@ def run_docker_compose():
         os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE),
         "up",
         "--build",
+        "--no-color",
         # "--force-recreate",
         # "--abort-on-container-exit"
     ]
-    with open('node.logs', "w") as outfile:
+    with open('nodes.log', "w") as outfile:
         subprocess.call(cmd, stdout=outfile)

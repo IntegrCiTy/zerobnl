@@ -1,7 +1,5 @@
 FROM python:3
 
-ENV A 23
-
 RUN pip install --upgrade pip
 
 RUN git clone -b develop https://gitlab.com/ppuerto/zerobnl.git
