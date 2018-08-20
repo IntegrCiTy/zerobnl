@@ -3,6 +3,7 @@ import ast
 import zmq
 import redis
 import pandas as pd
+from docopt import docopt
 
 from zerobnl.logs import logger
 from zerobnl.config import *
@@ -135,3 +136,11 @@ class Node:
     @property
     def internal_state(self):
         return {attr: self.get_attribute(attr) for attr in self._outputs}
+
+
+if __name__ == "__main__":
+    args = docopt(Node.DOC, version="0.0.1")
+
+    node = Node(name=args["<name>"], group=args["<group>"], inputs_map={}, outputs=[], init_values={})
+
+    node.run()
