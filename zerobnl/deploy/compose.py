@@ -1,5 +1,4 @@
 import os
-import sys
 import yaml
 import json
 import redis
@@ -11,7 +10,15 @@ from zerobnl.logs import logger
 from zerobnl.config import *
 
 # docker-compose.yml skeleton to fill out using "service" entries.
-BASE = {"services": {}, "version": "3"}
+BASE = {
+    "version": "3",
+    "services": {},
+    "networks": {
+        "simulation": {
+            "driver": "bridge",
+        }
+    },
+}
 
 
 def dump_dict_to_json_in_folder(folder, data, filename):
@@ -71,7 +78,7 @@ def run_redis():
             pass
         logger.debug("RedisDB is running")
     except docker.errors.APIError:
-        redis_db = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0)
+        redis_db = redis.StrictRedis(host=DOCKER_HOST, port=REDIS_PORT, db=0)
         redis_db.flushall()
         logger.debug("RedisDB is already running")
 
@@ -88,6 +95,8 @@ def create_yaml_orch_entry():
         },
         "container_name": ORCH_FOLDER,
         "command": "orch.py",
+        "ports": ["{0}:{0}".format(port_pub_sub), "{0}:{0}".format(port_push_pull)],
+        "networks": ["simulation"],
     }
     logger.debug("Created yaml orchestrator entry")
     return entry
@@ -107,11 +116,11 @@ def create_yaml_node_entry(node, group, wrapper, image=None, dockerfile=None):
         "container_name": node.lower(),
         "environment": {
             "ZMQ_PUSH_ADDRESS": "tcp://orch:{}".format(port_push_pull),
-            "ZMQ_SUB_ADDRESS": "tcp://orch:{}".format(port_pub_sub),
-            "REDIS_URL": "redis://redis_db:6379"
+            "ZMQ_SUB_ADDRESS": "tcp://orch:{}".format(port_pub_sub)
         },
         "command": "{} {} {}".format(wrapper, node, group),
         "depends_on": [ORCH_FOLDER],
+        "networks": ["simulation"]
     }
 
     if image:

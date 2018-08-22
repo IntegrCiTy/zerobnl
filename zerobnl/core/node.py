@@ -45,8 +45,7 @@ class Node:
 
         self._time = pd.to_datetime(start)
 
-        # self._redis = redis.StrictRedis.from_url(os.environ["REDIS_URL"])
-        self._redis = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0)
+        self._redis = redis.StrictRedis(host=DOCKER_HOST, port=REDIS_PORT, db=0)
 
         logger.debug("Node {} created in group {}".format(name, group))
 

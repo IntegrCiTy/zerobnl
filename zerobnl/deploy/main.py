@@ -62,9 +62,15 @@ class Simulator:
         run_redis()
 
         groups_to_compose = {
-            grp: [(node, os.path.basename(self.edit.nodes.loc[node, "wrapper"])) for node in nodes]
+            grp: [
+                (node, os.path.basename(self.edit.nodes.loc[node, "wrapper"])) for node in nodes
+                if not self.edit.nodes.loc[node]["is_local"]
+            ]
             for grp, nodes in self.edit.groups.items()
         }
+
+        nodes_to_run_locally = [node for _, node in self.edit.nodes.iterrows() if node["is_local"]]
+
         create_yaml_docker_compose(groups_to_compose)
         logger.debug("docker-compose.yaml file created, ready to launch simulation")
         logger.info("Starting simulation...")
