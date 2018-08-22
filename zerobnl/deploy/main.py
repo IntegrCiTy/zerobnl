@@ -69,12 +69,13 @@ class Simulator:
             for grp, nodes in self.edit.groups.items()
         }
 
+        local = False
         for grp, nodes in self.edit.groups.items():
             for node_name in nodes:
                 if self.edit.nodes.loc[node_name]["is_local"]:
+                    local = True
                     node = self.edit.nodes.loc[node_name]
-                    logger.warning("TO RUN LOCALLY {}:".format(node_name))
-                    logger.warning("> {} {} {}".format(
+                    logger.warning("TO RUN > {} {} {}".format(
                         os.path.join(TEMP_FOLDER, node_name.lower(), os.path.basename(node["wrapper"])),
                         node_name,
                         grp
@@ -83,6 +84,8 @@ class Simulator:
         create_yaml_docker_compose(groups_to_compose)
         logger.debug("docker-compose.yaml file created, ready to launch simulation")
         logger.info("Starting simulation...")
+        if local:
+            logger.info("Waiting for local nodes to run...")
         start = time()
         run_docker_compose()
         stop = time() - start

@@ -2,7 +2,7 @@ FROM python:3
 
 RUN pip install --upgrade pip
 
-RUN git clone -b develop https://gitlab.com/ppuerto/zerobnl.git
+RUN git clone https://gitlab.com/ppuerto/zerobnl.git
 
 RUN cd zerobnl && pip install --no-cache-dir -r requirements.txt
 RUN cd zerobnl && python setup.py install
