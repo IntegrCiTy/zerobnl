@@ -39,6 +39,5 @@ def fix_create():
 
 def test():
     test_sim = fix_create()
-    nodes_to_run_locally = [node for _, node in test_sim.edit.nodes.iterrows() if node["is_local"]]
-    print(nodes_to_run_locally)
+    test_sim.run_simulation()
     assert False

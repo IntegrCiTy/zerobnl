@@ -22,8 +22,8 @@ class SimResultsGetter:
         :param port: port where the Redis container is listening
         :return: nothing :)
         """
-        self.redis = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0)
-        logger.info("Connected to {} Redis DB".format(REDIS_HOST))
+        self.redis = redis.StrictRedis(host=DOCKER_HOST, port=REDIS_PORT, db=0)
+        logger.info("Connected to {} Redis DB".format(DOCKER_HOST))
 
     @property
     def list_of_available_results(self):
