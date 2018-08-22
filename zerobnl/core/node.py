@@ -50,16 +50,25 @@ class Node:
         logger.debug("Node {} created in group {}".format(name, group))
 
         self._sub = self.CONTEXT.socket(zmq.SUB)
-        self._sub.connect(os.environ["ZMQ_SUB_ADDRESS"])
+
+        try:
+            self._sub.connect(os.environ["ZMQ_SUB_ADDRESS"])
+            logger.debug("{} -> SUB to {}".format(self._name, os.environ["ZMQ_SUB_ADDRESS"]))
+        except KeyError:
+            self._sub.connect("tcp://{}:{}".format(DOCKER_HOST, port_pub_sub))
+            logger.debug("{} -> SUB to {}".format(self._name, "tcp://{}:{}".format(DOCKER_HOST, port_pub_sub)))
+
         self._sub.setsockopt_string(zmq.SUBSCRIBE, self._group)
         self._sub.setsockopt_string(zmq.SUBSCRIBE, "ALL")
 
-        logger.debug("{} -> SUB to {}".format(self._name, os.environ["ZMQ_SUB_ADDRESS"]))
-
         self._sender = self.CONTEXT.socket(zmq.PUSH)
-        self._sender.connect(os.environ["ZMQ_PUSH_ADDRESS"])
 
-        logger.debug("{} -> PUSH to {}".format(self._name, os.environ["ZMQ_PUSH_ADDRESS"]))
+        try:
+            self._sender.connect(os.environ["ZMQ_PUSH_ADDRESS"])
+            logger.debug("{} -> PUSH to {}".format(self._name, os.environ["ZMQ_PUSH_ADDRESS"]))
+        except KeyError:
+            self._sender.connect("tcp://{}:{}".format(DOCKER_HOST, port_push_pull))
+            logger.debug("{} -> PUSH to {}".format(self._name, "tcp://{}:{}".format(DOCKER_HOST, port_push_pull)))
 
     def set_attribute(self, attr, value):
         """[TO OVERRIDE] The set_attribute() method is called to set an attribute of the model to a given value."""

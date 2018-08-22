@@ -69,15 +69,12 @@ class Simulator:
             for grp, nodes in self.edit.groups.items()
         }
 
-        os.environ["ZMQ_SUB_ADDRESS"] = "tcp://{}:{}".format(DOCKER_HOST, port_pub_sub)
-        os.environ["ZMQ_PUSH_ADDRESS"] = "tcp://{}:{}".format(DOCKER_HOST, port_push_pull)
-
         for grp, nodes in self.edit.groups.items():
             for node_name in nodes:
                 if self.edit.nodes.loc[node_name]["is_local"]:
                     node = self.edit.nodes.loc[node_name]
-                    logger.info("{} TO RUN LOCALLY:".format(node_name))
-                    logger.info("> {} {} {}".format(
+                    logger.warning("TO RUN LOCALLY {}:".format(node_name))
+                    logger.warning("> {} {} {}".format(
                         os.path.join(TEMP_FOLDER, node_name.lower(), os.path.basename(node["wrapper"])),
                         node_name,
                         grp
