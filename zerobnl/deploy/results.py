@@ -41,7 +41,7 @@ class SimResultsGetter:
         :return: a dict mapping results name with pandas.Series() of values
         """
         matching_keys = [key.decode("utf-8") for key in self.redis.keys(pattern)]
-        logger.debug("Matching keys: {}".format(matching_keys))
+        logger.info("Matching keys: {}".format(matching_keys))
 
         list_of_value = sorted([key for key in matching_keys if "time" not in key])
         list_of_index = sorted([key for key in matching_keys if "time" in key])

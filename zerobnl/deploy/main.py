@@ -63,7 +63,11 @@ class Simulator:
 
         groups_to_compose = {
             grp: [
-                (node, os.path.basename(self.edit.nodes.loc[node, "wrapper"])) for node in nodes
+                (
+                    node,
+                    os.path.basename(self.edit.nodes.loc[node, "wrapper"]),
+                    os.path.basename(self.edit.nodes.loc[node, "dockerfile"]),
+                ) for node in nodes
                 if not self.edit.nodes.loc[node]["is_local"]
             ]
             for grp, nodes in self.edit.groups.items()
