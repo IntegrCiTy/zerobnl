@@ -142,15 +142,16 @@ def create_yaml_node_entry(node, group, wrapper, image=None, dockerfile=None):
 def create_yaml_docker_compose(groups):
     """
 
-    :param groups: of the form: {"GRP1": [("node0", "node0_wrapper.py"), ("node1", "node1_wrapper.py")]}
+    :param groups: of the form:
+    {"GRP1": [("node0", "node0_wrapper.py", "Dockerfile"), ("node1", "node1_wrapper.py", "Dockerfile")]}
     :return: nothing
     """
     to_dump = dict(BASE)
     to_dump["services"][ORCH_FOLDER] = create_yaml_orch_entry()
 
     for group, nodes in groups.items():
-        for (node, wrapper) in nodes:
-            to_dump["services"][node.lower()] = create_yaml_node_entry(node, group, wrapper)
+        for (node, wrapper, dockerfile) in nodes:
+            to_dump["services"][node.lower()] = create_yaml_node_entry(node, group, wrapper, dockerfile=dockerfile)
 
     with open(os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE), "w") as yaml_file:
         yaml.dump(to_dump, yaml_file, default_flow_style=False, indent=2)
