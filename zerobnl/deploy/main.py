@@ -75,8 +75,9 @@ class Simulator:
                 if self.edit.nodes.loc[node_name]["is_local"]:
                     local = True
                     node = self.edit.nodes.loc[node_name]
-                    logger.warning("TO RUN > {} {} {}".format(
-                        os.path.join(TEMP_FOLDER, node_name.lower(), os.path.basename(node["wrapper"])),
+                    logger.warning("Local node to run in [{}] > python {} {} {}".format(
+                        os.path.join(TEMP_FOLDER, node_name.lower()),
+                        os.path.basename(node["wrapper"]),
                         node_name,
                         grp
                     ))
