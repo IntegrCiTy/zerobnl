@@ -5,20 +5,13 @@ import redis
 import docker
 import shutil
 import subprocess
+from time import sleep
 
 from zerobnl.logs import logger
 from zerobnl.config import *
 
 # docker-compose.yml skeleton to fill out using "service" entries.
-BASE = {
-    "version": "3",
-    "services": {},
-    "networks": {
-        "simulation": {
-            "driver": "bridge",
-        }
-    },
-}
+BASE = {"version": "3", "services": {}, "networks": {"simulation": {"driver": "bridge"}}}
 
 
 def dump_dict_to_json_in_folder(folder, data, filename):
@@ -71,16 +64,23 @@ def run_redis():
     """
     client = docker.from_env()
 
+    new = False
+
     try:
-        client.containers.run("redis:alpine", name="redis_db", ports={"6379/tcp": REDIS_PORT}, detach=True,
-                              auto_remove=True)
-        while client.containers.get("ict_red").status != "running":
-            pass
-        logger.debug("RedisDB is running")
+        client.containers.run(
+            image="redis:alpine", name="redis_db", ports={"6379/tcp": REDIS_PORT}, detach=True, auto_remove=True
+        )
+        logger.debug("Running new RedisDB ...")
+        new = True
     except docker.errors.APIError:
-        redis_db = redis.StrictRedis(host=DOCKER_HOST, port=REDIS_PORT, db=0)
+        redis_db = redis.StrictRedis(host="localhost", port=REDIS_PORT, db=0)
         redis_db.flushall()
         logger.debug("RedisDB is already running")
+
+    if new:
+        while client.containers.get("redis_db").status != "running":
+            sleep(0.1)
+        logger.debug("RedisDB is running")
 
 
 def create_yaml_orch_entry():
@@ -89,26 +89,24 @@ def create_yaml_orch_entry():
     :return:
     """
     entry = {
-        "build": {
-            "context": ORCH_FOLDER,
-            "dockerfile": "Dockerfile",
-        },
+        "build": {"context": ORCH_FOLDER, "dockerfile": "Dockerfile"},
         "container_name": ORCH_FOLDER,
         "command": "orch.py",
         "ports": ["{0}:{0}".format(port_pub_sub), "{0}:{0}".format(port_push_pull)],
         "networks": ["simulation"],
+        "volumes": ["{}:/code".format(os.path.join(".", ORCH_FOLDER))],
     }
+
     logger.debug("Created yaml orchestrator entry")
     return entry
 
 
-def create_yaml_node_entry(node, group, wrapper, image=None, dockerfile=None):
+def create_yaml_node_entry(node, group, wrapper, dockerfile=None):
     """
 
     :param node:
     :param group:
     :param wrapper:
-    :param image:
     :param dockerfile:
     :return:
     """
@@ -116,24 +114,19 @@ def create_yaml_node_entry(node, group, wrapper, image=None, dockerfile=None):
         "container_name": node.lower(),
         "environment": {
             "ZMQ_PUSH_ADDRESS": "tcp://orch:{}".format(port_push_pull),
-            "ZMQ_SUB_ADDRESS": "tcp://orch:{}".format(port_pub_sub)
+            "ZMQ_SUB_ADDRESS": "tcp://orch:{}".format(port_pub_sub),
         },
         "command": "{} {} {}".format(wrapper, node, group),
         "depends_on": [ORCH_FOLDER],
-        "networks": ["simulation"]
+        "networks": ["simulation"],
     }
 
-    if image:
-        entry["image"] = image
+    if not dockerfile:
+        dockerfile = "Dockerfile"
 
-    else:
-        if not dockerfile:
-            dockerfile = "Dockerfile"
+    entry["build"] = {"context": node.lower(), "dockerfile": dockerfile}
 
-        entry["build"] = {
-            "context": node.lower(),
-            "dockerfile": dockerfile,
-        }
+    entry["volumes"] = ["{}:/code".format(os.path.join(".", node.lower()))]
 
     logger.debug("Created yaml node entry for {}".format(node))
     return entry
@@ -158,7 +151,7 @@ def create_yaml_docker_compose(groups):
         logger.debug("Created complete docker-compose file in {}".format(DOCKER_COMPOSE_FILE))
 
 
-def run_docker_compose():
+def up_docker_compose():
     """
 
     :return:
@@ -170,8 +163,7 @@ def run_docker_compose():
         "up",
         "--build",
         "--no-color",
-        # "--force-recreate",
-        # "--abort-on-container-exit"
+        # "--abort-on-container-exit",
     ]
-    with open('nodes.log', "w") as outfile:
+    with open("nodes.log", "w") as outfile:
         subprocess.call(cmd, stdout=outfile)
