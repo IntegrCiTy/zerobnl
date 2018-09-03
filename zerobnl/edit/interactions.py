@@ -55,12 +55,11 @@ class GraphCreator:
                     "model": data["node"].model,
                     "to_set": self.meta_models[self.models[data["node"].model]["meta"]]["set_attrs"],
                     "to_get": self.meta_models[self.models[data["node"].model]["meta"]]["get_attrs"],
-                    "image": self.models[data["node"].model]["image"],
                     "dockerfile": self.models[data["node"].model]["dockerfile"],
                     "wrapper": self.models[data["node"].model]["wrapper"],
                     "files": self.models[data["node"].model]["files"],
                     "init_values": data["node"].init_values,
-                    "is_local": data["node"].is_local
+                    "is_local": data["node"].is_local,
                 }
                 for node, data in self.graph.nodes(data=True)
             },
@@ -97,23 +96,19 @@ class GraphCreator:
         logger.info("Meta-model {} created.".format(name))
         return name
 
-    def add_model(self, name, meta, wrapper, image=None, dockerfile=None, *files):
+    def add_model(self, name, meta, wrapper, dockerfile, *files):
         """
         Create a model based on the corresponding meta-model
 
         :param name: string defining the name of the model
         :param meta: name of the corresponding meta-model
         :param wrapper: wrapper file for the model
-        :param image: docker image containing environments with all the model's dependencies
         :param dockerfile: used to build the image at runtime
         :param files: optional files to add into the model's container
         :return:
         """
-        if not image and not dockerfile:
-            logger.error("Model {} not created: missing dockerfile or image")
-            return name
 
-        self.models[name] = {"meta": meta, "image": image, "dockerfile": dockerfile, "wrapper": wrapper, "files": files}
+        self.models[name] = {"meta": meta, "dockerfile": dockerfile, "wrapper": wrapper, "files": files}
         logger.info("Model {} created.".format(name))
         return name
 

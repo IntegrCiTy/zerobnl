@@ -46,10 +46,10 @@ Install dependencies (in the zerobnl folder)
 (zero)$ pip install -r requirements.txt
 ```
 
-Install zerobnl (in the zerobnl folder)
+Install zerobnl (in the zerobnl folder) using the `develop` command
 
 ```
-(zero)$ python setup.py install
+(zero)$ python setup.py develop
 ```
 
 A full scale demo with real data and complex models is available [here](https://github.com/IntegrCiTy/zerobnl-examples).
@@ -83,10 +83,10 @@ In the virtual environment, install dependencies:
 (zero) pip install -r requirements.txt
 ```
 
-Install zerobnl (in the zerobnl folder)
+Install zerobnl (in the zerobnl folder) using the `develop` command
 
 ```
-(ict) python setup.py install
+(zero) python setup.py develop
 ```
 
 A full scale demo with real data and complex models is available [here](https://github.com/IntegrCiTy/zerobnl-examples).

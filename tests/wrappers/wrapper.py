@@ -30,7 +30,7 @@ class MyNode(Node):
     def step(self, value, unit):
         super(MyNode, self).step(value, unit)
 
-        self.y = np.random.choice([-1, 1])
+        self.y = np.random.choice([-1, 0, 1])
         self.b = self.a + self.y * self.c
 
         self.save_attribute("y")
