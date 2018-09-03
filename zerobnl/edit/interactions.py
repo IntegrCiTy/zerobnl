@@ -1,3 +1,5 @@
+import os
+
 import networkx as nx
 import pandas as pd
 import numpy as np
@@ -96,7 +98,7 @@ class GraphCreator:
         logger.info("Meta-model {} created.".format(name))
         return name
 
-    def add_model(self, name, meta, wrapper, dockerfile, *files):
+    def add_model(self, name, meta, wrapper, dockerfile=None, *files):
         """
         Create a model based on the corresponding meta-model
 
@@ -107,6 +109,10 @@ class GraphCreator:
         :param files: optional files to add into the model's container
         :return:
         """
+
+        if not dockerfile:
+            this_dir, _ = os.path.split(__file__)
+            dockerfile = os.path.join(this_dir, "..", "..", "Dockerfiles", "Dockerfile")
 
         self.models[name] = {"meta": meta, "dockerfile": dockerfile, "wrapper": wrapper, "files": files}
         logger.info("Model {} created.".format(name))
