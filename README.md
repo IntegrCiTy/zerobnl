@@ -22,7 +22,7 @@ Install virtualenv (if not already done) (More info on [virtualenv](https://virt
 $ pip install virtualenv
 ```
 
-Create a Python 3.5 virtual env
+Create a Python (3.X) virtual env
 
 ```
 $ virtualenv -p python3 zero
@@ -68,7 +68,7 @@ Use *pip* in the Windows command line to install [virtualenv](https://virtualenv
 > pip install virtualenvwrapper-win
 ```
 
-Use *mkvirtualenv* in the Windows command line to create and start a Python 3.5 virtual environment called *zero*:
+Use *mkvirtualenv* in the Windows command line to create and start a Python (3.X) virtual environment called *zero*:
 ```
 > mkvirtualenv -p C:\path\to\python35.exe zero
 ```
@@ -94,7 +94,7 @@ A full scale demo with real data and complex models is available [here](https://
 ## Running the tests
 
 Pytest (https://docs.pytest.org/en/latest/) is used in this project.
-To run tests just run `pytest` with command line in the dedicated environment in the root forlder of this package.
+To run tests just run `pytest` from a terminal in the dedicated environment inside the root folder of this package.
 
 ## Authors
 
