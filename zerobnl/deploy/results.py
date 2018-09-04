@@ -17,13 +17,10 @@ class SimResultsGetter:
         """
         Instantiate connection with Redis DB
 
-        :param db:
-        :param host: host where the Redis container is running
-        :param port: port where the Redis container is listening
         :return: nothing :)
         """
-        self.redis = redis.StrictRedis(host=DOCKER_HOST, port=REDIS_PORT, db=0)
-        logger.info("Connected to {} Redis DB".format(DOCKER_HOST))
+        self.redis = redis.StrictRedis(host="localhost", port=REDIS_PORT, db=0)
+        logger.info("Connected to Redis DB")
 
     @property
     def list_of_available_results(self):
