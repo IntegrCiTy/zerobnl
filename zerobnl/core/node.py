@@ -45,7 +45,8 @@ class Node:
 
         self._time = pd.to_datetime(start)
 
-        self._redis = redis.StrictRedis(host=DOCKER_HOST, port=REDIS_PORT, db=0)
+        # TODO: it will not work if node is in container
+        self._redis = redis.StrictRedis(host=REDIS_NAME, port=REDIS_PORT, db=0)
 
         logger.debug("Node {} created in group {}".format(name, group))
 
@@ -55,8 +56,8 @@ class Node:
             self._sub.connect(os.environ["ZMQ_SUB_ADDRESS"])
             logger.debug("{} -> SUB to {}".format(self._name, os.environ["ZMQ_SUB_ADDRESS"]))
         except KeyError:
-            self._sub.connect("tcp://{}:{}".format(DOCKER_HOST, port_pub_sub))
-            logger.debug("{} -> SUB to {}".format(self._name, "tcp://{}:{}".format(DOCKER_HOST, port_pub_sub)))
+            self._sub.connect("tcp://{}:{}".format("localhost", port_pub_sub))
+            logger.debug("{} -> SUB to {}".format(self._name, "tcp://{}:{}".format("localhost", port_pub_sub)))
 
         self._sub.setsockopt_string(zmq.SUBSCRIBE, self._group)
         self._sub.setsockopt_string(zmq.SUBSCRIBE, "ALL")
@@ -67,8 +68,8 @@ class Node:
             self._sender.connect(os.environ["ZMQ_PUSH_ADDRESS"])
             logger.debug("{} -> PUSH to {}".format(self._name, os.environ["ZMQ_PUSH_ADDRESS"]))
         except KeyError:
-            self._sender.connect("tcp://{}:{}".format(DOCKER_HOST, port_push_pull))
-            logger.debug("{} -> PUSH to {}".format(self._name, "tcp://{}:{}".format(DOCKER_HOST, port_push_pull)))
+            self._sender.connect("tcp://{}:{}".format("localhost", port_push_pull))
+            logger.debug("{} -> PUSH to {}".format(self._name, "tcp://{}:{}".format("localhost", port_push_pull)))
 
     def set_attribute(self, attr, value):
         """[TO OVERRIDE] The set_attribute() method is called to set an attribute of the model to a given value."""

@@ -18,6 +18,7 @@ def fix_create():
         name="BaseModel",
         meta="BaseMeta",
         wrapper=os.path.join("tests", "wrappers", "wrapper.py"),
+        files=[os.path.join("tests", "files_to_add", "empty_file_for_testing_purpose.txt")]
     )
 
     sim.edit.add_node(name="Base0", model="BaseModel", init_values={"c": 0.50})

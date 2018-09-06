@@ -57,6 +57,19 @@ def clean_temp_folder():
         logger.debug("{} does not exist".format(TEMP_FOLDER))
 
 
+def create_docker_network():
+    """
+
+        :return:
+        """
+    client = docker.from_env()
+    if len(client.networks.list(RES_NET)) == 0:
+        client.networks.create(RES_NET, driver="bridge")
+        logger.debug("{} network created".format(RES_NET))
+    else:
+        logger.debug("{} network is already existing".format(RES_NET))
+
+
 def run_redis():
     """
 
@@ -68,7 +81,12 @@ def run_redis():
 
     try:
         client.containers.run(
-            image="redis:alpine", name="redis_db", ports={"6379/tcp": REDIS_PORT}, detach=True, auto_remove=True
+            image="redis:alpine",
+            name=REDIS_NAME,
+            ports={"6379/tcp": REDIS_PORT},
+            detach=True,
+            auto_remove=True,
+            network=RES_NET
         )
         logger.debug("Running new RedisDB ...")
         new = True
@@ -118,7 +136,8 @@ def create_yaml_node_entry(node, group, wrapper, dockerfile=None):
         },
         "command": "{} {} {}".format(wrapper, node, group),
         "depends_on": [ORCH_FOLDER],
-        "networks": ["simulation"],
+        "networks": ["simulation", RES_NET],
+        "external_links": [REDIS_NAME]
     }
 
     if not dockerfile:

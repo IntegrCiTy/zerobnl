@@ -7,7 +7,6 @@ import numpy as np
 from zerobnl.logs import logger
 from zerobnl.config import *
 
-
 __all__ = ["GraphCreator"]
 
 
@@ -98,7 +97,7 @@ class GraphCreator:
         logger.info("Meta-model {} created.".format(name))
         return name
 
-    def add_model(self, name, meta, wrapper, dockerfile=None, *files):
+    def add_model(self, name, meta, wrapper, dockerfile=None, files=None):
         """
         Create a model based on the corresponding meta-model
 
@@ -109,6 +108,9 @@ class GraphCreator:
         :param files: optional files to add into the model's container
         :return:
         """
+
+        if not files:
+            files = []
 
         if not dockerfile:
             this_dir, _ = os.path.split(__file__)
