@@ -44,6 +44,7 @@ class Node:
         self._init_values = init_values
 
         self._time = pd.to_datetime(start)
+        self._relative_simulation_time = 0.0
 
         # TODO: it will not work if node is in container
         self._redis = redis.StrictRedis(host=REDIS_NAME, port=REDIS_PORT, db=0)
@@ -82,7 +83,16 @@ class Node:
     def step(self, value, unit):
         """[TO OVERRIDE] The step() method is called to make a step with the model with a given step size and unit."""
         self._time += pd.DateOffset(**{unit: value})
+        self._relative_simulation_time += value * self.UNIT[unit]
         logger.info("{} -> STEP {} {}".format(self._name, value, unit))
+    
+    def get_relative_time(self):
+        """Return relative simulation time [s] (updated in the step() method)"""
+        return self._relative_simulation_time
+
+    def get_real_time(self):
+        """Return real simulation time (updated in the step() method)"""
+        return self._time
 
     def exit(self):
         """[TO OVERRIDE (if an exit action is needed)] The exit() method is called to properly close the model"""
