@@ -99,7 +99,7 @@ class Node:
         logger.info("{} -> EXIT".format(self._name))
 
     def save_attribute(self, attr):
-        """"""
+        """The save_attribute() method can be called to properly store an internal state variable to the results DB"""
         self._send_attribute_value_to_results_db(attr, opt="X")
 
     def _send_attribute_value_to_results_db(self, attr, opt):
