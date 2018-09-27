@@ -96,7 +96,7 @@ def run_redis():
         logger.debug("RedisDB is already running")
 
     if new:
-        while client.containers.get("redis_db").status != "running":
+        while client.containers.get(REDIS_NAME).status != "running":
             sleep(0.1)
         logger.debug("RedisDB is running")
 
