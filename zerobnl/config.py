@@ -16,7 +16,7 @@ DOCKER_COMPOSE_FILE = "docker-compose.yml"
 
 START = "2000-01-01 00:00:00"
 
-MAIN_HOST = "172.17.01"
 REDIS_PORT = 6379
-REDIS_NAME = "redis-db"
-RES_NET = "results"
+REDIS_HOST_NAME = "redis"
+
+SIM_NET = "simulation"

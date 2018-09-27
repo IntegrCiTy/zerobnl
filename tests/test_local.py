@@ -37,6 +37,7 @@ def fix_create():
     return sim
 
 
+# TODO: create proper test...
 def test():
     fix_create()
     assert True

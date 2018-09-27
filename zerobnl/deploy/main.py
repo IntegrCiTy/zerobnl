@@ -59,10 +59,6 @@ class Simulator:
         clean_temp_folder()
         self._deploy_files_and_folders()
 
-        create_docker_network()
-
-        run_redis()
-
         groups_to_compose = {
             grp: [
                 (

@@ -46,8 +46,8 @@ class Node:
         self._time = pd.to_datetime(start)
         self._relative_simulation_time = 0.0
 
-        # TODO: it will not work if node is in container
-        self._redis = redis.StrictRedis(host=REDIS_NAME, port=REDIS_PORT, db=0)
+        # TODO: it will not work if node is local
+        self._redis = redis.StrictRedis(host=REDIS_HOST_NAME, port=REDIS_PORT, db=0)
 
         logger.debug("Node {} created in group {}".format(name, group))
 

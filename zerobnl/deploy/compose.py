@@ -1,17 +1,30 @@
 import os
 import yaml
 import json
-import redis
-import docker
 import shutil
 import subprocess
-from time import sleep
 
 from zerobnl.logs import logger
 from zerobnl.config import *
 
 # docker-compose.yml skeleton to fill out using "service" entries.
-BASE = {"version": "3", "services": {}, "networks": {"simulation": {"driver": "bridge"}}}
+BASE = {
+    "version": '3',
+    "services": {
+        "redis": {
+            "image": "redis:alpine",
+            "name": REDIS_HOST_NAME,
+            "hostname": REDIS_HOST_NAME,
+            "ports": ["{0}:{0}".format(REDIS_PORT)],
+            "networks": [SIM_NET]
+        }
+    },
+    "networks": {
+        SIM_NET: {
+            "driver": "bridge"
+        }
+    }
+}
 
 
 def dump_dict_to_json_in_folder(folder, data, filename):
@@ -57,50 +70,6 @@ def clean_temp_folder():
         logger.debug("{} does not exist".format(TEMP_FOLDER))
 
 
-def create_docker_network():
-    """
-
-        :return:
-        """
-    client = docker.from_env()
-    if len(client.networks.list(RES_NET)) == 0:
-        client.networks.create(RES_NET, driver="bridge")
-        logger.debug("{} network created".format(RES_NET))
-    else:
-        logger.debug("{} network is already existing".format(RES_NET))
-
-
-def run_redis():
-    """
-
-    :return:
-    """
-    client = docker.from_env()
-
-    new = False
-
-    try:
-        client.containers.run(
-            image="redis:alpine",
-            name=REDIS_NAME,
-            ports={"6379/tcp": REDIS_PORT},
-            detach=True,
-            auto_remove=True,
-            network=RES_NET
-        )
-        logger.debug("Running new RedisDB ...")
-        new = True
-    except docker.errors.APIError:
-        redis_db = redis.StrictRedis(host="localhost", port=REDIS_PORT, db=0)
-        redis_db.flushall()
-        logger.debug("RedisDB is already running")
-
-    if new:
-        while client.containers.get(REDIS_NAME).status != "running":
-            sleep(0.1)
-        logger.debug("RedisDB is running")
-
-
 def create_yaml_orch_entry():
     """
 
@@ -111,7 +80,8 @@ def create_yaml_orch_entry():
         "container_name": ORCH_FOLDER,
         "command": "orch.py",
         "ports": ["{0}:{0}".format(port_pub_sub), "{0}:{0}".format(port_push_pull)],
-        "networks": ["simulation"],
+        "networks": [SIM_NET],
+        "depends_on": [REDIS_HOST_NAME],
         "volumes": ["{}:/code".format(os.path.join(".", ORCH_FOLDER))],
     }
 
@@ -136,8 +106,7 @@ def create_yaml_node_entry(node, group, wrapper, dockerfile=None):
         },
         "command": "{} {} {}".format(wrapper, node, group),
         "depends_on": [ORCH_FOLDER],
-        "networks": ["simulation", RES_NET],
-        "external_links": [REDIS_NAME]
+        "networks": [SIM_NET],
     }
 
     if not dockerfile:
@@ -182,7 +151,6 @@ def up_docker_compose():
         "up",
         "--build",
         "--no-color",
-        # "--abort-on-container-exit",
     ]
     with open("nodes.log", "w") as outfile:
         subprocess.call(cmd, stdout=outfile)
