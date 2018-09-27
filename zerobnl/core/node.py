@@ -49,7 +49,7 @@ class Node:
         # TODO: it will not work if node is local
         self._redis = redis.StrictRedis(host=REDIS_HOST_NAME, port=REDIS_PORT, db=0)
 
-        logger.debug("Node {} created in group {}".format(name, group))
+        logger.debug("Node {} just created in group {}".format(name, group))
 
         self._sub = self.CONTEXT.socket(zmq.SUB)
 
@@ -104,9 +104,12 @@ class Node:
 
     def _send_attribute_value_to_results_db(self, attr, opt):
         """"""
+        logger.debug("trying to save {} -> {} to RedisDB".format(self._name, attr))
         value = self.get_attribute(attr)
-        time = self._time
+        logger.debug("{} -> {} = {} retrieved from model".format(self._name, attr, value))
+        time = self.get_real_time()
         key = "{}||{}||{}".format(opt, self._name, attr)
+        logger.debug("Ready to store {}".format(key))
         self._redis.rpush(key, value)
         self._redis.rpush(key + "||time", time)
         logger.debug("{} -> {} = {} saved to RedisDB".format(self._name, attr, value))

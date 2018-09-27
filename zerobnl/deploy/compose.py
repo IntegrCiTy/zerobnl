@@ -13,7 +13,6 @@ BASE = {
     "services": {
         "redis": {
             "image": "redis:alpine",
-            "name": REDIS_HOST_NAME,
             "hostname": REDIS_HOST_NAME,
             "ports": ["{0}:{0}".format(REDIS_PORT)],
             "networks": [SIM_NET]
