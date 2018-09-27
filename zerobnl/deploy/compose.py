@@ -8,7 +8,18 @@ from zerobnl.logs import logger
 from zerobnl.config import *
 
 # docker-compose.yml skeleton to fill out using "service" entries.
-BASE = {
+BASE_YML = {
+    "version": '3',
+    "services": {
+    },
+    "networks": {
+        SIM_NET: {
+            "driver": "bridge"
+        }
+    }
+}
+
+REDIS_YML = {
     "version": '3',
     "services": {
         "redis": {
@@ -126,7 +137,7 @@ def create_yaml_docker_compose(groups):
     {"GRP1": [("node0", "node0_wrapper.py", "Dockerfile"), ("node1", "node1_wrapper.py", "Dockerfile")]}
     :return: nothing
     """
-    to_dump = dict(BASE)
+    to_dump = dict(BASE_YML)
     to_dump["services"][ORCH_FOLDER] = create_yaml_orch_entry()
 
     for group, nodes in groups.items():
@@ -138,7 +149,33 @@ def create_yaml_docker_compose(groups):
         logger.debug("Created complete docker-compose file in {}".format(DOCKER_COMPOSE_FILE))
 
 
-def up_docker_compose():
+def create_redis_yaml_docker_compose():
+    to_dump = dict(REDIS_YML)
+    with open(os.path.join(TEMP_FOLDER, "redis-{}".format(DOCKER_COMPOSE_FILE)), "w") as yaml_file:
+        yaml.dump(to_dump, yaml_file, default_flow_style=False, indent=2)
+        logger.debug("Created redis docker-compose file in redis-{}".format(DOCKER_COMPOSE_FILE))
+
+
+# TODO: run redis separately
+def docker_compose_up_redis():
+    """
+
+    :return:
+    """
+    cmd = [
+        "docker-compose",
+        "-f",
+        os.path.join(TEMP_FOLDER, "redis-{}".format(DOCKER_COMPOSE_FILE)),
+        "up",
+        "redis",
+        "--no-color",
+        "--detach"
+    ]
+
+    subprocess.Popen(cmd)
+
+
+def docker_compose_up_simulation():
     """
 
     :return:
@@ -152,4 +189,4 @@ def up_docker_compose():
         "--no-color",
     ]
     with open("nodes.log", "w") as outfile:
-        subprocess.call(cmd, stdout=outfile)
+        subprocess.run(cmd, stdout=outfile)

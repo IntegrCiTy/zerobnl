@@ -88,11 +88,13 @@ class Simulator:
                     )
 
         create_yaml_docker_compose(groups_to_compose)
+        create_redis_yaml_docker_compose()
         logger.debug("docker-compose.yaml file created, ready to launch simulation")
         logger.info("Starting simulation...")
         if local:
             logger.info("Waiting for local nodes to run...")
+        docker_compose_up_redis()
         start = time()
-        up_docker_compose()
+        docker_compose_up_simulation()
         stop = time() - start
         logger.info("Simulation finished in {} min and {} sec".format(int(stop // 60), int(round(stop % 60, 0))))
