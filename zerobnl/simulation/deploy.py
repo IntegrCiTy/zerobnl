@@ -13,7 +13,7 @@ class CoSimDeploy(CoSimCreator):
 
         self.docker_client = docker.from_env()
 
-    def create_and_fill_folders_to_mount(self):
+    def create_and_fill_folders_to_mount_into_nodes(self):
         if os.path.exists(TEMP_FOLDER) and os.path.isdir(TEMP_FOLDER):
             shutil.rmtree(TEMP_FOLDER)
 
@@ -23,11 +23,11 @@ class CoSimDeploy(CoSimCreator):
 
             shutil.copy(values["Wrapper"], node_folder)
 
-            with open(os.path.join(node_folder, INIT_VALUES_FILE), 'w') as fp:
+            with open(os.path.join(node_folder, INIT_VALUES_FILE), "w") as fp:
                 json.dump(values["InitVal"], fp)
 
             input_map = self.get_input_map(node)
-            with open(os.path.join(node_folder, INPUT_MAP_FILE), 'w') as fp:
+            with open(os.path.join(node_folder, INPUT_MAP_FILE), "w") as fp:
                 json.dump({str(key): val for key, val in input_map.items()}, fp)
 
             for file in values["Files"]:

@@ -57,7 +57,7 @@ class CoSimCreator:
             self.environments[env]["Wrapper"],
             self.environments[env]["Dockerfile"],
             files,
-            local
+            local,
         ]
 
     def add_link(self, get_node, get_attr, set_node, set_attr):
@@ -71,8 +71,9 @@ class CoSimCreator:
         get_unit = self.check_node_attr_exists_and_return_unit(get_node, get_attr, "ToGet")
         set_unit = self.check_node_attr_exists_and_return_unit(set_node, set_attr, "ToSet")
 
-        assert get_unit == set_unit, "{}.{} ---> {} != {} ---> {}.{}".format(get_node, get_attr, get_unit, set_unit,
-                                                                             set_node, set_attr)
+        assert get_unit == set_unit, "{}.{} ---> {} != {} ---> {}.{}".format(
+            get_node, get_attr, get_unit, set_unit, set_node, set_attr
+        )
 
         self.links.loc[len(self.links.index)] = [get_node, get_attr, set_node, set_attr, get_unit]
 
@@ -126,4 +127,7 @@ class CoSimCreator:
         :param node:
         :return:
         """
-        return {(link["GetNode"], link["GetAttr"]): link["SetAttr"] for _, link in self.links.loc[self.links.SetNode == node].iterrows()}
+        return {
+            (link["GetNode"], link["GetAttr"]): link["SetAttr"]
+            for _, link in self.links.loc[self.links.SetNode == node].iterrows()
+        }

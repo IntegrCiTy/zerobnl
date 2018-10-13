@@ -85,7 +85,7 @@ class Node:
         self._time += pd.DateOffset(**{unit: value})
         self._relative_simulation_time += value * self.UNIT[unit]
         logger.info("{} -> STEP {} {}".format(self._name, value, unit))
-    
+
     def get_relative_time(self):
         """Return relative simulation time [s] (updated in the step() method)"""
         return self._relative_simulation_time

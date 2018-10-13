@@ -54,7 +54,7 @@ def test_add_link():
     sim.add_node("Base1", "MetaBase", "EnvBase")
     sim.add_link("Base0", "b", "Base1", "a")
     assert type(sim.links.iloc[0]) is pd.Series
-    assert sim.links.iloc[0].values.tolist() == ['Base0', 'b', 'Base1', 'a', 'kW']
+    assert sim.links.iloc[0].values.tolist() == ["Base0", "b", "Base1", "a", "kW"]
 
 
 def test_add_link_diff_unit():

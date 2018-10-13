@@ -8,32 +8,19 @@ from zerobnl.logs import logger
 from zerobnl.config import *
 
 # docker-compose.yml skeleton to fill out using "service" entries.
-BASE_YML = {
-    "version": '3',
-    "services": {
-    },
-    "networks": {
-        SIM_NET: {
-            "driver": "bridge"
-        }
-    }
-}
+BASE_YML = {"version": "3", "services": {}, "networks": {SIM_NET: {"driver": "bridge"}}}
 
 REDIS_YML = {
-    "version": '3',
+    "version": "3",
     "services": {
         "redis": {
             "image": "redis:alpine",
             "hostname": REDIS_HOST_NAME,
             "ports": ["{0}:{0}".format(REDIS_PORT)],
-            "networks": [SIM_NET]
+            "networks": [SIM_NET],
         }
     },
-    "networks": {
-        SIM_NET: {
-            "driver": "bridge"
-        }
-    }
+    "networks": {SIM_NET: {"driver": "bridge"}},
 }
 
 
@@ -169,7 +156,7 @@ def docker_compose_up_redis():
         "up",
         "redis",
         "--no-color",
-        "--detach"
+        "--detach",
     ]
 
     subprocess.Popen(cmd)
@@ -180,13 +167,6 @@ def docker_compose_up_simulation():
 
     :return:
     """
-    cmd = [
-        "docker-compose",
-        "-f",
-        os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE),
-        "up",
-        "--build",
-        "--no-color",
-    ]
+    cmd = ["docker-compose", "-f", os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE), "up", "--build", "--no-color"]
     with open("nodes.log", "w") as outfile:
         subprocess.run(cmd, stdout=outfile)

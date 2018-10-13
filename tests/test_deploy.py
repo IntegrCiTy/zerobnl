@@ -1,6 +1,7 @@
 import os
 import pytest
 from zerobnl.config import *
+
 from zerobnl.simulation import CoSimDeploy
 
 
@@ -15,12 +16,36 @@ def create_scenario():
 
     sim.create_environment("EnvBase", os.path.join("tests", "wrappers", "basewrap.py"), "DockBase")
 
-    sim.add_node("Netw", "MetaNetw", "EnvBase")
+    sim.add_node(
+        "Netw",
+        "MetaNetw",
+        "EnvBase",
+        files=[os.path.join("tests", "models", "network.py")],
+        init_val={"model": "network"},
+    )
 
     for x in ["A", "B"]:
-        sim.add_node("Prod{}".format(x), "MetaProd", "EnvBase", init_val={"p_nom": 100.0})
-        sim.add_node("Stor{}".format(x), "MetaStor", "EnvBase", init_val={"capacity": 500.0})
-        sim.add_node("Ctrl{}".format(x), "MetaCtrl", "EnvBase")
+        sim.add_node(
+            "Prod{}".format(x),
+            "MetaProd",
+            "EnvBase",
+            files=[os.path.join("tests", "models", "production.py")],
+            init_val={"model": "production", "p_nom": 100.0},
+        )
+        sim.add_node(
+            "Stor{}".format(x),
+            "MetaStor",
+            "EnvBase",
+            files=[os.path.join("tests", "models", "storage.py")],
+            init_val={"model": "storage", "capacity": 500.0},
+        )
+        sim.add_node(
+            "Ctrl{}".format(x),
+            "MetaCtrl",
+            "EnvBase",
+            files=[os.path.join("tests", "models", "control.py")],
+            init_val={"model": "control"},
+        )
 
     for x in ["A", "B"]:
         sim.add_link("Prod{}".format(x), "conso", "Netw", "conso{}".format(x))
@@ -34,7 +59,9 @@ def create_scenario():
     return sim
 
 
-def test_create_and_fill_folders_to_mount():
+def test_create_and_fill_folders_to_mount_into_nodes():
     sim = create_scenario()
-    sim.create_and_fill_folders_to_mount()
-    assert True
+    sim.create_and_fill_folders_to_mount_into_nodes()
+    assert set(os.listdir(TEMP_FOLDER)) == set([node.lower() for node in sim.nodes.index])
+    for node in sim.nodes.index:
+        assert len(os.listdir(os.path.join(TEMP_FOLDER, node.lower()))) == 4
