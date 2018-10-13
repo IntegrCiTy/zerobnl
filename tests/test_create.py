@@ -1,3 +1,6 @@
+import pandas as pd
+import networkx as nx
+
 import pytest
 from zerobnl.create import CoSimCreator
 
@@ -20,6 +23,7 @@ def test_add_node():
     sim.create_environment("EnvBase", "WrapBase", "DockBase")
     sim.add_node("Base0", "MetaBase", "EnvBase")
     waited = [[("conso", "kW")], [("temp", "C")], {}, "WrapBase", "DockBase", [], False]
+    assert type(sim.nodes.loc["Base0"]) is pd.Series
     assert sim.nodes.loc["Base0"].values.tolist() == waited
     sim.add_node("Base1", "MetaBase", "EnvBase", init_val={"c": 0.5}, files=["f1.csv"], local=True)
     waited = [[("conso", "kW")], [("temp", "C")], {"c": 0.5}, "WrapBase", "DockBase", ["f1.csv"], True]
@@ -49,6 +53,7 @@ def test_add_link():
     sim.add_node("Base0", "MetaBase", "EnvBase")
     sim.add_node("Base1", "MetaBase", "EnvBase")
     sim.add_link("Base0", "b", "Base1", "a")
+    assert type(sim.links.iloc[0]) is pd.Series
     assert sim.links.iloc[0].values.tolist() == ['Base0', 'b', 'Base1', 'a', 'kW']
 
 
@@ -88,3 +93,13 @@ def test_check_node_attr_exists_and_return_unit_no_attr():
     with pytest.raises(AssertionError) as e_info:
         sim.check_node_attr_exists_and_return_unit("Base0", "x", "ToSet")
     assert "Attribute x is not defined for node Base0!" in str(e_info.value)
+
+
+# TODO: implement test_get_graph
+def test_get_graph():
+    pass
+
+
+# TODO: implement test_create_sequence
+def test_create_sequence():
+    pass

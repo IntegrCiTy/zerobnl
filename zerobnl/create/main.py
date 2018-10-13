@@ -2,6 +2,7 @@ import pandas as pd
 import networkx as nx
 
 
+# TODO: write complete docstrings
 class CoSimCreator:
     def __init__(self):
         self.meta_models = {}
