@@ -64,7 +64,7 @@ class Orch:
 
     def update_attributes(self, step, grp, nbr):
         """The update_attributes() method is used to send to nodes the last state of the complete system
-        in order for the nodes to update theri inputs."""
+        in order for the nodes to update their inputs."""
         logger.debug("ORCH -> GRP {}, UPDATE {}".format(grp, step))
         self._pub.send_string("{} | {} | {}".format(grp, "UPDATE", self._state))
 

@@ -119,3 +119,11 @@ class CoSimCreator:
             assert len(h.edges) == 0, "Group {} contains linked nodes !".format(i)
 
         self.sequence = sequence
+
+    def get_input_map(self, node):
+        """
+
+        :param node:
+        :return:
+        """
+        return {(link["GetNode"], link["GetAttr"]): link["SetAttr"] for _, link in self.links.loc[self.links.SetNode == node].iterrows()}

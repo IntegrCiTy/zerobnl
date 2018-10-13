@@ -2,7 +2,7 @@ import pandas as pd
 import networkx as nx
 
 import pytest
-from zerobnl.create import CoSimCreator
+from zerobnl.simulation import CoSimCreator
 
 
 def test_create_meta_model():
@@ -102,4 +102,9 @@ def test_get_graph():
 
 # TODO: implement test_create_sequence
 def test_create_sequence():
+    pass
+
+
+# TODO: implement test_get_input_map
+def test_get_input_map():
     pass

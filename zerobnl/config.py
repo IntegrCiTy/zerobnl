@@ -5,7 +5,7 @@ UNIT = {"seconds": 1, "minutes": 60, "hours": 3600}
 
 TEMP_FOLDER = "TMP_FOLDER"
 INIT_VALUES_FILE = "init_values.json"
-ATTRIBUTE_FILE = "node_attributes.json"
+INPUT_MAP_FILE = "input_map.json"
 
 ORCH_FOLDER = "orch"
 SEQUENCE_FILE = "sequence.json"
