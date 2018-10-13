@@ -8,7 +8,7 @@ from docopt import docopt
 from zerobnl.logs import logger
 from zerobnl.config import *
 
-
+# TODO: Create ZerOBNL-Kernel sub-module https://blog.github.com/2016-02-01-working-with-submodules/
 # This doc is used to make the wrapper callable by command line and gather easily all the given parameters
 doc = """>>> ZEROBNL node wrapper command <<<
 Usage:

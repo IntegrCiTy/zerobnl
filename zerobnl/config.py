@@ -8,8 +8,7 @@ INIT_VALUES_FILE = "init_values.json"
 INPUT_MAP_FILE = "input_map.json"
 
 ORCH_FOLDER = "orch"
-SEQUENCE_FILE = "sequence.json"
-STEPS_FILE = "steps.json"
+ORCH_CONFIG_FILE = "config.json"
 
 DOCKERFILE_FOLDER = "Dockerfiles"
 DOCKER_COMPOSE_FILE = "docker-compose.yml"

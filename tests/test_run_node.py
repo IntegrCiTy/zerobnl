@@ -1,5 +1,5 @@
 import json
-from zerobnl.core import Node
+from zerobnl.kernel import Node
 
 
 def test_node_zmq_connection():

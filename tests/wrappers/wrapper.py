@@ -1,7 +1,7 @@
 import json
 
 from docopt import docopt
-from zerobnl.core import Node
+from zerobnl.kernel import Node
 
 import numpy as np
 

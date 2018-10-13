@@ -12,7 +12,8 @@ class CoSimCreator:
 
         self.links = pd.DataFrame(columns=["GetNode", "GetAttr", "SetNode", "SetAttr", "Unit"])
 
-        self.sequence = []
+        self.sequence = None
+        self.steps = None
 
     def create_meta_model(self, meta_model, list_of_attrs_to_set, list_of_attrs_to_get):
         """
@@ -131,3 +132,10 @@ class CoSimCreator:
             (link["GetNode"], link["GetAttr"]): link["SetAttr"]
             for _, link in self.links.loc[self.links.SetNode == node].iterrows()
         }
+
+    def create_steps(self, steps):
+        """
+
+        :param steps:
+        """
+        self.steps = steps
