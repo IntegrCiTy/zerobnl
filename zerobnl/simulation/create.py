@@ -33,6 +33,7 @@ class CoSimCreator:
         """
         self.environments[env] = {"Wrapper": wrapper, "Dockerfile": dockerfile}
 
+    # TODO: separate parameters from initial values
     def add_node(self, node, meta, env, init_val=None, files=None, local=False):
         """
 
