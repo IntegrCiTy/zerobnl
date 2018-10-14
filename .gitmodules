@@ -1,0 +1,3 @@
+[submodule "zerobnl/zerobnl-kernel"]
+	path = zerobnl/zerobnl-kernel
+	url = git@github.com:IntegrCiTy/zerobnl-kernel
