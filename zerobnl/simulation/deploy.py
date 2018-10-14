@@ -17,6 +17,7 @@ class CoSimDeploy(CoSimCreator):
         if os.path.exists(TEMP_FOLDER) and os.path.isdir(TEMP_FOLDER):
             shutil.rmtree(TEMP_FOLDER)
 
+        # TODO: put everything in a single json file
         for node, values in self.nodes.iterrows():
             node_folder = os.path.join(TEMP_FOLDER, node.lower())
             os.makedirs(node_folder)
@@ -37,6 +38,7 @@ class CoSimDeploy(CoSimCreator):
         orch_folder = os.path.join(TEMP_FOLDER, ORCH_FOLDER)
         os.makedirs(orch_folder)
 
+        # TODO: put everything in a single json file
         config = {"sequence": [len(group) for group in self.sequence], "steps": self.steps}
         with open(os.path.join(orch_folder, ORCH_CONFIG_FILE), "w") as fp:
             json.dump(config, fp)
