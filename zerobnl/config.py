@@ -1,7 +1,5 @@
-port_pub_sub = 5556
-port_push_pull = 5557
-
-UNIT = {"seconds": 1, "minutes": 60, "hours": 3600}
+PORT_PUB_SUB = 5556
+PORT_PUSH_PULL = 5557
 
 TEMP_FOLDER = "TMP_FOLDER"
 INIT_VALUES_FILE = "init_values.json"
@@ -9,6 +7,8 @@ INPUT_MAP_FILE = "input_map.json"
 
 ORCH_FOLDER = "orch"
 ORCH_CONFIG_FILE = "config.json"
+ORCH_STR_FILE = 'from zerobnl.kernel import Master\n\nif __name__ == "__main__":\n    orch = Master()\n    orch.run()\n'
+ORCH_HOST_NAME = "orch"
 
 DOCKERFILE_FOLDER = "Dockerfiles"
 DOCKER_COMPOSE_FILE = "docker-compose.yml"

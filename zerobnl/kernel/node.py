@@ -1,6 +1,10 @@
 import ast
+import zmq
 import json
+import redis
 import pandas as pd
+
+from zerobnl.config import *
 
 
 def eval_str_tuple_dict_keys(dict_to_eval):
@@ -21,6 +25,7 @@ class Node:
 
         self.name = config["NAME"]
         self.group = config["GROUP"]
+        self.local = config["LOCAL"]
 
         self.input_map = eval_str_tuple_dict_keys(config["INPUT_MAP"])
         self.outputs = config["OUTPUTS"]
@@ -31,12 +36,18 @@ class Node:
         self.time_unit = config["TIME_UNIT"]
         self.simu_time = 0.0
 
-        # TODO: proper redis connection
-        self.redis = None
+        redis_host = {True: "localhost", False: REDIS_HOST_NAME}[self.local]
+        self.redis = redis.StrictRedis(host=redis_host, port=REDIS_PORT, db=0)
 
-        # TODO: proper zeromq connections and subscribe
-        self.sub = None
-        self.sender = None
+        self.sub = zmq.Context().socket(zmq.SUB)
+        self.sender = zmq.Context().socket(zmq.PUSH)
+
+        zero_host = {True: "localhost", False: ORCH_HOST_NAME}[self.local]
+        self.sub.connect("tcp://{}:{}".format(zero_host, PORT_PUB_SUB))
+        self.sender.connect("tcp://{}:{}".format(zero_host, PORT_PUSH_PULL))
+
+        self.sub.setsockopt_string(zmq.SUBSCRIBE, self.group)
+        self.sub.setsockopt_string(zmq.SUBSCRIBE, "ALL")
 
     def set_attribute(self, attr, value):
         """[TO OVERRIDE] The set_attribute() method is called to set an attribute of the model to a given value."""
@@ -81,7 +92,9 @@ class Node:
                 self._send_attribute_value_to_results_db(self.input_map[key], opt="IN")
 
     def run(self):
-        """"""
+        """
+
+        """
         for attr, value in self.init_values.items():
             self.set_attribute(attr, value)
 

@@ -1,5 +1,8 @@
 import ast
+import zmq
 import json
+
+from zerobnl.config import *
 
 
 class Master:
@@ -7,19 +10,19 @@ class Master:
 
     """
 
-    CONFIG_FILE = "config_master.json"
-
     def __init__(self):
-        with open(self.CONFIG_FILE) as fp:
+        with open(ORCH_CONFIG_FILE) as fp:
             config = json.load(fp)
 
         self.sequence = config["SEQUENCE"]
         self.steps = config["STEPS"]
         self.current_state = {}
 
-        # TODO: proper zeromq connections
-        self.pub = None
-        self.receiver = None
+        self.pub = zmq.Context().socket(zmq.PUB)
+        self.pub.bind("tcp://*:{}".format(PORT_PUB_SUB))
+
+        self.receiver = zmq.Context().socket(zmq.PULL)
+        self.receiver.bind("tcp://*:{}".format(PORT_PUSH_PULL))
 
     def wait_for_nodes(self, n):
         ack = 0

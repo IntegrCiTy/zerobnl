@@ -7,6 +7,12 @@ from zerobnl.config import *
 from zerobnl.simulation import CoSimCreator
 
 
+def generate_and_add_master_file_to_orchestrator_folder(folder):
+    fname = 'main.py'
+    with open(os.path.join(folder, fname), 'w') as f:
+        f.write(ORCH_STR_FILE)
+
+
 class CoSimDeploy(CoSimCreator):
     def __init__(self):
         super().__init__()
@@ -37,6 +43,8 @@ class CoSimDeploy(CoSimCreator):
     def create_and_fill_orchestrator_folder(self):
         orch_folder = os.path.join(TEMP_FOLDER, ORCH_FOLDER)
         os.makedirs(orch_folder)
+
+        generate_and_add_master_file_to_orchestrator_folder(orch_folder)
 
         # TODO: put everything in a single json file
         config = {"sequence": [len(group) for group in self.sequence], "steps": self.steps}
