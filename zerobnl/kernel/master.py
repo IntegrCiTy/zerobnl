@@ -42,7 +42,7 @@ class Master:
         for answer in self.wait_for_nodes(self.sequence[idx_group]):
             node, _, values = answer.split(" | ")
             values = ast.literal_eval(values)
-            for key, value in values:
+            for key, value in values.items():
                 self.current_state[(node, key)] = value
 
     def run(self):
