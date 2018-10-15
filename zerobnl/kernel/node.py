@@ -114,7 +114,7 @@ class Node:
 
             elif act == "STEP":
                 logger.debug("STEP")
-                self.step(value)
+                self.step(float(value))
                 for attr in self.outputs:
                     self._send_attribute_value_to_results_db(attr, opt="OUT")
                 state = {o: self.get_attribute(o) for o in self.outputs}
