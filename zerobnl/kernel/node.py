@@ -5,6 +5,7 @@ import redis
 import pandas as pd
 
 from zerobnl.config import *
+from zerobnl.logs import logger
 
 
 def eval_str_tuple_dict_keys(dict_to_eval):
@@ -45,6 +46,7 @@ class Node:
 
         self.sub.setsockopt_string(zmq.SUBSCRIBE, self.group)
         self.sub.setsockopt_string(zmq.SUBSCRIBE, "ALL")
+        logger.debug("INIT NODE {}".format(self.name))
 
     def set_attribute(self, attr, value):
         """[TO OVERRIDE] The set_attribute() method is called to set an attribute of the model to a given value."""
@@ -61,7 +63,7 @@ class Node:
 
     def exit(self):
         """[TO OVERRIDE (if an exit action is needed)] The exit() method is called to properly close the model"""
-        print("DONE !!!")
+        logger.debug("EXIT NODE {}".format(self.name))
 
     def save_attribute(self, attr):
         """The save_attribute() method can be called to properly store an internal state variable to the results DB"""
@@ -104,6 +106,7 @@ class Node:
             if act == "UPDATE":
                 self._update_inputs(eval_str_tuple_dict_keys(value))
                 self.sender.send_string("{} | Update | Done".format(self.name))
+                logger.debug("UPDATE NODE {}".format(self.name))
 
             elif act == "STEP":
                 self.step(value)
@@ -111,6 +114,7 @@ class Node:
                     self._send_attribute_value_to_results_db(attr, opt="OUT")
                 state = {o: self.get_attribute(o) for o in self.outputs}
                 self.sender.send_string("{} | {} | {}".format(self.name, "STATE", state))
+                logger.debug("STEP NODE {}".format(self.name))
 
             elif act == "END":
                 self.exit()

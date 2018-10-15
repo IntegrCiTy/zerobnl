@@ -98,7 +98,7 @@ class CoSimDeploy(CoSimCreator):
             "up",
             "--build",
             "--no-color",
-            "--abort-on-container-exit",
+            # "--abort-on-container-exit",
         ]
         with open("nodes.log", "w") as outfile:
             subprocess.call(cmd, stdout=outfile)
