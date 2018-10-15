@@ -3,13 +3,13 @@ import json
 import pytest
 from zerobnl.config import *
 
-from zerobnl.simulation import CoSimDeploy
+from zerobnl import CoSim
 from zerobnl.simulation.compose import create_full_yaml
 
 
 @pytest.fixture()
 def create_scenario():
-    sim = CoSimDeploy()
+    sim = CoSim()
 
     sim.create_meta_model("MetaNetw", [("consoA", "kW"), ("consoB", "kW")], [("total", "kW")])
     sim.create_meta_model("MetaProd", [("io", "binary")], [("o_flow", "m3/s"), ("conso", "kW")])
@@ -102,4 +102,3 @@ def test_compose_create_full_yaml():
 def test_run():
     sim = create_scenario()
     sim.run()
-    assert False
