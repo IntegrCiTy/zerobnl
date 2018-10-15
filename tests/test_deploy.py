@@ -15,7 +15,9 @@ def create_scenario():
     sim.create_meta_model("MetaStor", [("i_flow", "m3/s")], [("SoC", "%")])
     sim.create_meta_model("MetaCtrl", [("flow", "m3/s"), ("SoC", "%")], [("io", "binary")])
 
-    sim.create_environment("EnvBase", os.path.join("tests", "wrappers", "basewrap.py"), "DockBase")
+    sim.create_environment(
+        "EnvBase", os.path.join("tests", "wrappers", "basewrap.py"), os.path.join("tests", "dockerfiles", "Dockerfile")
+    )
 
     sim.add_node(
         "Netw",
@@ -57,7 +59,7 @@ def create_scenario():
 
     sim.create_sequence([["ProdA", "ProdB"], ["CtrlA", "CtrlB"], ["StorA", "StorB", "Netw"]])
 
-    sim.create_steps([60]*60)
+    sim.create_steps([60] * 60)
 
     return sim
 
@@ -77,7 +79,7 @@ def test_create_and_fill_orchestrator_folder():
     assert ORCH_CONFIG_FILE in os.listdir(os.path.join(TEMP_FOLDER, ORCH_FOLDER))
     with open(os.path.join(TEMP_FOLDER, ORCH_FOLDER, ORCH_CONFIG_FILE)) as fp:
         config = json.load(fp)
-    assert "sequence" in config.keys()
-    assert config["sequence"] == [2, 2, 3]
-    assert "steps" in config.keys()
-    assert config["steps"] == [60]*60
+    assert "SEQUENCE" in config.keys()
+    assert config["SEQUENCE"] == [2, 2, 3]
+    assert "STEPS" in config.keys()
+    assert config["STEPS"] == [60] * 60

@@ -10,6 +10,8 @@ ORCH_CONFIG_FILE = "config.json"
 ORCH_STR_FILE = 'from zerobnl.kernel import Master\n\nif __name__ == "__main__":\n    orch = Master()\n    orch.run()\n'
 ORCH_HOST_NAME = "orch"
 
+NODE_CONFIG_FILE = "config.json"
+
 DOCKERFILE_FOLDER = "Dockerfiles"
 DOCKER_COMPOSE_FILE = "docker-compose.yml"
 

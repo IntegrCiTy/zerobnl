@@ -8,12 +8,17 @@ class CoSimCreator:
         self.meta_models = {}
         self.environments = {}
 
-        self.nodes = pd.DataFrame(columns=["ToSet", "ToGet", "InitVal", "Wrapper", "Dockerfile", "Files", "Local"])
+        self.nodes = pd.DataFrame(
+            columns=["ToSet", "ToGet", "InitVal", "Parameters", "Wrapper", "Dockerfile", "Files", "Local"]
+        )
 
         self.links = pd.DataFrame(columns=["GetNode", "GetAttr", "SetNode", "SetAttr", "Unit"])
 
         self.sequence = None
         self.steps = None
+
+        self.start = "2000-01-01 00:00:00"
+        self.time_unit = "seconds"
 
     def create_meta_model(self, meta_model, list_of_attrs_to_set, list_of_attrs_to_get):
         """
@@ -34,13 +39,14 @@ class CoSimCreator:
         self.environments[env] = {"Wrapper": wrapper, "Dockerfile": dockerfile}
 
     # TODO: separate parameters from initial values
-    def add_node(self, node, meta, env, init_val=None, files=None, local=False):
+    def add_node(self, node, meta, env, init_val=None, parameters=None, files=None, local=False):
         """
 
         :param node:
         :param meta:
         :param env:
         :param init_val:
+        :param parameters:
         :param files:
         :param local:
         """
@@ -49,6 +55,8 @@ class CoSimCreator:
 
         if not init_val:
             init_val = {}
+        if not parameters:
+            parameters = {}
         if not files:
             files = []
 
@@ -56,6 +64,7 @@ class CoSimCreator:
             self.meta_models[meta]["ToSet"],
             self.meta_models[meta]["ToGet"],
             init_val,
+            parameters,
             self.environments[env]["Wrapper"],
             self.environments[env]["Dockerfile"],
             files,
@@ -140,3 +149,25 @@ class CoSimCreator:
         :param steps:
         """
         self.steps = steps
+
+    def get_node_group(self, node):
+        """
+
+        :param node:
+        :return:
+        """
+        return [node in g for g in self.sequence].index(True)
+
+    def set_start_time(self, start):
+        """
+
+        :param start:
+        """
+        self.start = start
+
+    def set_time_unit(self, time_unit):
+        """
+
+        :param time_unit:
+        """
+        self.time_unit = time_unit

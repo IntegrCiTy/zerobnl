@@ -16,11 +16,8 @@ class Node:
 
     """
 
-    # TODO:remove UNIT bullshit
-    CONFIG_FILE = "config_node.json"
-
     def __init__(self):
-        with open(self.CONFIG_FILE) as fp:
+        with open(NODE_CONFIG_FILE) as fp:
             config = json.load(fp)
 
         self.name = config["NAME"]
