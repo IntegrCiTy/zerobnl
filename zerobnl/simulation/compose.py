@@ -20,7 +20,7 @@ def create_yaml_node_entry(node, wrapper, dockerfile):
         "container_name": node.lower(),
         "command": wrapper,
         "depends_on": [ORCH_HOST_NAME],
-        "build": {"context": node.lower(), "dockerfile": dockerfile},
+        "build": {"context": node.lower(), "dockerfile": dockerfile, "args": {"BRANCH": BRANCH}},
         "volumes": ["{}:/code".format(os.path.join(".", node.lower()))]
     }
     return entry
