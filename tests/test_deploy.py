@@ -62,6 +62,7 @@ def create_scenario():
 
     sim.create_sequence([["ProdA", "ProdB"], ["CtrlA", "CtrlB"], ["StorA", "StorB", "Netw"]])
 
+    sim.set_time_unit("minutes")
     sim.create_steps([60] * 60)
 
     return sim
@@ -97,3 +98,9 @@ def test_compose_create_full_yaml():
     sim = create_scenario()
     create_full_yaml(sim.nodes.index)
     assert DOCKER_COMPOSE_FILE in os.listdir(TEMP_FOLDER)
+
+
+def test_run():
+    sim = create_scenario()
+    sim.run()
+    assert False

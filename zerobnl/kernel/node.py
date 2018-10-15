@@ -61,7 +61,7 @@ class Node:
 
     def exit(self):
         """[TO OVERRIDE (if an exit action is needed)] The exit() method is called to properly close the model"""
-        pass
+        print("DONE !!!")
 
     def save_attribute(self, attr):
         """The save_attribute() method can be called to properly store an internal state variable to the results DB"""

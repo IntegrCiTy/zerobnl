@@ -69,7 +69,7 @@ class CoSimDeploy(CoSimCreator):
 
     def launch_redis_and_docker_network(self):
         if SIM_NET not in [net.name for net in self.docker_client.networks.list()]:
-            self.simulation_docker_network = self.docker_client.networks.create_network(SIM_NET, driver="bridge")
+            self.simulation_docker_network = self.docker_client.networks.create(SIM_NET, driver="bridge", attachable=True)
 
         if REDIS_HOST_NAME in [cont.name for cont in self.docker_client.containers.list()]:
             # TODO: allow for multiple database
@@ -103,7 +103,7 @@ class CoSimDeploy(CoSimCreator):
         with open("nodes.log", "w") as outfile:
             subprocess.call(cmd, stdout=outfile)
 
-    def run_orchestrator_and_nodes(self):
+    def run(self):
         self.create_and_fill_folders_to_mount_into_nodes()
         self.create_and_fill_orchestrator_folder()
         self.launch_redis_and_docker_network()
