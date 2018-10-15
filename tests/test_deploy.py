@@ -4,6 +4,7 @@ import pytest
 from zerobnl.config import *
 
 from zerobnl.simulation import CoSimDeploy
+from zerobnl.simulation.compose import create_full_yaml
 
 
 @pytest.fixture()
@@ -24,7 +25,7 @@ def create_scenario():
         "MetaNetw",
         "EnvBase",
         files=[os.path.join("tests", "models", "network.py")],
-        init_val={"model": "network"},
+        parameters={"model": "network"},
     )
 
     for x in ["A", "B"]:
@@ -33,21 +34,23 @@ def create_scenario():
             "MetaProd",
             "EnvBase",
             files=[os.path.join("tests", "models", "production.py")],
-            init_val={"model": "production", "p_nom": 100.0},
+            init_val={"p_nom": 100.0},
+            parameters={"model": "production"},
         )
         sim.add_node(
             "Stor{}".format(x),
             "MetaStor",
             "EnvBase",
             files=[os.path.join("tests", "models", "storage.py")],
-            init_val={"model": "storage", "capacity": 500.0},
+            init_val={"capacity": 500.0},
+            parameters={"model": "storage"},
         )
         sim.add_node(
             "Ctrl{}".format(x),
             "MetaCtrl",
             "EnvBase",
             files=[os.path.join("tests", "models", "control.py")],
-            init_val={"model": "control"},
+            parameters={"model": "control"},
         )
 
     for x in ["A", "B"]:
@@ -83,3 +86,14 @@ def test_create_and_fill_orchestrator_folder():
     assert config["SEQUENCE"] == [2, 2, 3]
     assert "STEPS" in config.keys()
     assert config["STEPS"] == [60] * 60
+
+
+# TODO: implement proper tests
+def test_launch_redis_and_docker_network():
+    pass
+
+
+def test_compose_create_full_yaml():
+    sim = create_scenario()
+    create_full_yaml(sim.nodes.index)
+    assert DOCKER_COMPOSE_FILE in os.listdir(TEMP_FOLDER)

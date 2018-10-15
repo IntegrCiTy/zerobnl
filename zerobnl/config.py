@@ -13,8 +13,9 @@ ORCH_MAIN_FILE = "main.py"
 ORCH_DOCKERFILE_URL = 'https://raw.githubusercontent.com/IntegrCiTy/zerobnl/{}/Dockerfiles/Dockerfile'.format(BRANCH)
 
 NODE_CONFIG_FILE = "config.json"
+NODE_WRAP_FILE = "wrapper.py"
+NODE_DOCKERFILE = "Dockerfile"
 
-DOCKERFILE_FOLDER = "Dockerfiles"
 DOCKER_COMPOSE_FILE = "docker-compose.yml"
 
 START = "2000-01-01 00:00:00"

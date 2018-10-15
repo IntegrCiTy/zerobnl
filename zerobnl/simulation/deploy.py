@@ -2,10 +2,13 @@ import os
 import json
 import shutil
 import docker
+import subprocess
 import urllib.request
+
 from zerobnl.config import *
 
 from zerobnl.simulation import CoSimCreator
+from zerobnl.simulation.compose import create_full_yaml
 
 
 def generate_and_add_master_file_to_orchestrator_folder(folder):
@@ -28,8 +31,8 @@ class CoSimDeploy(CoSimCreator):
             node_folder = os.path.join(TEMP_FOLDER, node.lower())
             os.makedirs(node_folder)
 
-            shutil.copy(values["Wrapper"], node_folder)
-            shutil.copy(values["Dockerfile"], node_folder)
+            shutil.copy(values["Wrapper"], os.path.join(node_folder, NODE_WRAP_FILE))
+            shutil.copy(values["Dockerfile"], os.path.join(node_folder, NODE_DOCKERFILE))
 
             for file in values["Files"]:
                 shutil.copy(file, os.path.join(TEMP_FOLDER, node.lower()))
@@ -77,5 +80,23 @@ class CoSimDeploy(CoSimCreator):
         while redis.status != "running":
             redis = self.docker_client.containers.get(redis.name)
 
+    @staticmethod
+    def docker_compose_up():
+        cmd = [
+            "docker-compose",
+            "-f",
+            os.path.join(TEMP_FOLDER, DOCKER_COMPOSE_FILE),
+            "up",
+            "--build",
+            "--no-color",
+            "--abort-on-container-exit",
+        ]
+        with open("nodes.log", "w") as outfile:
+            subprocess.call(cmd, stdout=outfile)
+
     def run_orchestrator_and_nodes(self):
-        pass
+        self.create_and_fill_folders_to_mount_into_nodes()
+        self.create_and_fill_orchestrator_folder()
+        self.launch_redis_and_docker_network()
+        create_full_yaml(self.nodes.index)
+        self.docker_compose_up()
