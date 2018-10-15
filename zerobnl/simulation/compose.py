@@ -21,7 +21,7 @@ def create_yaml_node_entry(node):
         "container_name": node.lower(),
         "command": NODE_WRAP_FILE,
         "depends_on": [ORCH_HOST_NAME],
-        "build": {"context": os.path.join(TEMP_FOLDER, node.lower()), "dockerfile": NODE_DOCKERFILE, "args": {"BRANCH": BRANCH}},
+        "build": {"context": node.lower(), "dockerfile": NODE_DOCKERFILE, "args": {"BRANCH": BRANCH}},
         "volumes": ["{}:/code".format(os.path.join(".", node.lower()))]
     }
     return entry
@@ -32,7 +32,7 @@ def create_yaml_orch_entry():
         "container_name": ORCH_HOST_NAME,
         "command": ORCH_MAIN_FILE,
         "ports": ["{0}/tcp:{0}".format(PORT_PUB_SUB), "{0}/tcp:{0}".format(PORT_PUSH_PULL)],
-        "build": {"context": os.path.join(TEMP_FOLDER, ORCH_FOLDER), "dockerfile": "Dockerfile", "args": {"BRANCH": BRANCH}},
+        "build": {"context": ORCH_FOLDER, "dockerfile": "Dockerfile", "args": {"BRANCH": BRANCH}},
         "volumes": ["{}:/code".format(os.path.join(".", ORCH_FOLDER))]
     }
     return entry

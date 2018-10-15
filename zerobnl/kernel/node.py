@@ -115,8 +115,3 @@ class Node:
             elif act == "END":
                 self.exit()
                 break
-
-
-if __name__ == "__main__":
-    node = Node()
-    node.run()

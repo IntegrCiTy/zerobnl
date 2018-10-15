@@ -1,5 +1,6 @@
 import os
 import json
+import redis
 import shutil
 import docker
 import subprocess
@@ -67,18 +68,26 @@ class CoSimDeploy(CoSimCreator):
             json.dump(config, fp)
 
     def launch_redis_and_docker_network(self):
-        self.simulation_docker_network = self.docker_client.networks.create_network(SIM_NET, driver="bridge")
+        if SIM_NET not in [net.name for net in self.docker_client.networks.list()]:
+            self.simulation_docker_network = self.docker_client.networks.create_network(SIM_NET, driver="bridge")
 
-        redis = self.docker_client.containers.run(
-            "redis:4-alpine",
-            hostname=REDIS_HOST_NAME,
-            network=self.simulation_docker_network.name,
-            ports={"{}/tcp".format(REDIS_PORT): REDIS_PORT},
-            detach=True,
-        )
+        if REDIS_HOST_NAME in [cont.name for cont in self.docker_client.containers.list()]:
+            # TODO: allow for multiple database
+            redis_db = redis.StrictRedis(host="localhost", port=REDIS_PORT, db=0)
+            redis_db.flushall()
+        else:
+            redis_db = self.docker_client.containers.run(
+                "redis:4-alpine",
+                name=REDIS_HOST_NAME,
+                hostname=REDIS_HOST_NAME,
+                network=self.simulation_docker_network.name,
+                ports={"{}/tcp".format(REDIS_PORT): REDIS_PORT},
+                auto_remove=True,
+                detach=True,
+            )
 
-        while redis.status != "running":
-            redis = self.docker_client.containers.get(redis.name)
+            while redis_db.status != "running":
+                redis_db = self.docker_client.containers.get(redis_db.name)
 
     @staticmethod
     def docker_compose_up():

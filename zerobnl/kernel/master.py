@@ -52,8 +52,3 @@ class Master:
                 self.make_step(idx_group, step)
 
         self.pub.send_string("{} | {} | {}".format("ALL", "END", 0))
-
-
-if __name__ == "__main__":
-    orch = Master()
-    orch.run()

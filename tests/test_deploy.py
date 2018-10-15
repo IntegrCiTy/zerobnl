@@ -11,7 +11,7 @@ from zerobnl.simulation.compose import create_full_yaml
 def create_scenario():
     sim = CoSimDeploy()
 
-    sim.create_meta_model("MetaNetw", [("consoA", "kW"), ("consoB", "kW")], [])
+    sim.create_meta_model("MetaNetw", [("consoA", "kW"), ("consoB", "kW")], [("total", "kW")])
     sim.create_meta_model("MetaProd", [("io", "binary")], [("conso", "kW"), ("o_flow", "m3/s")])
     sim.create_meta_model("MetaStor", [("i_flow", "m3/s")], [("SoC", "%")])
     sim.create_meta_model("MetaCtrl", [("flow", "m3/s"), ("SoC", "%")], [("io", "binary")])
@@ -42,7 +42,7 @@ def create_scenario():
             "MetaStor",
             "EnvBase",
             files=[os.path.join("tests", "models", "storage.py")],
-            init_val={"capacity": 500.0},
+            init_val={"capacity": 500.0, "SoC": 0.5},
             parameters={"model": "storage"},
         )
         sim.add_node(
