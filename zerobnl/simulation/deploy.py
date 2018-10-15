@@ -43,7 +43,7 @@ class CoSimDeploy(CoSimCreator):
             config = {
                 "NAME": node,
                 "GROUP": "GRP{}".format(self.get_node_group(node)),
-                "LOCAL": values["Dockerfile"],
+                "LOCAL": values["Local"],
                 "INPUT_MAP": {str(key): val for key, val in input_map.items()},
                 "OUTPUTS": [a[0] for a in values["ToGet"]],
                 "INIT_VALUES": values["InitVal"],

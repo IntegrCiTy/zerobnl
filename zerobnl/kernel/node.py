@@ -9,6 +9,7 @@ from zerobnl.logs import logger
 
 
 def eval_str_tuple_dict_keys(dict_to_eval):
+    dict_to_eval = ast.literal_eval(dict_to_eval)
     return {ast.literal_eval(key): val for key, val in dict_to_eval.items()}
 
 
