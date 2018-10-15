@@ -20,7 +20,7 @@ class Node:
     def __init__(self):
         with open(NODE_CONFIG_FILE) as fp:
             config = json.load(fp)
-            logger.debug("LOAD CONFIG NODE {}".format(self.name))
+            logger.debug("LOAD CONFIG NODE")
 
         self.name = config["NAME"]
         self.group = config["GROUP"]
@@ -37,20 +37,22 @@ class Node:
 
         redis_host = {True: "localhost", False: REDIS_HOST_NAME}[self.local]
         self.redis = redis.StrictRedis(host=redis_host, port=REDIS_PORT, db=0)
-        logger.debug("CONNECT REDIS NODE {}".format(self.name))
+        logger.debug("CONNECT REDIS")
 
         self.sub = zmq.Context().socket(zmq.SUB)
         self.sender = zmq.Context().socket(zmq.PUSH)
-        logger.debug("CREATE SUB/SEND NODE {}".format(self.name))
+        logger.debug("CREATE SUB/SEND")
 
         zero_host = {True: "localhost", False: ORCH_HOST_NAME}[self.local]
         self.sub.connect("tcp://{}:{}".format(zero_host, PORT_PUB_SUB))
         self.sender.connect("tcp://{}:{}".format(zero_host, PORT_PUSH_PULL))
-        logger.debug("CONNECT SUB/SEND NODE {}".format(self.name))
+        logger.debug("CONNECT TO SUB/SEND")
 
         self.sub.setsockopt_string(zmq.SUBSCRIBE, self.group)
         self.sub.setsockopt_string(zmq.SUBSCRIBE, "ALL")
-        logger.debug("INIT NODE {}".format(self.name))
+        logger.debug("SUBSCRIBED TO GRP/ALL")
+
+        logger.debug("INIT DONE")
 
     def set_attribute(self, attr, value):
         """[TO OVERRIDE] The set_attribute() method is called to set an attribute of the model to a given value."""
@@ -67,7 +69,7 @@ class Node:
 
     def exit(self):
         """[TO OVERRIDE (if an exit action is needed)] The exit() method is called to properly close the model"""
-        logger.debug("EXIT NODE {}".format(self.name))
+        logger.debug("EXIT")
 
     def save_attribute(self, attr):
         """The save_attribute() method can be called to properly store an internal state variable to the results DB"""
@@ -110,7 +112,7 @@ class Node:
             if act == "UPDATE":
                 self._update_inputs(eval_str_tuple_dict_keys(value))
                 self.sender.send_string("{} | Update | Done".format(self.name))
-                logger.debug("UPDATE NODE {}".format(self.name))
+                logger.debug("UPDATE")
 
             elif act == "STEP":
                 self.step(value)
@@ -118,7 +120,7 @@ class Node:
                     self._send_attribute_value_to_results_db(attr, opt="OUT")
                 state = {o: self.get_attribute(o) for o in self.outputs}
                 self.sender.send_string("{} | {} | {}".format(self.name, "STATE", state))
-                logger.debug("STEP NODE {}".format(self.name))
+                logger.debug("STEP")
 
             elif act == "END":
                 self.exit()
