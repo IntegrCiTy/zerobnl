@@ -56,7 +56,7 @@ class Node:
 
     def get_attribute(self, attr):
         """[TO OVERRIDE] The get_attribute() method is called to get the value of an attribute of the model."""
-        logger.debug("SET ATTRIBUTE {}".format(attr))
+        logger.debug("GET ATTRIBUTE {}".format(attr))
 
     def step(self, value):
         """[TO OVERRIDE] The step() method is called to make a step with the model with a given step size and unit."""
@@ -101,6 +101,7 @@ class Node:
             self.set_attribute(attr, value)
 
         self.sender.send_string("{}".format(self.name))
+        logger.debug("INIT VALUES DONE")
 
         while True:
             string = self.sub.recv_string()
