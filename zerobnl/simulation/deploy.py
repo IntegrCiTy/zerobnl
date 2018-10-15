@@ -24,7 +24,6 @@ class CoSimDeploy(CoSimCreator):
         if os.path.exists(TEMP_FOLDER) and os.path.isdir(TEMP_FOLDER):
             shutil.rmtree(TEMP_FOLDER)
 
-        # TODO: put everything in a single json file
         for node, values in self.nodes.iterrows():
             node_folder = os.path.join(TEMP_FOLDER, node.lower())
             os.makedirs(node_folder)

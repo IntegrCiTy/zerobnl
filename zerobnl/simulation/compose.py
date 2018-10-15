@@ -31,7 +31,7 @@ def create_yaml_orch_entry():
         "container_name": ORCH_HOST_NAME,
         "command": ORCH_MAIN_FILE,
         "ports": ["{0}/tcp:{0}".format(PORT_PUB_SUB), "{0}/tcp:{0}".format(PORT_PUSH_PULL)],
-        "build": {"context": ORCH_FOLDER, "dockerfile": "Dockerfile"},
+        "build": {"context": ORCH_FOLDER, "dockerfile": "Dockerfile", "args": {"BRANCH": BRANCH}},
         "volumes": ["{}:/code".format(os.path.join(".", ORCH_FOLDER))]
     }
     return entry
