@@ -12,9 +12,9 @@ def create_scenario():
     sim = CoSimDeploy()
 
     sim.create_meta_model("MetaNetw", [("consoA", "kW"), ("consoB", "kW")], [("total", "kW")])
-    sim.create_meta_model("MetaProd", [("io", "binary")], [("conso", "kW"), ("o_flow", "m3/s")])
+    sim.create_meta_model("MetaProd", [("io", "binary")], [("o_flow", "m3/s"), ("conso", "kW")])
     sim.create_meta_model("MetaStor", [("i_flow", "m3/s")], [("SoC", "%")])
-    sim.create_meta_model("MetaCtrl", [("flow", "m3/s"), ("SoC", "%")], [("io", "binary")])
+    sim.create_meta_model("MetaCtrl", [("SoC", "%")], [("io", "binary")])
 
     sim.create_environment(
         "EnvBase", os.path.join("tests", "wrappers", "basewrap.py"), os.path.join("tests", "dockerfiles", "Dockerfile")
@@ -28,13 +28,13 @@ def create_scenario():
         parameters={"model": "network"},
     )
 
-    for x in ["A", "B"]:
+    for x, p_nom, capa, soc_init in zip(["A", "B"], [100.0, 120.0], [500.0, 800.0], [0.5, 0.2]):
         sim.add_node(
             "Prod{}".format(x),
             "MetaProd",
             "EnvBase",
             files=[os.path.join("tests", "models", "production.py")],
-            init_val={"p_nom": 100.0},
+            init_val={"p_nom": p_nom},
             parameters={"model": "production"},
         )
         sim.add_node(
@@ -42,7 +42,7 @@ def create_scenario():
             "MetaStor",
             "EnvBase",
             files=[os.path.join("tests", "models", "storage.py")],
-            init_val={"capacity": 500.0, "SoC": 0.5},
+            init_val={"capacity": capa, "SoC": soc_init},
             parameters={"model": "storage"},
         )
         sim.add_node(
@@ -56,14 +56,13 @@ def create_scenario():
     for x in ["A", "B"]:
         sim.add_link("Prod{}".format(x), "conso", "Netw", "conso{}".format(x))
         sim.add_link("Prod{}".format(x), "o_flow", "Stor{}".format(x), "i_flow")
-        sim.add_link("Prod{}".format(x), "o_flow", "Ctrl{}".format(x), "flow")
         sim.add_link("Stor{}".format(x), "SoC", "Ctrl{}".format(x), "SoC")
         sim.add_link("Ctrl{}".format(x), "io", "Prod{}".format(x), "io")
 
     sim.create_sequence([["ProdA", "ProdB"], ["CtrlA", "CtrlB"], ["StorA", "StorB", "Netw"]])
 
     sim.set_time_unit("minutes")
-    sim.create_steps([60] * 60)
+    sim.create_steps([60] * 24)
 
     return sim
 
@@ -86,7 +85,7 @@ def test_create_and_fill_orchestrator_folder():
     assert "SEQUENCE" in config.keys()
     assert config["SEQUENCE"] == [2, 2, 3]
     assert "STEPS" in config.keys()
-    assert config["STEPS"] == [60] * 60
+    assert config["STEPS"] == [60] * 24
 
 
 # TODO: implement proper tests

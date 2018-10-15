@@ -9,7 +9,7 @@ class MyNode(Node):
 
     def get_attribute(self, attr):
         super().get_attribute(attr)
-        getattr(self.model, attr)
+        return getattr(self.model, attr)
 
     def set_attribute(self, attr, value):
         super().set_attribute(attr, value)

@@ -1,6 +1,3 @@
-import numpy as np
-
-
 class Model:
     def __init__(self):
         self.capacity = 0.0
@@ -10,5 +7,5 @@ class Model:
         self.SoC = 0.0
 
     def step(self, value):
-        self.SoC -= value * np.random.normal(200, 10) / 60
-        self.SoC += value * self.i_flow
+        self.SoC += (self.i_flow - 75) / self.capacity
+        self.SoC = max(0, min(self.SoC, 1))
