@@ -88,6 +88,7 @@ class Node:
 
         :param state:
         """
+        logger.debug("INPUTS {}".format(state))
         for key, value in state.items():
             if key in self.input_map:
                 self.set_attribute(self.input_map[key], value)
@@ -119,6 +120,7 @@ class Node:
                 for attr in self.outputs:
                     self._send_attribute_value_to_results_db(attr, opt="OUT")
                 state = {o: self.get_attribute(o) for o in self.outputs}
+                logger.debug("STATE {}".format(state))
                 self.sender.send_string("{} | {} | {}".format(self.name, "STATE", state))
                 logger.debug("STEP DONE")
 
