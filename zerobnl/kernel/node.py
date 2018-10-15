@@ -52,16 +52,17 @@ class Node:
 
     def set_attribute(self, attr, value):
         """[TO OVERRIDE] The set_attribute() method is called to set an attribute of the model to a given value."""
-        pass
+        logger.debug("SET ATTRIBUTE {} to {}".format(attr, value))
 
     def get_attribute(self, attr):
         """[TO OVERRIDE] The get_attribute() method is called to get the value of an attribute of the model."""
-        pass
+        logger.debug("SET ATTRIBUTE {}".format(attr))
 
     def step(self, value):
         """[TO OVERRIDE] The step() method is called to make a step with the model with a given step size and unit."""
         self.real_time += pd.DateOffset(**{self.time_unit: value})
         self.simu_time += value
+        logger.debug("NEW TIME")
 
     def exit(self):
         """[TO OVERRIDE (if an exit action is needed)] The exit() method is called to properly close the model"""
