@@ -27,7 +27,7 @@ class Node:
         self.init_values = config["INIT_VALUES"]
         self.parameters = config["PARAMETERS"]
 
-        self.real_time = config["START"]
+        self.real_time = pd.to_datetime(config["START"])
         self.time_unit = config["TIME_UNIT"]
         self.simu_time = 0.0
 
