@@ -2,14 +2,14 @@ import os
 import json
 import shutil
 import docker
+import urllib.request
 from zerobnl.config import *
 
 from zerobnl.simulation import CoSimCreator
 
 
 def generate_and_add_master_file_to_orchestrator_folder(folder):
-    fname = "main.py"
-    with open(os.path.join(folder, fname), "w") as f:
+    with open(os.path.join(folder, ORCH_MAIN_FILE), "w") as f:
         f.write(ORCH_STR_FILE)
 
 
@@ -57,6 +57,8 @@ class CoSimDeploy(CoSimCreator):
         os.makedirs(orch_folder)
 
         generate_and_add_master_file_to_orchestrator_folder(orch_folder)
+
+        filename, headers = urllib.request.urlretrieve(ORCH_DOCKERFILE_URL, filename=os.path.join(orch_folder, "Dockerfile"))
 
         config = {"SEQUENCE": [len(group) for group in self.sequence], "STEPS": self.steps}
         with open(os.path.join(orch_folder, ORCH_CONFIG_FILE), "w") as fp:

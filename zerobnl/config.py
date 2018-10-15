@@ -9,6 +9,8 @@ ORCH_FOLDER = "orch"
 ORCH_CONFIG_FILE = "config.json"
 ORCH_STR_FILE = 'from zerobnl.kernel import Master\n\nif __name__ == "__main__":\n    orch = Master()\n    orch.run()\n'
 ORCH_HOST_NAME = "orch"
+ORCH_MAIN_FILE = "main.py"
+ORCH_DOCKERFILE_URL = ""
 
 NODE_CONFIG_FILE = "config.json"
 
