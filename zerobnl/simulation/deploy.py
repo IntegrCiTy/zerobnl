@@ -7,6 +7,7 @@ import subprocess
 import urllib.request
 
 from zerobnl.config import *
+from zerobnl.logs import logger
 
 from zerobnl.simulation import CoSimCreator
 from zerobnl.simulation.compose import create_full_yaml
@@ -22,7 +23,6 @@ class CoSimDeploy(CoSimCreator):
         super().__init__()
 
         self.docker_client = docker.from_env()
-        self.simulation_docker_network = None
 
     def create_and_fill_folders_to_mount_into_nodes(self):
         if os.path.exists(TEMP_FOLDER) and os.path.isdir(TEMP_FOLDER):
@@ -69,7 +69,7 @@ class CoSimDeploy(CoSimCreator):
 
     def launch_redis_and_docker_network(self):
         if SIM_NET not in [net.name for net in self.docker_client.networks.list()]:
-            self.simulation_docker_network = self.docker_client.networks.create(SIM_NET, driver="bridge", attachable=True)
+            self.docker_client.networks.create(SIM_NET, driver="bridge", attachable=True)
 
         if REDIS_HOST_NAME in [cont.name for cont in self.docker_client.containers.list()]:
             # TODO: allow for multiple database
@@ -80,7 +80,7 @@ class CoSimDeploy(CoSimCreator):
                 "redis:4-alpine",
                 name=REDIS_HOST_NAME,
                 hostname=REDIS_HOST_NAME,
-                network=self.simulation_docker_network.name,
+                network=SIM_NET,
                 ports={"{}/tcp".format(REDIS_PORT): REDIS_PORT},
                 auto_remove=True,
                 detach=True,
@@ -105,7 +105,12 @@ class CoSimDeploy(CoSimCreator):
 
     def run(self):
         self.create_and_fill_folders_to_mount_into_nodes()
+        logger.debug("CREATE NODES")
         self.create_and_fill_orchestrator_folder()
+        logger.debug("CREATE ORCH")
         self.launch_redis_and_docker_network()
+        logger.debug("LAUNCH NETWORK+REDIS")
         create_full_yaml(self.nodes.index)
+        logger.debug("DUMP YAML")
         self.docker_compose_up()
+        logger.debug("FINISHED PROCESS")

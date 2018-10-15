@@ -20,6 +20,7 @@ class Node:
     def __init__(self):
         with open(NODE_CONFIG_FILE) as fp:
             config = json.load(fp)
+            logger.debug("LOAD CONFIG NODE {}".format(self.name))
 
         self.name = config["NAME"]
         self.group = config["GROUP"]
@@ -36,13 +37,16 @@ class Node:
 
         redis_host = {True: "localhost", False: REDIS_HOST_NAME}[self.local]
         self.redis = redis.StrictRedis(host=redis_host, port=REDIS_PORT, db=0)
+        logger.debug("CONNECT REDIS NODE {}".format(self.name))
 
         self.sub = zmq.Context().socket(zmq.SUB)
         self.sender = zmq.Context().socket(zmq.PUSH)
+        logger.debug("CREATE SUB/SEND NODE {}".format(self.name))
 
         zero_host = {True: "localhost", False: ORCH_HOST_NAME}[self.local]
         self.sub.connect("tcp://{}:{}".format(zero_host, PORT_PUB_SUB))
         self.sender.connect("tcp://{}:{}".format(zero_host, PORT_PUSH_PULL))
+        logger.debug("CONNECT SUB/SEND NODE {}".format(self.name))
 
         self.sub.setsockopt_string(zmq.SUBSCRIBE, self.group)
         self.sub.setsockopt_string(zmq.SUBSCRIBE, "ALL")
