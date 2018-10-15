@@ -8,11 +8,6 @@ from zerobnl.config import *
 from zerobnl.logs import logger
 
 
-def eval_str_tuple_dict_keys(dict_to_eval):
-    logger.debug("TYPE {}".format(type(dict_to_eval)))
-    return {ast.literal_eval(key): val for key, val in dict_to_eval.items()}
-
-
 class Node:
     """
 
@@ -27,7 +22,7 @@ class Node:
         self.group = config["GROUP"]
         self.local = config["LOCAL"]
 
-        self.input_map = eval_str_tuple_dict_keys(config["INPUT_MAP"])
+        self.input_map = ast.literal_eval(config["INPUT_MAP"])
         self.outputs = config["OUTPUTS"]
         self.init_values = config["INIT_VALUES"]
         self.parameters = config["PARAMETERS"]
@@ -111,17 +106,19 @@ class Node:
             grp, act, value = string.split(" | ")
 
             if act == "UPDATE":
-                self._update_inputs(eval_str_tuple_dict_keys(value))
-                self.sender.send_string("{} | Update | Done".format(self.name))
                 logger.debug("UPDATE")
+                self._update_inputs(ast.literal_eval(value))
+                self.sender.send_string("{} | Update | Done".format(self.name))
+                logger.debug("UPDATE DONE")
 
             elif act == "STEP":
+                logger.debug("STEP")
                 self.step(value)
                 for attr in self.outputs:
                     self._send_attribute_value_to_results_db(attr, opt="OUT")
                 state = {o: self.get_attribute(o) for o in self.outputs}
                 self.sender.send_string("{} | {} | {}".format(self.name, "STATE", state))
-                logger.debug("STEP")
+                logger.debug("STEP DONE")
 
             elif act == "END":
                 self.exit()
