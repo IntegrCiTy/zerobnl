@@ -5,5 +5,5 @@ class Model:
 
         self.total = 0.0
 
-    def step(self, _):
+    def step(self, value):
         self.total = self.consoA + self.consoB

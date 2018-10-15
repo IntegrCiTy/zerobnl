@@ -7,6 +7,6 @@ class Model:
         self.conso = 0.0
         self.o_flow = 0.0
 
-    def step(self, _):
+    def step(self, value):
         self.conso = self.io * self.p_nom
         self.o_flow = 0.9*self.o_flow

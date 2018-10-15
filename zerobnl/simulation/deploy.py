@@ -38,13 +38,11 @@ class CoSimDeploy(CoSimCreator):
             for file in values["Files"]:
                 shutil.copy(file, os.path.join(TEMP_FOLDER, node.lower()))
 
-            input_map = self.get_input_map(node)
-
             config = {
                 "NAME": node,
                 "GROUP": "GRP{}".format(self.get_node_group(node)),
                 "LOCAL": values["Local"],
-                "INPUT_MAP": {str(key): val for key, val in input_map.items()},
+                "INPUT_MAP": str(self.get_input_map(node)),
                 "OUTPUTS": [a[0] for a in values["ToGet"]],
                 "INIT_VALUES": values["InitVal"],
                 "PARAMETERS": values["Parameters"],
@@ -61,7 +59,7 @@ class CoSimDeploy(CoSimCreator):
 
         generate_and_add_master_file_to_orchestrator_folder(orch_folder)
 
-        filename, headers = urllib.request.urlretrieve(ORCH_DOCKERFILE_URL, filename=os.path.join(orch_folder, "Dockerfile"))
+        urllib.request.urlretrieve(ORCH_DOCKERFILE_URL, filename=os.path.join(orch_folder, "Dockerfile"))
 
         config = {"SEQUENCE": [len(group) for group in self.sequence], "STEPS": self.steps}
         with open(os.path.join(orch_folder, ORCH_CONFIG_FILE), "w") as fp:
