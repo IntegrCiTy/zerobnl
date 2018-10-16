@@ -34,7 +34,7 @@ def create_scenario():
             "MetaProd",
             "EnvBase",
             files=[os.path.join("tests", "models", "production.py")],
-            init_val={"p_nom": p_nom},
+            init_values={"p_nom": p_nom},
             parameters={"model": "production"},
         )
         sim.add_node(
@@ -42,7 +42,7 @@ def create_scenario():
             "MetaStor",
             "EnvBase",
             files=[os.path.join("tests", "models", "storage.py")],
-            init_val={"capacity": capa, "SoC": soc_init},
+            init_values={"capacity": capa, "SoC": soc_init},
             parameters={"model": "storage"},
         )
         sim.add_node(

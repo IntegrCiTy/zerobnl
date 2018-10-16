@@ -110,10 +110,22 @@ class CoSimDeploy(CoSimCreator):
         logger.debug("CREATE ORCH")
         self.launch_redis_and_docker_network()
         logger.debug("LAUNCH NETWORK+REDIS")
-        create_full_yaml(self.nodes.index)
+        nodes_to_run = self.nodes.loc[self.nodes["Local"] == False].index
+        create_full_yaml(nodes_to_run)
         logger.debug("DUMP YAML")
+        local_nodes = self.nodes.loc[self.nodes["Local"] == True]
+
+        for node in local_nodes.index:
+            logger.warning(
+                "Local node to run in [{}] > python {}".format(os.path.join(TEMP_FOLDER, node.lower()), NODE_WRAP_FILE)
+            )
+
+        if len(local_nodes) > 0:
+            logger.info("Waiting for local nodes to run...")
+
         start = time()
         self.docker_compose_up()
         stop = time() - start
+
         logger.info("Simulation finished in {} min and {} sec".format(int(stop // 60), int(round(stop % 60, 0))))
         logger.debug("FINISHED PROCESS")
