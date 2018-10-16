@@ -39,13 +39,13 @@ class CoSimCreator:
         self.environments[env] = {"Wrapper": wrapper, "Dockerfile": dockerfile}
 
     # TODO: separate parameters from initial values
-    def add_node(self, node, meta, env, init_val=None, parameters=None, files=None, local=False):
+    def add_node(self, node, meta, env, init_values=None, parameters=None, files=None, local=False):
         """
 
         :param node:
         :param meta:
         :param env:
-        :param init_val:
+        :param init_values:
         :param parameters:
         :param files:
         :param local:
@@ -53,8 +53,8 @@ class CoSimCreator:
         assert meta in self.meta_models, "Meta-model {} is not defined !".format(meta)
         assert env in self.environments, "Environment {} is not defined !".format(env)
 
-        if not init_val:
-            init_val = {}
+        if not init_values:
+            init_values = {}
         if not parameters:
             parameters = {}
         if not files:
@@ -63,7 +63,7 @@ class CoSimCreator:
         self.nodes.loc[node] = [
             self.meta_models[meta]["ToSet"],
             self.meta_models[meta]["ToGet"],
-            init_val,
+            init_values,
             parameters,
             self.environments[env]["Wrapper"],
             self.environments[env]["Dockerfile"],

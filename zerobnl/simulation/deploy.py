@@ -6,6 +6,8 @@ import docker
 import subprocess
 import urllib.request
 
+from time import time
+
 from zerobnl.config import *
 from zerobnl.logs import logger
 
@@ -110,5 +112,8 @@ class CoSimDeploy(CoSimCreator):
         logger.debug("LAUNCH NETWORK+REDIS")
         create_full_yaml(self.nodes.index)
         logger.debug("DUMP YAML")
+        start = time()
         self.docker_compose_up()
+        stop = time() - start
+        logger.info("Simulation finished in {} min and {} sec".format(int(stop // 60), int(round(stop % 60, 0))))
         logger.debug("FINISHED PROCESS")
