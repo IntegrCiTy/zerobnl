@@ -93,7 +93,7 @@ class Node:
         for key, value in state.items():
             if key in self.input_map:
                 self.set_attribute(self.input_map[key], value)
-                self._send_attribute_value_to_results_db(self.input_map[key], opt="IN")
+                self._send_attribute_value_to_results_db(self.input_map[key], value, opt="IN")
 
     def run(self):
         """
