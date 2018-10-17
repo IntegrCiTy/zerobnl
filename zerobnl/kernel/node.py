@@ -72,13 +72,14 @@ class Node:
         """The save_attribute() method can be called to properly store an internal state variable to the results DB"""
         self._send_attribute_value_to_results_db(attr, opt="X")
 
-    def _send_attribute_value_to_results_db(self, attr, opt):
+    def _send_attribute_value_to_results_db(self, attr, value=None, opt="IN"):
         """
 
         :param attr:
         :param opt:
         """
-        value = self.get_attribute(attr)
+        if not value:
+            value = self.get_attribute(attr)
         key = "{}||{}||{}".format(opt, self.name, attr)
         self.redis.rpush(key, value)
         self.redis.rpush(key + "||time", self.real_time)
@@ -117,9 +118,9 @@ class Node:
             elif act == "STEP":
                 logger.debug("STEP")
                 self.step(float(value))
-                for attr in self.outputs:
-                    self._send_attribute_value_to_results_db(attr, opt="OUT")
                 state = {o: self.get_attribute(o) for o in self.outputs}
+                for attr, value in state.items():
+                    self._send_attribute_value_to_results_db(attr, value, opt="OUT")
                 logger.debug("STATE {}".format(state))
                 self.sender.send_string("{} | {} | {}".format(self.name, "STATE", state))
                 logger.debug("STEP DONE")
