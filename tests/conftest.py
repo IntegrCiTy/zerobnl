@@ -17,6 +17,5 @@ def pytest_sessionfinish(session, exitstatus):
 def clean_containers():
     client = docker.from_env()
     for c in client.containers.list():
-        print(c.name)
         if TEMP_FOLDER.lower() in c.name:
             c.kill()
