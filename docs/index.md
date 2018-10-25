@@ -4,7 +4,7 @@ ZerOBNL is a distributed co-simulation platform based on [ZeroMQ](http://zeromq.
 
 Getting started:
 - [Installation notes](./install.md)
-- [Minimal example](https://github.com/IntegrCiTy/zerobnl/blob/master/examples/MinimalExample.ipynb)
+- [Minimal example](https://github.com/IntegrCiTy/zerobnl/blob/master/examples/MinimalExample/MinimalExample.ipynb)
 - [Documentation](./docu.md)
 - [FAQ](./faq.md)
 
