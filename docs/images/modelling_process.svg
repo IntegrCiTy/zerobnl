@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1174.778"
+   height="674.99951"
+   viewBox="0 0 310.82667 178.59362"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="modelling_process.svg"
+   inkscape:export-filename="/home/pablo/Projects/UseZerOBNL/figures/modelling_process.png"
+   inkscape:export-xdpi="150"
+   inkscape:export-ydpi="150">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4929"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-9"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4929-3"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="538.08149"
+     inkscape:cy="488.41694"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     units="px"
+     showguides="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1056"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     fit-margin-top="25"
+     fit-margin-left="25"
+     fit-margin-right="25"
+     fit-margin-bottom="25">
+    <inkscape:grid
+       type="xygrid"
+       id="grid10"
+       originx="-214.29367"
+       originy="1.9843231" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-214.29367,-120.39068)">
+    <rect
+       id="rect12-1-7-3-7"
+       width="121.70825"
+       height="84.66642"
+       x="127.66673"
+       y="-492.12476"
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#4b4b4b;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="5.2916679"
+       transform="rotate(90)" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4636"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,0,32.416659)"><flowRegion
+         id="flowRegion4638"><rect
+           id="rect4640"
+           width="460"
+           height="440"
+           x="680"
+           y="300" /></flowRegion><flowPara
+         id="flowPara4642" /></flowRoot>    <rect
+       id="rect12-1-7-3"
+       width="121.70827"
+       height="84.666565"
+       x="127.66672"
+       y="-402.16656"
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#4b4b4b;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="5.2916679"
+       transform="rotate(90)" />
+    <rect
+       id="rect12-1-75"
+       width="121.70827"
+       height="84.666916"
+       x="127.66672"
+       y="-312.20859"
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#4b4b4b;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="5.2916679"
+       transform="rotate(90)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="269.61493"
+       y="146.36055"
+       id="text4646-7-5-3"><tspan
+         sodipodi:role="line"
+         id="tspan4644-8-0-5"
+         x="269.61493"
+         y="146.36055"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332">MODELLING</tspan><tspan
+         sodipodi:role="line"
+         x="269.61493"
+         y="159.58972"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan4648-4-3-6">SYSTEM</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="359.57288"
+       y="146.36055"
+       id="text4646-7-5-6-2"><tspan
+         sodipodi:role="line"
+         id="tspan4644-8-0-1-9"
+         x="359.57288"
+         y="146.36055"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332">CONFIGURING</tspan><tspan
+         sodipodi:role="line"
+         x="359.57288"
+         y="159.58972"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan4648-4-3-0-1">CO-SIMULATION</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="450.06006"
+       y="146.36055"
+       id="text4646-7-5-6-6-2"><tspan
+         sodipodi:role="line"
+         id="tspan4644-8-0-1-3-7"
+         x="450.06006"
+         y="146.36055"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332">RUNNING</tspan><tspan
+         sodipodi:role="line"
+         x="450.06006"
+         y="159.58972"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan4648-4-3-0-2-0">SIMULATION</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#Arrow1Mend-9)"
+       d="m 222.25001,180.5833 15.87499,1e-5 63.5,52.91667 h 10.58334 L 317.5,180.58331 h 10.58334 l 63.5,52.91667 h 10.58333 l 5.29167,-52.91667 h 10.58333 l 63.5,52.91667 h 31.75"
+       id="path4918-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccc" />
+    <rect
+       id="rect12-62-0"
+       width="74.083344"
+       height="21.166662"
+       x="412.74979"
+       y="169.99997"
+       style="fill:#c9e0f9;fill-opacity:1;stroke:#104886;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="5.2916679" />
+    <rect
+       id="rect12-9-6"
+       width="74.083344"
+       height="21.166674"
+       x="412.74979"
+       y="222.91656"
+       style="fill:#e1e1e1;fill-opacity:1;stroke:#4b4b4b;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="5.2916679" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="449.83109"
+       y="183.75832"
+       id="text4646-3-5-2"><tspan
+         sodipodi:role="line"
+         x="449.83109"
+         y="183.75832"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan4648-0-92-6">Run simulation</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="449.83109"
+       y="236.67493"
+       id="text4646-3-28-1"><tspan
+         sodipodi:role="line"
+         x="449.83109"
+         y="236.67493"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan4648-0-97-8">Analyse results</tspan></text>
+    <rect
+       id="rect12-7-9"
+       width="74.083344"
+       height="21.166674"
+       x="322.79166"
+       y="170.00002"
+       style="fill:#f9c9c9;fill-opacity:1;stroke:#861010;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="5.2916679" />
+    <rect
+       id="rect12-5-2"
+       width="74.083344"
+       height="21.166664"
+       x="322.79166"
+       y="196.45834"
+       style="fill:#c9e0f9;fill-opacity:1;stroke:#104886;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="5.2916679" />
+    <rect
+       id="rect12-35-0"
+       width="74.083344"
+       height="21.166674"
+       x="322.79166"
+       y="222.91667"
+       style="fill:#c9e0f9;fill-opacity:1;stroke:#104886;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="5.2916679" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="359.87299"
+       y="183.75836"
+       id="text4646-3-7-2"><tspan
+         sodipodi:role="line"
+         x="359.87299"
+         y="183.75836"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan4648-0-9-3">Create wrappers</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="359.87299"
+       y="210.21669"
+       id="text4646-3-2-7"><tspan
+         sodipodi:role="line"
+         x="359.87299"
+         y="210.21669"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan4648-0-0-5">Define abstractions</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="359.87299"
+       y="236.67502"
+       id="text4646-3-23-9"><tspan
+         sodipodi:role="line"
+         x="359.87299"
+         y="236.67502"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan4648-0-7-2">Create co-sim graph</tspan></text>
+    <rect
+       id="rect12-2"
+       width="74.083336"
+       height="21.166666"
+       x="232.83342"
+       y="170"
+       style="fill:#e1e1e1;fill-opacity:1;stroke:#4b4b4b;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="5.2916679" />
+    <rect
+       id="rect12-3-8"
+       width="74.083344"
+       height="21.166666"
+       x="232.83342"
+       y="196.45833"
+       style="fill:#e1e1e1;fill-opacity:1;stroke:#4b4b4b;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="5.2916679" />
+    <rect
+       id="rect12-6-9"
+       width="74.083344"
+       height="21.166664"
+       x="232.83342"
+       y="222.91666"
+       style="fill:#e1e1e1;fill-opacity:1;stroke:#4b4b4b;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="5.2916679" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="269.91483"
+       y="183.75835"
+       id="text4646-3-73"><tspan
+         sodipodi:role="line"
+         x="269.91483"
+         y="183.75835"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan4648-0-6">Partition system</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="269.91483"
+       y="210.21667"
+       id="text4646-3-6-1"><tspan
+         sodipodi:role="line"
+         x="269.91483"
+         y="210.21667"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan4648-0-2-2">Choose tools</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="269.91483"
+       y="236.67502"
+       id="text4646-3-61-9"><tspan
+         sodipodi:role="line"
+         x="269.91483"
+         y="236.67502"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan4648-0-8-3">Implement models</tspan></text>
+    <rect
+       id="rect12-9-6-1"
+       width="74.083344"
+       height="21.166674"
+       x="412.74969"
+       y="196.45822"
+       style="fill:#c9e0f9;fill-opacity:1;stroke:#104886;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="5.2916679" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="449.83102"
+       y="210.21658"
+       id="text4646-3-28-1-9"><tspan
+         sodipodi:role="line"
+         x="449.83102"
+         y="210.21658"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan4648-0-97-8-4">Access results</tspan></text>
+    <rect
+       id="rect12-5-2-7"
+       width="10.583281"
+       height="10.583265"
+       x="232.83339"
+       y="259.95837"
+       style="fill:#c9e0f9;fill-opacity:1;stroke:#104886;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="0" />
+    <rect
+       id="rect12-5-2-7-8"
+       width="10.583281"
+       height="10.583264"
+       x="232.83339"
+       y="281.125"
+       style="fill:#f9c9c9;fill-opacity:1;stroke:#861010;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       ry="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="248.17909"
+       y="268.41003"
+       id="text4646-4"><tspan
+         sodipodi:role="line"
+         x="248.17909"
+         y="268.41003"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:start;text-anchor:start;stroke-width:0.26458332"
+         id="tspan4648-03">using the ZerOBNL Python API (trough Jupyter Notebook)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="248.802"
+       y="289.04749"
+       id="text4646-4-6"><tspan
+         sodipodi:role="line"
+         x="248.802"
+         y="289.04749"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:start;text-anchor:start;stroke-width:0.26458332"
+         id="tspan4648-03-1">with the ZerOBNL ClientNode classe (and associated Dockerfile)</tspan></text>
+  </g>
+</svg>
