@@ -16,13 +16,17 @@ Co-simulation can be defined as the coupling of simulation tools (also referred 
 - Modelling sub-systems
 - Database (see our [article](https://www.researchgate.net/publication/327754115_FIRST_STEPS_TOWARDS_LINKING_SEMANTIC_3D_CITY_MODELLING_AND_MULTI-DOMAIN_CO-SIMULATION_FOR_ENERGY_MODELLING_AT_URBAN_SCALE?_iepl%5BviewId%5D=nYBAo5z65FFelGu9sKV1UGEe&_iepl%5Bcontexts%5D%5B0%5D=projectUpdatesLog&_iepl%5BtargetEntityId%5D=PB%3A327754115&_iepl%5BinteractionType%5D=publicationTitle) for that)
 
-## How does it works for ZerOBNL ?
+## How does ZerOBNL works ?
 
 <img src="./images/structure.png" alt="Software structure" style="width: 500px;"/>
 
 <img src="./images/communication.png" alt="Communication process" style="width: 500px;"/>
 
 The communication between 
+
+<img src="./images/connections.png" alt="Communication schema" style="width: 500px;"/>
+
+
 
 ## How to model complex systems with ZerOBNL ?
 
@@ -88,7 +92,7 @@ sim.add_link("NodeA", "sink_flow", "NodeB", "srce_flow")
 
 1. Define simulation sequence
 
-<img src="./images/modelling_process.png" alt="Simulation sequence" style="width: 500px;"/>
+<img src="./images/sequence.png" alt="Simulation sequence" style="width: 500px;"/>
 
 ```python
 sim.create_sequence([["NodeA", "NodeB"], ["NodeC", "NodeD"]])
