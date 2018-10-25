@@ -6,5 +6,6 @@ Getting started:
 - [Installation notes](./install.md)
 - [Minimal example](https://github.com/IntegrCiTy/zerobnl/blob/master/examples/MinimalExample.ipynb)
 - [Documentation](./docu.md)
+- [FAQ](./faq.md)
 
 [ABOUT](./about.md)

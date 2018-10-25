@@ -9,7 +9,7 @@ Co-simulation can be defined as the coupling of simulation tools (also referred 
 #### What ZerOBNL can do:
 - Distributed simulation (on a real cluster or just connecting two computers)
 - Cross-platform simulation (Linux, Windows and/or MacOS in the same simulation)
-- Simplified deployment process
+- Simplified deployment process (based on Docker containers)
 
 #### What ZerOBNL can not do:
 - Coffee
@@ -20,13 +20,21 @@ Co-simulation can be defined as the coupling of simulation tools (also referred 
 
 <img src="./images/structure.png" alt="Software structure" style="width: 500px;"/>
 
+We recommend to use [Jupyter Notebook](http://jupyter.org/) to interact with ZerOBNL. 
+
+Jupyter is a web-application for interactive computing. It allows to combine live code, visualisations (images, diagrams and results) and narrative text. Such features make it a valuable trade-off between graphical and pure code based interface bringing together the ease of use and the high versatility of a programming language. This application enable the creation of rich and interactive outputs and easily shareable notebooks (and display via GitHub/GitLab). 
+
+Jupyter is fully free and open source, heavily modular and customizable, and based on open standards. It provides a simplified access to the general purpose and well documented Python (and other various programming languages) ecosystem for data mining and management, plotting, etc. 
+
+Such features make Jupyter a good choice to define co-simulation and analyse results in the same environment of development.
+
 <img src="./images/communication.png" alt="Communication process" style="width: 500px;"/>
 
-The communication between 
+The communication between the *Master* and the *Nodes* goes through two different [channels](http://zguide.zeromq.org/page:all) using [ZeroMQ](http://zguide.zeromq.org/). The *Master* can publish messages and broadcast it to a group or to all the *Nodes* via a publish/subscribe pattern. The *Nodes* can then respond to the message by sending a response message to a first-in-first-out queue via a push/pull pattern. The *Master* knows how much *Nodes* needs to respond so as soon as every needed *Node* send back a message it can start the next simulation process.    
 
 <img src="./images/connections.png" alt="Communication schema" style="width: 500px;"/>
 
-
+It is also possible to run *Nodes* directly on the host, without using Docker. In order to allow that, two ports are made accessible for the *Master*: 5556 and 5557 by default, corresponding respectively to the publish/subscribe and the push/pull communication patterns. The default port for Redis (6379) is also open so a *Node* running locally can send values to the results database.
 
 ## How to model complex systems with ZerOBNL ?
 
