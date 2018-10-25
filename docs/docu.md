@@ -90,7 +90,7 @@ sim.add_link("NodeA", "sink_flow", "NodeB", "srce_flow")
 
 #### 7. Run simulation
 
-1. Define simulation sequence
+- Define simulation sequence
 
 <img src="./images/sequence.png" alt="Simulation sequence" style="width: 500px;"/>
 
@@ -98,7 +98,7 @@ sim.add_link("NodeA", "sink_flow", "NodeB", "srce_flow")
 sim.create_sequence([["NodeA", "NodeB"], ["NodeC", "NodeD"]])
 ```
 
-2. Create simulation steps
+- Create simulation steps
 
 ```python
 sim.set_time_unit("minutes")

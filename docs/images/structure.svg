@@ -83,19 +83,6 @@
          transform="matrix(-0.4,0,0,-0.4,-4,0)"
          inkscape:connector-curvature="0" />
     </marker>
-    <filter
-       inkscape:collect="always"
-       style="color-interpolation-filters:sRGB"
-       id="filter1098"
-       x="-0.033870969"
-       width="1.0677419"
-       y="-0.26250002"
-       height="1.525">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="2.3151042"
-         id="feGaussianBlur1100" />
-    </filter>
     <marker
        inkscape:isstock="true"
        style="overflow:visible"
@@ -126,19 +113,6 @@
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
          id="path1388-2-1" />
     </marker>
-    <filter
-       inkscape:collect="always"
-       style="color-interpolation-filters:sRGB"
-       id="filter3011"
-       x="-0.043125001"
-       width="1.08625"
-       y="-0.098571424"
-       height="1.1971428">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="3.0427083"
-         id="feGaussianBlur3013" />
-    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -149,10 +123,10 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
      inkscape:cx="304.00876"
-     inkscape:cy="374.28565"
+     inkscape:cy="488.57137"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     showgrid="true"
+     showgrid="false"
      units="px"
      fit-margin-top="25"
      fit-margin-left="25"
@@ -187,14 +161,15 @@
      id="layer1"
      transform="translate(-8.5989574,-41.015611)">
     <rect
-       style="fill:#eec3ff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.32291663;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3011)"
+       style="fill:#f6e1ff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.32291663;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2989"
        width="169.33333"
        height="79.375"
        x="47.625"
-       y="111.79164" />
+       y="111.79164"
+       ry="10.583345" />
     <rect
-       style="fill:#91ffb8;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.32291663;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter1098)"
+       style="fill:#c3ffd9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.32291663;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect1076"
        width="169.33334"
        height="21.166655"
