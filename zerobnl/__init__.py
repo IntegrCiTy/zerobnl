@@ -4,5 +4,4 @@
 
 __version__ = "0.0.1"
 
-from zerobnl.deploy.main import Simulator
-import zerobnl.edit as edit
+from zerobnl.simulation import CoSimResults as CoSim

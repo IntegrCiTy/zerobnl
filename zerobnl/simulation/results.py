@@ -1,39 +1,27 @@
-import pandas as pd
 import redis
+import pandas as pd
 
-from zerobnl.logs import logger
 from zerobnl.config import *
+from zerobnl.logs import logger
+
+from zerobnl.simulation import CoSimDeploy
 
 
-class SimResultsGetter:
-    """
-    Class gathering methods allowing the collection of results
-    """
-
+class CoSimResults(CoSimDeploy):
     def __init__(self):
+        super().__init__()
         self.redis = None
 
     def connect_to_results_db(self):
-        """
-        Instantiate connection with Redis DB
-
-        :return: nothing :)
-        """
         self.redis = redis.StrictRedis(host="localhost", port=REDIS_PORT, db=0)
-        logger.info("Connected to Redis DB")
 
-    @property
-    def list_of_available_results(self):
-        """
-        :return: a pandas.DataFrame() describing the available results by nodes
-        """
+    def get_list_of_available_results(self):
         keys = [k.decode("utf-8") for k in self.redis.keys() if "time" not in str(k)]
         return pd.DataFrame([k.split("||") for k in keys], columns=["IN/OUT", "Node", "Attribute"])
 
     def get_results_by_pattern(self, pattern):
         """
         Allow to get results from a given name pattern
-
         :param pattern: the pattern used to query the Redis DB
         :return: a dict mapping results name with pandas.Series() of values
         """
