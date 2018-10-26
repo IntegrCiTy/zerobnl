@@ -1,6 +1,6 @@
 # Easy install
 
-## Linux
+## Linux ([Windows version](#Windows))
 
 Install git (if not already done) (More info on [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
 
@@ -46,7 +46,7 @@ Install zerobnl (in the zerobnl folder) using the `install` command
 (zero)$ python setup.py install
 ```
 
-## Windows
+## <a name="Windows"></a> Windows
 
 Use [Git for Windows](https://git-scm.com/download/win) to clone the [zerobnl repository](https://github.com/IntegrCiTy/zerobnl).
 For instance, when using *Git Bash* type the following on the command line:

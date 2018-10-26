@@ -34,6 +34,10 @@ The simulation is orchestrated by a *Master* process (also running inside a Dock
 
 > ZeroMQ looks like an embeddable networking library but acts like a concurrency framework. It gives you sockets that carry atomic messages across various transports like in-process, inter-process, TCP, and multicast.
 
+During the simulation, exchanged data and models internal state are stored into a results database. This database is hosted on a [Redis](https://redis.io/) container. 
+
+> Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.
+
 <img src="./images/communication.png" alt="Communication process" style="width: 500px;"/>
 
 The communication between the *Master* and the *Nodes* goes through two different [channels](http://zguide.zeromq.org/page:all) using [ZeroMQ](http://zguide.zeromq.org/). The *Master* can publish messages and broadcast it to a group or to all the *Nodes* via a publish/subscribe pattern. The *Nodes* can then respond to the message by sending a response message to a first-in-first-out queue via a push/pull pattern. The *Master* knows how much *Nodes* needs to respond so as soon as every needed *Node* send back a message it can start the next simulation process.    
@@ -66,7 +70,9 @@ ZerOBNL only help to connect tool together, it's your job create needed models f
 
 #### 4. Create wrappers
 
-Wrappers are the key point between simulation tools and the rest of the co-simulation framework. Using the ZerOBNL ClientNode python class, this process will, during the simulation, be used as middle agent between the orchestration process and the simulation model, passing messages and data back and forth.
+[Wrappers](#Wrapper) are the key point between simulation tools and the rest of the co-simulation framework. Using the ZerOBNL ClientNode python class, this process will, during the simulation, be used as middle agent between the orchestration process and the simulation model, passing messages and data back and forth.
+
+You can use the wrapper of the provided [minimal example](https://github.com/IntegrCiTy/zerobnl/blob/master/examples/MinimalExample/wrapper_base.py) as template and build your own wrappers from there.
 
 #### 5. Define abstractions
 
@@ -94,7 +100,7 @@ A *Node*
 sim.add_node("Node", "Meta", "Env", init_values={"d": 0.5}, parameters={"data_file": "mydata.csv"}, files=["data/mydata.csv"], local=True)
 ```
 
-#### 6. Create co-simulation graph
+#### 6. Create [co-simulation graph](#CoSimGraph)
 
 The co-simulation models and results are closely related on how you decide to partition your system. This is where you actually connect the sub-systems together and define the exchanged data using *Links*.
 
@@ -125,15 +131,21 @@ Once everything is ready, you need then to run the simulation and go take a coff
 
 During simulation results and variables of the different sub-systems are stored into a Redis database, the ZerOBNL API give you some methods to collect and export them.
 
+```python
+sim.connect_to_results_db()
+sim.get_list_of_available_results()
+```
+
 #### 9. Analyse results
 
 Well, do whatever you want or need to do with the results...
+Since you are working with Python you can directly use [matplotlib](https://matplotlib.org/) and/or [seaborn](https://seaborn.pydata.org/) to visualise results and [Pandas](https://pandas.pydata.org/) to post-process and export it. 
 
 ## Glossary
 
 - <a name="Dockerfile"></a> **Dockerfile**: 
 
-Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. You can refer to the Dockerfile [best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) for a tip-oriented guide and use this [file](https://github.com/IntegrCiTy/zerobnl/blob/master/Dockerfiles/Dockerfile) as example.
+Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. You can refer to the Dockerfile [best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) for a tip-oriented guide and use this [file](https://github.com/IntegrCiTy/zerobnl/blob/master/Dockerfiles/Dockerfile) as template.
 
 - <a name="Wrapper"></a> **Wrapper**:
 
@@ -142,5 +154,6 @@ TODO: def. Wrapper
 - <a name="CoSimGraph"></a> **Co-Simulation Graph**:
 
 TODO: def. Co-Simulation Graph
+TODO: add example image
 
 [Home](./index.md)
