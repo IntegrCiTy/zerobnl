@@ -44,7 +44,7 @@ The communication between the *Master* and the *Nodes* goes through two differen
 
 <img src="./images/connections.png" alt="Communication schema" style="width: 500px;"/>
 
-It is also possible to run *Nodes* directly on the host, without using Docker. In order to allow that, two ports are made accessible for the *Master*: 5556 and 5557 by default, corresponding respectively to the publish/subscribe and the push/pull communication patterns. The default port for Redis (6379) is also open so a *Node* running locally can send values to the results database.
+It is also possible to run *Nodes* directly on the host, without using Docker. In order to allow that, two ports are made accessible for the *Master*: 5556 and 5557 by default, corresponding respectively to the publish/subscribe and the push/pull communication patterns. The default port for Redis (6379) is also open so a *Node* running locally can send values to the results database, see [minimal local example](https://github.com/IntegrCiTy/zerobnl/blob/master/examples/MinimalExample/MinimalExampleLocal.ipynb).
 
 ## How to model complex systems with ZerOBNL ?
 
@@ -84,9 +84,9 @@ You can use the wrapper of the provided [minimal example](https://github.com/Int
 
 This is when you need to define the conceptual co-simulation model by creating *Meta-models*, *Environments* and *Nodes*.
 
-A *Meta-model* defines the inputs and the outputs, more precisely attributes to set to the model and attributes to get from the model. It describes the way the model of a sub-system will interact with other models of other sub-systems. In order to maintain consistency between exchanged data, you also need to define the unit of the attribute, so you do note connect kW to m3/s. 
+A *Meta-model* defines the inputs and the outputs, more precisely attributes to set to the model and attributes to get from the model. It describes the way the model of a sub-system will interact with other models of other sub-systems. In order to maintain consistency between exchanged data, you also need to define the unit of the attribute, so you do note connect [kW] to [m3/s]. 
 
-On the following example the *Meta-Model* `Meta` has an input `a` defined as a binary and two outputs `b` and `c` defined respectively as m3/s and kW. 
+On the following example the *Meta-Model* `Meta` has an input `a` defined as a binary and two outputs `b` and `c` defined respectively as [m3/s] and [kW]. 
 
 ```python
 from zerobnl import CoSim
