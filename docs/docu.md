@@ -116,6 +116,8 @@ sim.add_node("Node", "Meta", "Env", init_values={"d": 0.5}, parameters={"data_fi
 
 The co-simulation models and results are closely related on how you decide to partition your system. This is where you actually connect the sub-systems together and define the exchanged data using *Links*.
 
+The following example connects the output attribute `sink_flow` of `NodeA` to the input attribute `srce_flow` of `NodeB`.
+
 ```python
 sim.add_link("NodeA", "sink_flow", "NodeB", "srce_flow")
 ```
@@ -126,9 +128,13 @@ sim.add_link("NodeA", "sink_flow", "NodeB", "srce_flow")
 
 <img src="./images/sequence.png" alt="Simulation sequence" style="width: 500px;"/>
 
+The following example define two groups of *Nodes* to be run sequentially as shown above. `NodeA` and `NodeB` will make a step in parallel, and when both are done `NodeC` and `NodeD`  will also make a step in parallel.
+
 ```python
 sim.create_sequence([["NodeA", "NodeB"], ["NodeC", "NodeD"]])
 ```
+
+*Nodes* sharing a direct *Link* can not be in the same group and run in parallel.
 
 - Create simulation steps
 
