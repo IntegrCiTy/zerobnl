@@ -40,7 +40,7 @@ During the simulation, exchanged data and models internal state are stored into 
 
 <img src="./images/communication.png" alt="Communication process" style="width: 500px;"/>
 
-The communication between the *Master* and the *Nodes* goes through two different [channels](http://zguide.zeromq.org/page:all) using [ZeroMQ](http://zguide.zeromq.org/). The *Master* can publish messages and broadcast it to a group or to all the *Nodes* via a publish/subscribe pattern. The *Nodes* can then respond to the message by sending a response message to a first-in-first-out queue via a push/pull pattern. The *Master* knows how much *Nodes* needs to respond so as soon as every needed *Node* send back a message it can start the next simulation process.    
+The communication between the *Master* and the *Nodes* goes through two different [channels](http://zguide.zeromq.org/page:all). The *Master* can publish messages and broadcast it to a group or to all the *Nodes* via a publish/subscribe pattern. The *Nodes* can then respond to the message by sending a response message to a first-in-first-out queue via a push/pull pattern. The *Master* knows how much *Nodes* needs to respond so as soon as every needed *Node* send back a message it can start the next simulation process.    
 
 <img src="./images/connections.png" alt="Communication schema" style="width: 500px;"/>
 
@@ -56,9 +56,15 @@ This is the core part of large scale multi-domain co-simulation, defining how yo
 Examples: 
 - do you put a heat pump and its associated controller in the same sub-system or in two different one ?
 - do you want to transfer mass flow [kg/s] and temperature [°C] or only a thermal power [kW] ?
-- what is the optimal communication step size between the sub-systems ?
+- what is the more adapted communication step size between the sub-systems ?
 
 #### 2. Choose simulation tools
+
+In order to be used in a co-simulation a simulation tool must be able to communicate with an external process, so it is possible to get a value, set a value and make a simulation step.
+
+Some standards already exists like [Functional Mock-up Interface](https://fmi-standard.org/) to facilitate data exchanged between models.
+
+> Functional Mock-up Interface (FMI) is a tool independent standard to support both model exchange and co-simulation of dynamic models using a combination of xml-files and compiled C-code.
 
 #### 3. Implement models
 
@@ -78,7 +84,9 @@ You can use the wrapper of the provided [minimal example](https://github.com/Int
 
 This is when you need to define the conceptual co-simulation model by creating *Meta-models*, *Environments* and *Nodes*.
 
-A *Meta-model* defines the inputs and the outputs, more precisely attributes to set to the model and attributes to get from the model. It describes the way the model of a sub-system will interact with other models of other sub-systems.
+A *Meta-model* defines the inputs and the outputs, more precisely attributes to set to the model and attributes to get from the model. It describes the way the model of a sub-system will interact with other models of other sub-systems. In order to maintain consistency between exchanged data, you also need to define the unit of the attribute, so you do note connect kW to m3/s. 
+
+On the following example the *Meta-Model* `Meta` has an input `a` defined as a binary and two outputs `b` and `c` defined respectively as m3/s and kW. 
 
 ```python
 from zerobnl import CoSim
@@ -94,7 +102,11 @@ sim = CoSim()
 sim.create_environment("Env", "wrappers/my_wrapper.py", "dockerfiles/MyDockerfile")
 ```
 
-A *Node*
+A *Node* is a running instance of a model of a sub-system. You can define:
+- **initial values**, that will be set to attributes of the model
+- **parameters**, that can be used by the wrapper
+- **files**, to add to the dedicated container
+- and define if the *Node* will run locally or in a container, by setting **local** to true.
 
 ```python
 sim.add_node("Node", "Meta", "Env", init_values={"d": 0.5}, parameters={"data_file": "mydata.csv"}, files=["data/mydata.csv"], local=True)
