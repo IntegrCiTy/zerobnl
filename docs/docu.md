@@ -28,6 +28,12 @@ Jupyter is fully free and open source, heavily modular and customizable, and bas
 
 Such features make Jupyter a good choice to define co-simulation and analyse results in the same environment of development.
 
+ZerOBNL relies on Docker to create dedicated and isolated [containers](https://www.docker.com/resources/what-container) that packages up code and dependencies for each model of sub-systems and allows to run it quickly and reliably from one computing environment to another. Docker provide a simple to allow communication between containers by creating [networks](https://docs.docker.com/network/).
+
+The simulation is orchestrated by a *Master* process (also running inside a Docker container). The communication between the *Master* process and models is done using [ZeroMQ](http://zguide.zeromq.org/), following a communication process described below.
+
+> ZeroMQ looks like an embeddable networking library but acts like a concurrency framework. It gives you sockets that carry atomic messages across various transports like in-process, inter-process, TCP, and multicast.
+
 <img src="./images/communication.png" alt="Communication process" style="width: 500px;"/>
 
 The communication between the *Master* and the *Nodes* goes through two different [channels](http://zguide.zeromq.org/page:all) using [ZeroMQ](http://zguide.zeromq.org/). The *Master* can publish messages and broadcast it to a group or to all the *Nodes* via a publish/subscribe pattern. The *Nodes* can then respond to the message by sending a response message to a first-in-first-out queue via a push/pull pattern. The *Master* knows how much *Nodes* needs to respond so as soon as every needed *Node* send back a message it can start the next simulation process.    
