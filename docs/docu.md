@@ -28,7 +28,7 @@ Jupyter is fully free and open source, heavily modular and customizable, and bas
 
 Such features make Jupyter a good choice to define co-simulation and analyse results in the same environment of development.
 
-ZerOBNL relies on Docker to create dedicated and isolated [containers](https://www.docker.com/resources/what-container) that packages up code and dependencies for each model of sub-systems and allows to run it quickly and reliably from one computing environment to another. Docker provide a simple to allow communication between containers by creating [networks](https://docs.docker.com/network/).
+ZerOBNL relies on [Docker](https://www.docker.com/) to create dedicated and isolated [containers](https://www.docker.com/resources/what-container) that packages up code and dependencies for each model of sub-systems and allows to run it quickly and reliably from one computing environment to another. Docker provide a simple to allow communication between containers by creating [networks](https://docs.docker.com/network/).
 
 The simulation is orchestrated by a *Master* process (also running inside a Docker container). The communication between the *Master* process and models is done using [ZeroMQ](http://zguide.zeromq.org/), following a communication process described below.
 
@@ -134,6 +134,7 @@ During simulation results and variables of the different sub-systems are stored 
 ```python
 sim.connect_to_results_db()
 sim.get_list_of_available_results()
+res = sim.get_results_by_pattern("OUT*Base0*")
 ```
 
 #### 9. Analyse results
@@ -154,6 +155,7 @@ TODO: def. Wrapper
 - <a name="CoSimGraph"></a> **Co-Simulation Graph**:
 
 TODO: def. Co-Simulation Graph
+
 TODO: add example image
 
 [Home](./index.md)
