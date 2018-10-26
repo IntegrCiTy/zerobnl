@@ -2,6 +2,8 @@
 
 ZerOBNL is a Python package so you need [Python 3.X](https://www.python.org/downloads/).
 
+TODO: Docker support install windows ...
+
 ## Linux ([Windows version below](#Windows))
 
 Install git (if not already done) (More info on [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
