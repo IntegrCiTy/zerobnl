@@ -18,7 +18,7 @@ Co-simulation can be defined as the coupling of simulation tools (also referred 
 
 ## How does ZerOBNL work ?
 
-<img src="./images/structure.png" alt="Software structure" style="width: 500px;"/>
+<img src="./images/structure.png" alt="Platform structure" caption="Platform structure" style="width: 500px;"/>
 
 We recommend to use [Jupyter Notebook](http://jupyter.org/) to interact with ZerOBNL. 
 
@@ -38,17 +38,17 @@ During the simulation, exchanged the data and the internal state of sub-systems 
 
 > Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.
 
-<img src="./images/communication.png" alt="Communication process" style="width: 500px;"/>
+<img src="./images/communication.png" alt="Communication process" caption="Communication process" style="width: 500px;"/>
 
 The communication between the *Master* and the *Nodes* goes through two different [channels](http://zguide.zeromq.org/page:all). The *Master* can publish messages and broadcast it to a group or to all the *Nodes* via a publish/subscribe pattern. The *Nodes* can then respond to the message by sending a response message to a first-in-first-out queue via a push/pull pattern. The *Master* knows how many *Nodes* need to respond so as soon as every needed *Node* sends back a message it can start the next simulation process.    
 
-<img src="./images/connections.png" alt="Communication schema" style="width: 500px;"/>
+<img src="./images/connections.png" alt="Communication schema" caption="Communication schema" style="width: 500px;"/>
 
 It is also possible to run *Nodes* directly on the host, without using Docker. In order to allow that, two ports are made accessible for the *Master*: 5556 and 5557 by default, corresponding respectively to the publish/subscribe and the push/pull communication patterns. The default port for Redis (6379) is also open so a *Node* running locally can send values to the results database, see [minimal local example](https://github.com/IntegrCiTy/zerobnl/blob/master/examples/MinimalExample/MinimalExampleLocal.ipynb).
 
 ## How to model complex systems with ZerOBNL ?
 
-<img src="./images/modelling_process.png" alt="Modelling process" style="width: 500px;"/>
+<img src="./images/modelling_process.png" alt="Modelling process" caption="Modelling process" style="width: 500px;"/>
 
 #### 1. Partition system
 
@@ -126,7 +126,7 @@ sim.add_link("NodeA", "sink_flow", "NodeB", "srce_flow")
 
 - Define simulation sequence
 
-<img src="./images/sequence.png" alt="Simulation sequence" style="width: 500px;"/>
+<img src="./images/sequence.png" alt="Simulation sequence" caption="Simulation sequence" style="width: 500px;"/>
 
 The following example define two groups of *Nodes* to be run sequentially as shown above. `NodeA` and `NodeB` will make a step in parallel, and when both are done `NodeC` and `NodeD`  will also make a step in parallel.
 
