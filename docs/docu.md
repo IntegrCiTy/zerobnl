@@ -74,13 +74,7 @@ ZerOBNL only helps to connect tools together, it's your job to create models nee
 2. get attribute
 3. make a step (fixed or variable time step)
 
-#### 4. Create wrappers
-
-[Wrappers](#Wrapper) are the connector between simulation tools and the rest of the co-simulation framework. Using the ZerOBNL ClientNode python class, this process will, during the simulation, be used as middle agent between the orchestration process and the simulation model, passing messages and data back and forth.
-
-You can use the wrapper of the provided [minimal example](https://github.com/IntegrCiTy/zerobnl/blob/master/examples/MinimalExample/wrapper_base.py) as a template and build your own wrappers from there.
-
-#### 5. Define abstractions
+#### 4. Define abstractions
 
 This is when you need to define the conceptual co-simulation model by creating *Meta-models*, *Environments* and *Nodes*.
 
@@ -111,6 +105,12 @@ A *Node* is a running instance of a model of a sub-system. You can define:
 ```python
 sim.add_node("Node", "Meta", "Env", init_values={"d": 0.5}, parameters={"data_file": "mydata.csv"}, files=["data/mydata.csv"], local=True)
 ```
+
+#### 5. Create wrappers
+
+[Wrappers](#Wrapper) are the connector between simulation tools and the rest of the co-simulation framework. Using the ZerOBNL ClientNode python class, this process will, during the simulation, be used as middle agent between the orchestration process and the simulation model, passing messages and data back and forth.
+
+You can use the wrapper of the provided [minimal example](https://github.com/IntegrCiTy/zerobnl/blob/master/examples/MinimalExample/wrapper_base.py) as a template and build your own wrappers from there.
 
 #### 6. Create [co-simulation graph](#CoSimGraph)
 

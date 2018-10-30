@@ -59,18 +59,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="538.08149"
-     inkscape:cy="488.41694"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="694.3386"
+     inkscape:cy="289.41753"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
      showguides="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1056"
-     inkscape:window-x="1920"
-     inkscape:window-y="0"
+     inkscape:window-height="1029"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      fit-margin-top="25"
      fit-margin-left="25"
@@ -90,7 +90,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -234,7 +234,7 @@
        width="74.083344"
        height="21.166674"
        x="322.79166"
-       y="170.00002"
+       y="196.45837"
        style="fill:#f9c9c9;fill-opacity:1;stroke:#861010;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        ry="5.2916679" />
     <rect
@@ -242,7 +242,7 @@
        width="74.083344"
        height="21.166664"
        x="322.79166"
-       y="196.45834"
+       y="169.99998"
        style="fill:#c9e0f9;fill-opacity:1;stroke:#104886;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        ry="5.2916679" />
     <rect
@@ -257,22 +257,22 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="359.87299"
-       y="183.75836"
+       y="210.21672"
        id="text4646-3-7-2"><tspan
          sodipodi:role="line"
          x="359.87299"
-         y="183.75836"
+         y="210.21672"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
          id="tspan4648-0-9-3">Create wrappers</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="359.87299"
-       y="210.21669"
+       y="183.75833"
        id="text4646-3-2-7"><tspan
          sodipodi:role="line"
          x="359.87299"
-         y="210.21669"
+         y="183.75833"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8777771px;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:center;text-anchor:middle;stroke-width:0.26458332"
          id="tspan4648-0-0-5">Define abstractions</tspan></text>
     <text
@@ -388,7 +388,7 @@
          x="248.17909"
          y="268.41003"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:start;text-anchor:start;stroke-width:0.26458332"
-         id="tspan4648-03">using the ZerOBNL Python API (trough Jupyter Notebook)</tspan></text>
+         id="tspan4648-03">using the ZerOBNL library (trough Jupyter Notebook)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
