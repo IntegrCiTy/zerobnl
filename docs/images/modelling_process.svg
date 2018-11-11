@@ -16,7 +16,7 @@
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="modelling_process.svg"
-   inkscape:export-filename="/home/pablo/Projects/UseZerOBNL/figures/modelling_process.png"
+   inkscape:export-filename="/home/pablo/Projects/zerobnl/docs/images/modelling_process.png"
    inkscape:export-xdpi="150"
    inkscape:export-ydpi="150">
   <defs
@@ -60,8 +60,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="694.3386"
-     inkscape:cy="289.41753"
+     inkscape:cx="377.1507"
+     inkscape:cy="281.33631"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -399,6 +399,6 @@
          x="248.802"
          y="289.04749"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ubuntu Condensed';-inkscape-font-specification:'Ubuntu Condensed, ';text-align:start;text-anchor:start;stroke-width:0.26458332"
-         id="tspan4648-03-1">with the ZerOBNL ClientNode classe (and associated Dockerfile)</tspan></text>
+         id="tspan4648-03-1">with the ZerOBNL ClientNode class (and associated Dockerfile)</tspan></text>
   </g>
 </svg>

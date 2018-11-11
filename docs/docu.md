@@ -6,19 +6,17 @@ Co-simulation can be defined as the coupling of simulation tools (also referred 
 
 ## ZerOBNL features
 
-#### What ZerOBNL can do:
+#### ZerOBNL is made for:
 - Distributed simulation (on a real cluster or just connecting two computers)
 - Cross-platform simulation (Linux, Windows and/or MacOS in the same simulation)
 - Simplified deployment process (based on Docker containers)
 
-#### What ZerOBNL can not do:
-- Coffee
-- Modelling sub-systems
-- Database (see our [article](https://www.researchgate.net/publication/327754115_FIRST_STEPS_TOWARDS_LINKING_SEMANTIC_3D_CITY_MODELLING_AND_MULTI-DOMAIN_CO-SIMULATION_FOR_ENERGY_MODELLING_AT_URBAN_SCALE?_iepl%5BviewId%5D=nYBAo5z65FFelGu9sKV1UGEe&_iepl%5Bcontexts%5D%5B0%5D=projectUpdatesLog&_iepl%5BtargetEntityId%5D=PB%3A327754115&_iepl%5BinteractionType%5D=publicationTitle) for that)
+#### ZerOBNL can not be used:
+- To brew coffee
+- To model sub-systems
+- As a database (see our [article](https://www.researchgate.net/publication/327754115_FIRST_STEPS_TOWARDS_LINKING_SEMANTIC_3D_CITY_MODELLING_AND_MULTI-DOMAIN_CO-SIMULATION_FOR_ENERGY_MODELLING_AT_URBAN_SCALE?_iepl%5BviewId%5D=nYBAo5z65FFelGu9sKV1UGEe&_iepl%5Bcontexts%5D%5B0%5D=projectUpdatesLog&_iepl%5BtargetEntityId%5D=PB%3A327754115&_iepl%5BinteractionType%5D=publicationTitle) for that)
 
 ## How does ZerOBNL work ?
-
-<img src="./images/structure.png" alt="Platform structure" caption="Platform structure" style="width: 500px;"/>
 
 We recommend to use [Jupyter Notebook](http://jupyter.org/) to interact with ZerOBNL. 
 
@@ -28,19 +26,21 @@ Jupyter is fully free and open source, heavily modular and customizable, and bas
 
 Such features make Jupyter a good choice to configure co-simulation and analyse results in the same environment of development.
 
+<img src="./images/structure.png" alt="Platform structure" caption="Platform structure" style="width: 500px;"/>
+
 ZerOBNL relies on [Docker](https://www.docker.com/) to create dedicated and isolated [containers](https://www.docker.com/resources/what-container) that packages up code and dependencies for each model of sub-systems and allows to run it quickly and reliably from one computing environment to another. Docker provides a simple way to allow communication between containers by creating [networks](https://docs.docker.com/network/).
 
 The simulation is orchestrated by a *Master* process (also running inside a Docker container). The communication between the *Master* process and models is done using [ZeroMQ](http://zguide.zeromq.org/), following a communication process described below.
 
 > ZeroMQ looks like an embeddable networking library but acts like a concurrency framework. It gives you sockets that carry atomic messages across various transports like in-process, inter-process, TCP, and multicast.
 
-During the simulation, exchanged the data and the internal state of sub-systems models are stored into a results database. This database is hosted on a [Redis](https://redis.io/) container. 
+During the simulation, the exchanged data and the internal state of sub-systems models are stored into a results database. This database is hosted on a [Redis](https://redis.io/) container. 
 
 > Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.
 
 <img src="./images/communication.png" alt="Communication process" caption="Communication process" style="width: 500px;"/>
 
-The communication between the *Master* and the *Nodes* goes through two different [channels](http://zguide.zeromq.org/page:all). The *Master* can publish messages and broadcast it to a group or to all the *Nodes* via a publish/subscribe pattern. The *Nodes* can then respond to the message by sending a response message to a first-in-first-out queue via a push/pull pattern. The *Master* knows how many *Nodes* need to respond so as soon as every needed *Node* sends back a message it can start the next simulation process.    
+The communication between the *Master* and the *Nodes* goes through two different [channels](http://zguide.zeromq.org/page:all). The *Master* can publish messages and broadcast them to a group or to all the *Nodes* via a publish/subscribe pattern. The *Nodes* can then respond to the message by sending a response message to a first-in-first-out queue via a push/pull pattern. The *Master* knows how many *Nodes* need to respond so as soon as every needed *Node* sends back a message it can start the next simulation process.    
 
 <img src="./images/connections.png" alt="Communication schema" caption="Communication schema" style="width: 500px;"/>
 
@@ -97,9 +97,9 @@ sim.create_environment("Env", "wrappers/my_wrapper.py", "dockerfiles/MyDockerfil
 ```
 
 A *Node* is a running instance of a model of a sub-system. You can define:
-- **initial values**, that will be set to attributes of the model
-- **parameters**, that can be used by the wrapper
-- **files**, to add to the dedicated container
+- **initial values** that will be set to attributes of the model
+- **parameters** that can be used by the wrapper
+- **files** to add to the dedicated container
 - and define if the *Node* will run locally or in a container, by setting **local** to true.
 
 ```python
@@ -108,13 +108,13 @@ sim.add_node("Node", "Meta", "Env", init_values={"d": 0.5}, parameters={"data_fi
 
 #### 5. Create wrappers
 
-[Wrappers](#Wrapper) are the connector between simulation tools and the rest of the co-simulation framework. Using the ZerOBNL ClientNode python class, this process will, during the simulation, be used as middle agent between the orchestration process and the simulation model, passing messages and data back and forth.
+[Wrappers](#Wrapper) are the connector between simulation tools and the rest of the co-simulation framework. Using the ZerOBNL ClientNode python class, the python process running a wrapper will, during the simulation, be used as middle agent between the orchestration process and the simulation model, passing messages and data back and forth.
 
-You can use the wrapper of the provided [minimal example](https://github.com/IntegrCiTy/zerobnl/blob/master/examples/MinimalExample/wrapper_base.py) as a template and build your own wrappers from there.
+You can use the wrapper of the provided [minimal example](https://github.com/IntegrCiTy/zerobnl/blob/master/examples/MinimalExample/wrapper_base.py) as a template and build your own wrappers from there onwards.
 
 #### 6. Create [co-simulation graph](#CoSimGraph)
 
-The co-simulation models and results are closely related on how you decide to partition your system. This is where you actually connect the sub-systems together and define the exchanged data using *Links*. A *Link* connect an output attribute from a *Node*. to an input attribute to an other *Node*.
+The co-simulation models and results are closely related to how you decide to partition your system. This is where you actually connect the sub-systems together and define the exchanged data using *Links*. A *Link* connect an output attribute from a *Node*. to an input attribute to an other *Node*.
 
 The following example connects the output attribute `sink_flow` of `NodeA` to the input attribute `srce_flow` of `NodeB`.
 
@@ -128,13 +128,13 @@ sim.add_link("NodeA", "sink_flow", "NodeB", "srce_flow")
 
 <img src="./images/sequence.png" alt="Simulation sequence" caption="Simulation sequence" style="width: 500px;"/>
 
-The following example define two groups of *Nodes* to be run sequentially as shown above. `NodeA` and `NodeB` will make a step in parallel, and when both are done `NodeC` and `NodeD`  will also make a step in parallel.
+The following example defines two groups of *Nodes* to be run sequentially as shown above. `NodeA` and `NodeB` will make a step in parallel, and when both are done `NodeC` and `NodeD`  will also make a step in parallel.
 
 ```python
 sim.create_sequence([["NodeA", "NodeB"], ["NodeC", "NodeD"]])
 ```
 
-*Nodes* sharing a direct *Link* can not be in the same group and run in parallel.
+*Nodes* sharing a direct *Link* cannot be in the same group and run in parallel.
 
 - Create simulation steps
 
@@ -143,7 +143,7 @@ sim.set_time_unit("minutes")
 sim.create_steps([10]*60*5)  # This will create 5*60=300 steps of 10 defined time unit (minutes)
 ```
 
-Once everything is ready, you need then to run the simulation and go take a coffee. Depending on how you defined your sub-systems, the number of them, the communication step size you choose and the available computation power, it can takes some time !
+Once everything is ready, you need then to run the simulation and go take a coffee. Depending on how you defined your sub-systems, the number of them, the communication step size you choose and the available computation power, it can take some time !
 
 #### 8. Access results
 
@@ -157,7 +157,7 @@ res = sim.get_results_by_pattern("OUT*Base0*")
 
 #### 9. Analyse results
 
-Well, do whatever you want or need to do with the results...
+You can then continue to analyse the results in Jupyter or export them.
 Since you are working with Python you can directly use [matplotlib](https://matplotlib.org/) and/or [seaborn](https://seaborn.pydata.org/) to visualise results and [Pandas](https://pandas.pydata.org/) to post-process and export them. 
 
 ## Glossary
