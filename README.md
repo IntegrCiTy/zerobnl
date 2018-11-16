@@ -1,6 +1,6 @@
 # ZerONBL
 
-ZerOBNL is a distributed co-simulation platform based on ZeroMQ, Docker (Swarm and Compose) developped in Python.
+ZerOBNL is a distributed co-simulation platform based on ZeroMQ, Docker (Swarm and Compose) developed in Python.
 
 Getting started:
 - [Installation notes](https://integrcity.github.io/zerobnl/install.html)
