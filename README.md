@@ -12,3 +12,8 @@ ZerOBNL is a joint development of the Energy Efficiency research group at the [U
 <img src="https://www.crem.ch/files/content/sites/crem_ntr/files/Images/CREM_seul.png" alt="CREM_LOGO" width="200"/>
 
 <img src="https://www.hevs.ch/media/image/0/normal/hes-so.png" alt="HES-SO-VALAIS_LOGO" width="200"/>
+
+## TODOs (switch to GitHUb issues...)
+
+- [ ] `Service 'orch' failed to build` https://forums.docker.com/t/unable-to-pull-image-from-docker-hub-forbidden/27376
+- [ ] find another way to get Dockerfile for master PROCESS than using `ORCH_DOCKERFILE_URL`
