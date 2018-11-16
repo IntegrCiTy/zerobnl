@@ -82,7 +82,7 @@ class Node:
             value = self.get_attribute(attr)
         key = "{}||{}||{}".format(opt, self.name, attr)
         self.redis.rpush(key, float(value))
-        self.redis.rpush(key + "||time", self.real_time)
+        self.redis.rpush(key + "||time", str(self.real_time))
 
     def _update_inputs(self, state):
         """

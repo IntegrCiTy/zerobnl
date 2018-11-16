@@ -69,7 +69,7 @@ def create_scenario():
 
 def test_create_and_fill_folders_to_mount_into_nodes(create_scenario):
     sim = create_scenario
-    sim.create_and_fill_folders_to_mount_into_nodes()
+    sim._create_and_fill_folders_to_mount_into_nodes()
     assert set(os.listdir(TEMP_FOLDER)) == set([node.lower() for node in sim.nodes.index])
     for node in sim.nodes.index:
         assert len(os.listdir(os.path.join(TEMP_FOLDER, node.lower()))) == 4
@@ -77,7 +77,7 @@ def test_create_and_fill_folders_to_mount_into_nodes(create_scenario):
 
 def test_create_and_fill_orchestrator_folder(create_scenario):
     sim = create_scenario
-    sim.create_and_fill_orchestrator_folder()
+    sim._create_and_fill_orchestrator_folder()
     assert ORCH_FOLDER in os.listdir(TEMP_FOLDER)
     assert ORCH_CONFIG_FILE in os.listdir(os.path.join(TEMP_FOLDER, ORCH_FOLDER))
     with open(os.path.join(TEMP_FOLDER, ORCH_FOLDER, ORCH_CONFIG_FILE)) as fp:
