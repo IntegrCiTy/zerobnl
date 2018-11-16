@@ -34,7 +34,7 @@ class Grid(Node):
     def step(self, value):
         super().step(value)
         pp.runpp(self.net, numba=False)
-        for key in ["res_ext_grid/Feeder/p_kw", "res_ext_grid/Feeder/q_kvar"]:
+        for key in ["ext_grid/Feeder/p_kw", "ext_grid/Feeder/q_kvar"]:
             self.save_attribute(key)
 
 
