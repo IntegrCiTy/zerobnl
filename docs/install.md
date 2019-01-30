@@ -44,15 +44,36 @@ Install dependencies (in the zerobnl folder)
 (zero)$ pip install -r requirements.txt
 ```
 
-Install zerobnl (in the zerobnl folder) using the `install` command
+Install zerobnl (in the zerobnl folder) as an editable project in current directory
 
 ```
-(zero)$ python setup.py install
+(zero)$ pip install -e .
 ```
 
 Install [Jupyter Notebook](http://jupyter.org/) (recommended)
 ```
 (zero)$ pip install jupyter
+```
+
+### Jupyter with VirtualEnv
+
+- https://stackoverflow.com/questions/37891550/jupyter-notebook-running-kernel-in-different-env
+- https://anbasile.github.io/programming/2017/06/25/jupyter-venv/
+
+#### Define default Jupyter kernel:
+
+```bash
+source venv/bin/activate
+(venv) python -m ipykernel install --user
+(venv) jupyter notebook
+```
+
+#### Or create a new one:
+
+```bash
+source venv/bin/activate
+(venv) ipython kernel install --user --name=projectname
+(venv) jupyter notebook
 ```
 
 ## <a name="Windows"></a> Windows
