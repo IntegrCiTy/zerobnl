@@ -73,7 +73,7 @@ def test_check_node_attr_exists_and_return_unit():
     sim.create_meta_model("MetaBase", [("a", "kW")], [("b", "kW")])
     sim.create_environment("EnvBase", "WrapBase", "DockBase")
     sim.add_node("Base0", "MetaBase", "EnvBase")
-    assert sim.check_node_attr_exists_and_return_unit("Base0", "a", "ToSet") == "kW"
+    assert sim._check_node_attr_exists_and_return_unit("Base0", "a", "ToSet") == "kW"
 
 
 def test_check_node_attr_exists_and_return_unit_no_node():
@@ -81,7 +81,7 @@ def test_check_node_attr_exists_and_return_unit_no_node():
     sim.create_meta_model("MetaBase", [("a", "kW")], [("b", "kW")])
     sim.create_environment("EnvBase", "WrapBase", "DockBase")
     with pytest.raises(AssertionError) as e_info:
-        sim.check_node_attr_exists_and_return_unit("Base0", "a", "ToSet")
+        sim._check_node_attr_exists_and_return_unit("Base0", "a", "ToSet")
     assert "Node Base0 is not defined !" in str(e_info.value)
 
 
@@ -91,7 +91,7 @@ def test_check_node_attr_exists_and_return_unit_no_attr():
     sim.create_environment("EnvBase", "WrapBase", "DockBase")
     sim.add_node("Base0", "MetaBase", "EnvBase")
     with pytest.raises(AssertionError) as e_info:
-        sim.check_node_attr_exists_and_return_unit("Base0", "x", "ToSet")
+        sim._check_node_attr_exists_and_return_unit("Base0", "x", "ToSet")
     assert "Attribute x is not defined for node Base0!" in str(e_info.value)
 
 

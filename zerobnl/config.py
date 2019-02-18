@@ -1,4 +1,4 @@
-BRANCH = "develop"
+BRANCH = "master"
 
 PORT_PUB_SUB = 5556
 PORT_PUSH_PULL = 5557

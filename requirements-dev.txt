@@ -1,3 +1,4 @@
 pytest
 pytest-env
 black
+jupyter==1.0.0
