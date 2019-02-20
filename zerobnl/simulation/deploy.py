@@ -97,7 +97,7 @@ class CoSimDeploy(CoSimCreator):
             redis_db.flushall()
         else:
             redis_db = self.docker_client.containers.run(
-                "redis:4-alpine",
+                "redis:5-alpine",
                 name=REDIS_HOST_NAME,
                 hostname=REDIS_HOST_NAME,
                 network=SIM_NET,
