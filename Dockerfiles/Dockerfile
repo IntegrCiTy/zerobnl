@@ -2,7 +2,7 @@ FROM python:3
 
 RUN pip install --upgrade pip
 
-ARG BRANCH=master
+ARG BRANCH=develop
 RUN git clone --single-branch -b $BRANCH https://github.com/IntegrCiTy/zerobnl.git
 
 RUN cd zerobnl && pip install --no-cache-dir -r requirements.txt
