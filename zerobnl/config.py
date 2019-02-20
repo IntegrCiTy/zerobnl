@@ -10,7 +10,6 @@ ORCH_CONFIG_FILE = "config.json"
 ORCH_STR_FILE = 'from zerobnl.kernel import Master\n\nif __name__ == "__main__":\n    orch = Master()\n    orch.run()\n'
 ORCH_HOST_NAME = ORCH_FOLDER
 ORCH_MAIN_FILE = "main.py"
-ORCH_DOCKERFILE_URL = "https://raw.githubusercontent.com/IntegrCiTy/zerobnl/{}/Dockerfiles/Dockerfile".format(BRANCH)
 
 NODE_CONFIG_FILE = "config.json"
 NODE_WRAP_FILE = "wrapper.py"

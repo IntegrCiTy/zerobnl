@@ -14,6 +14,7 @@ from zerobnl.logs import logger
 from zerobnl.simulation import CoSimCreator
 from zerobnl.simulation.compose import create_full_yaml
 
+here = os.path.dirname(os.path.realpath(__file__))
 
 def _generate_and_add_master_file_to_orchestrator_folder(folder):
     """Write main file to orchestrator folder
@@ -74,7 +75,8 @@ class CoSimDeploy(CoSimCreator):
 
         _generate_and_add_master_file_to_orchestrator_folder(orch_folder)
 
-        urllib.request.urlretrieve(ORCH_DOCKERFILE_URL, filename=os.path.join(orch_folder, "Dockerfile"))
+        dockerfile = os.path.join(here, "..", "..", "Dockerfiles", "Dockerfile")
+        shutil.copy(dockerfile, os.path.join(orch_folder, "Dockerfile"))
 
         config = {"SEQUENCE": [len(group) for group in self.sequence], "STEPS": self.steps}
         with open(os.path.join(orch_folder, ORCH_CONFIG_FILE), "w") as fp:
