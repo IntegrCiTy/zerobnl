@@ -1,3 +1,4 @@
+# TODO: get this from ENV -> cf. pytest doc
 BRANCH = "feature_save_tables"
 
 PORT_PUB_SUB = 5556
@@ -7,6 +8,7 @@ TEMP_FOLDER = "TMP_FOLDER"
 
 ORCH_FOLDER = "orch"
 ORCH_CONFIG_FILE = "config.json"
+# TODO: switch to relative path copy (and add to MANIFEST) 
 ORCH_STR_FILE = 'from zerobnl.kernel import Master\n\nif __name__ == "__main__":\n    orch = Master()\n    orch.run()\n'
 ORCH_HOST_NAME = ORCH_FOLDER
 ORCH_MAIN_FILE = "main.py"
