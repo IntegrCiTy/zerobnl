@@ -1,8 +1,9 @@
 import subprocess
 
 # TODO: move to conftest.py ?
-cmd = "git rev-parse --abbrev-ref HEAD"
-BRANCH =  subprocess.check_output(cmd.split()).decode("utf-8").rstrip()
+# cmd = "git rev-parse --abbrev-ref HEAD"
+# BRANCH =  subprocess.check_output(cmd.split()).decode("utf-8").rstrip()
+BRANCH = "feature_save_tables"
 
 PORT_PUB_SUB = 5556
 PORT_PUSH_PULL = 5557

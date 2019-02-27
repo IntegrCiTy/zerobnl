@@ -8,6 +8,7 @@ def create_model():
     sim = CoSim()
 
     sim.create_meta_model("MetaBase", [("a", "unit")], [("b", "unit")])
+
     sim.create_environment(
         "EnvBase",
         os.path.join("tests", "wrappers", "dfwrap.py"),
@@ -31,5 +32,5 @@ def test_run(create_model, clean):
     sim.run()
 
     sim.connect_to_results_db()
-    res = sim.get_results_by_pattern("*")
-    assert res.keys == {}
+    res = sim.get_results_by_pattern("*Base*")
+    assert set(res.keys()) != set()

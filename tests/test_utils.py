@@ -47,7 +47,7 @@ def test_decode_pickle_float_return_df():
     assert type(decode_pickle_float(value)) is pd.DataFrame
 
 def test_save_to_redis_float(redis_fix):
-    r = redis.Redis(host='localhost', port=REDIS_PORT, db=0)
+    r = redis.StrictRedis(host='localhost', port=REDIS_PORT, db=0)
     save_to_redis(r, "name", "attr", "X", 1.0, "1991/08/09 11:32:00")
     save_to_redis(r, "name", "attr", "X", 2.0, "1994/12/02 20:17:00")
     key = "{}||{}||{}".format("X", "name", "attr")
@@ -55,3 +55,20 @@ def test_save_to_redis_float(redis_fix):
     assert {decode_pickle_float(val) for val in res} == {1.0, 2.0}
     res = r.lrange(key + "||time", 0, -1)
     assert {val.decode("utf-8") for val in res} == {"1991/08/09 11:32:00", "1994/12/02 20:17:00"}
+    assert set(r.keys("*")) == {b'X||name||attr', b'X||name||attr||time'}
+
+def test_save_to_redis_df(redis_fix):
+    r = redis.StrictRedis(host='localhost', port=REDIS_PORT, db=0)
+    df1 = pd.DataFrame(np.random.uniform(size=(2, 3)))
+    df2 = pd.DataFrame(np.random.uniform(size=(2, 3)))
+    save_to_redis(r, "name", "df", "X", df1, "1991/08/09 11:32:00")
+    save_to_redis(r, "name", "df", "X", df2, "1994/12/02 20:17:00")
+    key = "{}||{}||{}".format("X", "name", "df")
+    res = r.lrange(key, 0, -1)
+    res_df1, res_df2 = [decode_pickle_float(val) for val in res]
+    assert type(res_df1) is pd.DataFrame
+    assert res_df1.at[1, 1] == df1.at[1, 1]
+    assert res_df2.at[0, 0] == df2.at[0, 0]
+    res = r.lrange(key + "||time", 0, -1)
+    assert {val.decode("utf-8") for val in res} == {"1991/08/09 11:32:00", "1994/12/02 20:17:00"}
+    assert set(r.keys("*")) == {b'X||name||df', b'X||name||df||time'}

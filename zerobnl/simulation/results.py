@@ -14,7 +14,7 @@ class CoSimResults(CoSimDeploy):
         self.redis = None
 
     def connect_to_results_db(self):
-        self.redis = redis.Redis(host="localhost", port=REDIS_PORT, db=0)
+        self.redis = redis.StrictRedis(host="localhost", port=REDIS_PORT, db=0)
 
     def get_list_of_available_results(self):
         keys = [k.decode("utf-8") for k in self.redis.keys() if "time" not in str(k)]
@@ -27,6 +27,7 @@ class CoSimResults(CoSimDeploy):
         :return: a dict mapping results name with pandas.Series() of values or dict of df if stored value are df
         """
         matching_keys = [key.decode("utf-8") for key in self.redis.keys(pattern)]
+        logger.debug("KEYS: {}".format(matching_keys))
         matching_keys = [key for key in matching_keys if "time" not in key]
         for node, attr in [(k.split("||")[-2], k.split("||")[-1]) for k in matching_keys]:
             logger.info("Matching results: {} - {}".format(node, attr))
@@ -34,8 +35,8 @@ class CoSimResults(CoSimDeploy):
         res = {key: load_from_redis_key(self.redis, key) for key in matching_keys}
 
         for key, value in res.items():
-            if type(value[values.keys()[0]]) is not float:
-                pass
+            if type(value[values.keys()[0]]) is float:
+                value.keys
         #     index = pd.to_datetime(index)
         #
         #     # TODO: adapt to df
