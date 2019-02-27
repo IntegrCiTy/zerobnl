@@ -14,7 +14,7 @@ class CoSimResults(CoSimDeploy):
         self.redis = None
 
     def connect_to_results_db(self):
-        self.redis = redis.StrictRedis(host="localhost", port=REDIS_PORT, db=0)
+        self.redis = redis.Redis(host="localhost", port=REDIS_PORT, db=0)
 
     def get_list_of_available_results(self):
         keys = [k.decode("utf-8") for k in self.redis.keys() if "time" not in str(k)]

@@ -1,5 +1,6 @@
 import subprocess
 
+# TODO: move to conftest.py ?
 cmd = "git rev-parse --abbrev-ref HEAD"
 BRANCH =  subprocess.check_output(cmd.split()).decode("utf-8").rstrip()
 

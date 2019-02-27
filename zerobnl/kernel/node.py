@@ -33,7 +33,7 @@ class Node:
         self.simu_time = 0.0
 
         redis_host = {True: "localhost", False: REDIS_HOST_NAME}[self.local]
-        self.redis = redis.StrictRedis(host=redis_host, port=REDIS_PORT, db=0)
+        self.redis = redis.Redis(host=redis_host, port=REDIS_PORT, db=0)
         logger.debug("CONNECT REDIS")
 
         self.sub = zmq.Context().socket(zmq.SUB)
