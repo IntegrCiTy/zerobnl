@@ -1,11 +1,9 @@
-import json
-
 from zerobnl.kernel import Node
 
 import numpy as np
 
 
-class MyNode(Node): 
+class MyNode(Node):
     def __init__(self):
         super().__init__() # Keep this line, it triggers the parent class __init__ method.
 

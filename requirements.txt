@@ -4,4 +4,4 @@ pyyaml>=3.0
 redis>=3.0
 numpy==1.15
 networkx>=2.0
-pandas>=0.23
+pandas>=0.24

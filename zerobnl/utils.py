@@ -7,9 +7,12 @@ def save_to_redis(client, name, attr, opt, value, time):
 
 def load_from_redis(client, name, attr, opt):
     key = "{}||{}||{}".format(opt, name, attr)
+    return load_from_redis_key(client, key)
+
+def load_from_redis_key(client, key):
     values = client.lrange(key, 0, -1)
     stamps = client.lrange(key+"||time", 0, -1)
-    return {i.decode("utf-8"): decode_pickle_float(val) for i, val in zip(values, stamps)}
+    return {i.decode("utf-8"): decode_pickle_float(val) for i, val in zip(stamps, values)}
 
 def decode_pickle_float(value):
     try:
