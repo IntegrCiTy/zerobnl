@@ -25,6 +25,6 @@ DOCKER_COMPOSE_FILE = "docker-compose.yml"
 START = "2000-01-01 00:00:00"
 
 REDIS_PORT = 6379
-REDIS_HOST_NAME = "ict_redis"
+REDIS_HOST_NAME = "redis"
 
 SIM_NET = "simulation"

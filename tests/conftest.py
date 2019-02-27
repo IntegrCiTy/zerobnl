@@ -13,5 +13,4 @@ def clean(scope="function"):
     yield True
     client = docker.from_env()
     for c in client.containers.list():
-        if "ict_" in c.name:
-            c.kill()
+        c.kill()
