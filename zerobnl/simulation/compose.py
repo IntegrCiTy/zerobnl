@@ -8,7 +8,7 @@ BASE = {"version": "3", "services": {}, "networks": {"default": {"external": {"n
 
 def create_yaml_node_entry(node):
     entry = {
-        "container_name": node.lower(),
+        "container_name": "ict_"+node.lower(),
         "command": NODE_WRAP_FILE,
         "depends_on": [ORCH_HOST_NAME],
         "build": {"context": node.lower(), "dockerfile": NODE_DOCKERFILE, "args": {"branch": BRANCH}},

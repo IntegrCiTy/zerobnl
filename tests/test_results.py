@@ -11,7 +11,7 @@ def test_full_simulation_results(create_scenario, clean):
     df = sim.get_list_of_available_results()
     assert type(df) == pd.DataFrame
     assert set(list(df.columns)) == {"Node", "IN/OUT", "Attribute"}
-    assert len(df.index) == 17
+    assert len(df.index) == 9
 
     res = sim.get_results_by_pattern("OUT*Netw*")
     assert set(res) == {"OUT||Netw||total"}

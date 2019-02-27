@@ -20,7 +20,7 @@ def redis_fix(scope="function"):
     docker_client = docker.from_env()
     redis_test = docker_client.containers.run(
         "redis:5-alpine",
-        name="test_redis",
+        name="ict_test_redis",
         ports={"{}/tcp".format(REDIS_PORT): REDIS_PORT},
         auto_remove=True,
         detach=True
