@@ -89,7 +89,7 @@ def test_create_and_fill_orchestrator_folder(create_scenario):
 
 
 # TODO: implement proper tests
-def test_launch_redis_and_docker_network():
+def test_launch_redis_and_docker_network(clean):
     pass
 
 
@@ -99,6 +99,6 @@ def test_compose_create_full_yaml(create_scenario):
     assert DOCKER_COMPOSE_FILE in os.listdir(TEMP_FOLDER)
 
 
-def test_run(create_scenario):
+def test_run(create_scenario, clean):
     sim = create_scenario
     sim.run()

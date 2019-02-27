@@ -3,18 +3,16 @@ import pytest
 import docker
 from zerobnl.config import *
 
+# TODO: -> https://docs.pytest.org/en/latest/fixture.html#conftest-py-sharing-fixture-functions
 
-def pytest_sessionstart(session):
-    """ before session.main() is called. """
-    clean_containers()
+@pytest.fixture
+def clean(scope="function"):
+    """
 
+	"""
+    import docker
 
-def pytest_sessionfinish(session, exitstatus):
-    """ whole test run finishes. """
-    clean_containers()
-
-
-def clean_containers():
+    yield True
     client = docker.from_env()
     for c in client.containers.list():
         if TEMP_FOLDER.lower() in c.name:

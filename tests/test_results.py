@@ -3,7 +3,7 @@ import pandas as pd
 from tests.test_deploy import create_scenario
 
 
-def test_full_simulation_results(create_scenario):
+def test_full_simulation_results(create_scenario, clean):
     sim = create_scenario
     sim.run()
     sim.connect_to_results_db()

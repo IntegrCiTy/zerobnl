@@ -6,6 +6,7 @@ import pandas as pd
 
 from zerobnl.config import *
 from zerobnl.logs import logger
+from zerobnl.utils import save_to_redis, encode_pickle_float
 
 
 class Node:
@@ -80,9 +81,9 @@ class Node:
         """
         if not value:
             value = self.get_attribute(attr)
-        key = "{}||{}||{}".format(opt, self.name, attr)
-        self.redis.rpush(key, float(value))
-        self.redis.rpush(key + "||time", str(self.real_time))
+
+        value = encode_pickle_float(value)
+        save_to_redis(self.redis, self.name, attr, opt, value, self.real_time)
 
     def _update_inputs(self, state):
         """
@@ -93,7 +94,6 @@ class Node:
         for key, value in state.items():
             if key in self.input_map:
                 self.set_attribute(self.input_map[key], value)
-                # self._send_attribute_value_to_results_db(self.input_map[key], value, opt="IN")
 
     def run(self):
         """

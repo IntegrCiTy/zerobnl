@@ -3,6 +3,7 @@ import pandas as pd
 
 from zerobnl.config import *
 from zerobnl.logs import logger
+from zerobnl.utils import decode_pickle_float, load_from_redis
 
 from zerobnl.simulation import CoSimDeploy
 
@@ -35,11 +36,13 @@ class CoSimResults(CoSimDeploy):
         res = {}
 
         for (key_v, key_t) in zip(list_of_value, list_of_index):
+            # TODO: change float for dataframe (just remove it ?)
             value = list(map(float, self.redis.lrange(key_v, 0, -1)))
             index = [b.decode("utf-8") for b in self.redis.lrange(key_t, 0, -1)]
 
             index = pd.to_datetime(index)
 
+            # TODO: adapt to df
             res[key_v] = pd.Series(value, index=index)
 
         return res
