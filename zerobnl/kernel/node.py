@@ -82,7 +82,6 @@ class Node:
         if not value:
             value = self.get_attribute(attr)
 
-        value = encode_pickle_float(value)
         save_to_redis(self.redis, self.name, attr, opt, value, self.real_time)
 
     def _update_inputs(self, state):
