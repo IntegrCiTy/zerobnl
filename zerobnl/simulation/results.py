@@ -27,19 +27,21 @@ class CoSimResults(CoSimDeploy):
         :return: a dict mapping results name with pandas.Series() of values or dict of df if stored value are df
         """
         matching_keys = [key.decode("utf-8") for key in self.redis.keys(pattern)]
-        logger.debug("KEYS: {}".format(matching_keys))
         matching_keys = [key for key in matching_keys if "time" not in key]
         for node, attr in [(k.split("||")[-2], k.split("||")[-1]) for k in matching_keys]:
             logger.info("Matching results: {} - {}".format(node, attr))
 
-        res = {key: load_from_redis_key(self.redis, key) for key in matching_keys}
+        raw_res = {key: load_from_redis_key(self.redis, key) for key in matching_keys}
+        res = {}
 
-        for key, value in res.items():
-            if type(value[values.keys()[0]]) is float:
-                value.keys
-        #     index = pd.to_datetime(index)
-        #
-        #     # TODO: adapt to df
-        #     res[key_v] = pd.Series(value, index=index)
-
+        for key, value in raw_res.items():
+            if type(value[1][0]) is pd.DataFrame:
+                dfs = []
+                for i, df in zip(value[0], value[1]):
+                    df["time"] = i
+                    dfs.append(df)
+                mdf = pd.concat(dfs).reset_index()
+                res[key] = mdf.set_index(['time', 'index'])
+            else:
+                res[key] = pd.Series(value[1], index=pd.to_datetime(value[0]))
         return res
