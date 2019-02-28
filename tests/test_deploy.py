@@ -67,7 +67,7 @@ def create_scenario():
     return sim
 
 
-def test_create_and_fill_folders_to_mount_into_nodes(create_scenario):
+def test_create_and_fill_folders_to_mount_into_nodes(create_scenario, clean_folder):
     sim = create_scenario
     sim._create_and_fill_folders_to_mount_into_nodes()
     assert set(os.listdir(TEMP_FOLDER)) == set([node.lower() for node in sim.nodes.index])
@@ -75,7 +75,7 @@ def test_create_and_fill_folders_to_mount_into_nodes(create_scenario):
         assert len(os.listdir(os.path.join(TEMP_FOLDER, node.lower()))) == 4
 
 
-def test_create_and_fill_orchestrator_folder(create_scenario):
+def test_create_and_fill_orchestrator_folder(create_scenario, clean_folder):
     sim = create_scenario
     sim._create_and_fill_orchestrator_folder()
     assert ORCH_FOLDER in os.listdir(TEMP_FOLDER)
@@ -89,16 +89,17 @@ def test_create_and_fill_orchestrator_folder(create_scenario):
 
 
 # TODO: implement proper tests
-def test_launch_redis_and_docker_network(clean):
+def test_launch_redis_and_docker_network(clean_docker):
     pass
 
 
-def test_compose_create_full_yaml(create_scenario):
+def test_compose_create_full_yaml(create_scenario, clean_folder):
     sim = create_scenario
+    os.mkdir(TEMP_FOLDER)
     create_full_yaml(sim.nodes.index)
     assert DOCKER_COMPOSE_FILE in os.listdir(TEMP_FOLDER)
 
 
-def test_run(create_scenario, clean):
+def test_run(create_scenario, clean_docker, clean_folder):
     sim = create_scenario
     sim.run()
