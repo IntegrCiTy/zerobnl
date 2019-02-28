@@ -1,6 +1,10 @@
 import os
+import redis
+import pandas as pd
+
 import pytest
 
+from zerobnl.config import *
 from zerobnl import CoSim
 
 @pytest.fixture()
@@ -27,10 +31,26 @@ def create_model():
 
     return sim
 
-def test_run(create_model, clean):
+def test_simulation_store_results_to_redis(create_model, clean_docker, clean_folder):
+    sim = create_model
+    sim.run()
+
+    r = redis.StrictRedis(host="localhost", port=REDIS_PORT, db=0)
+    assert len(r.keys()) > 0
+
+def test_get_results_by_pattern(create_model, clean_docker, clean_folder):
     sim = create_model
     sim.run()
 
     sim.connect_to_results_db()
-    res = sim.get_results_by_pattern("*Base*")
-    assert set(res.keys()) != set()
+    res = sim.get_results_by_pattern("X*Base0*")
+    assert set(res) == {"X||Base0||y", "X||Base0||df"}
+
+def test_return_data_type(create_model, clean_docker, clean_folder):
+    sim = create_model
+    sim.run()
+    sim.connect_to_results_db()
+    res = sim.get_results_by_pattern("X*Base0*")
+
+    assert type(res["X||Base0||y"]) is pd.Series
+    assert type(res["X||Base0||df"]) is pd.DataFrame
