@@ -39,3 +39,6 @@ venv/
 
 # Logging
 *.log
+
+# Results
+examples/CIGRE_GridExample/*.csv
