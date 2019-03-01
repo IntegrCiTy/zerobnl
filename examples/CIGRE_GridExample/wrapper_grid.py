@@ -26,17 +26,21 @@ class Grid(Node):
 
     def get_attribute(self, attr):
         super().get_attribute(attr)
-        table, name, col = attr.split("/")
-        idx = pp.get_element_index(self.net, table, name)
-        df = getattr(self.net, "res_"+table)
-        return df.loc[idx, col]
+        if attr in ["res_line", "res_bus"]:
+            return getattr(self.net, attr)
+        else:
+            table, name, col = attr.split("/")
+            idx = pp.get_element_index(self.net, table, name)
+            df = getattr(self.net, "res_"+table)
+            return df.loc[idx, col]
 
     def step(self, value):
         super().step(value)
         pp.runpp(self.net, numba=False)
         for key in ["ext_grid/Feeder/p_kw", "ext_grid/Feeder/q_kvar"]:
             self.save_attribute(key)
-
+        self.save_attribute("res_bus")
+        self.save_attribute("res_line")
 
 if __name__ == "__main__":
     node = Grid()
