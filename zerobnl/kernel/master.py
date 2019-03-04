@@ -41,7 +41,6 @@ class Master:
         self.pub.send_string("GRP{} | {} | {}".format(idx_group, "STEP", step))
         for answer in self.wait_for_nodes(self.sequence[idx_group]):
             node, _, values = answer.split(" | ")
-            logger.debug("VALUES {}".format(values))
             values = ast.literal_eval(values)
             for key, value in values.items():
                 self.current_state[(node, key)] = value

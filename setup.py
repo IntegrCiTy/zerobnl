@@ -19,15 +19,8 @@ AUTHOR = "Pablo Puerto"
 REQUIRES_PYTHON = ">=3.5.0"
 VERSION = None
 
-REQUIRED = [
-    "zmq==0.0.0",
-    "docker==3.5.1",
-    "pyyaml>=3.0",
-    "redis>=3.0",
-    "numpy==1.15",
-    "networkx>=2.0",
-    "pandas>=0.23",
-]
+with open('requirements.txt') as f:
+    REQUIRED = f.read().splitlines()
 
 EXTRAS = {
     "tests": ["pytest"],

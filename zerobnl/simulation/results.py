@@ -20,7 +20,7 @@ class CoSimResults(CoSimDeploy):
         keys = [k.decode("utf-8") for k in self.redis.keys() if "time" not in str(k)]
         return pd.DataFrame([k.split("||") for k in keys], columns=["IN/OUT", "Node", "Attribute"])
 
-    def get_results_by_pattern(self, pattern):
+    def get_results_by_pattern(self, pattern, dataframes=False):
         """
         Allow to get results from a given name pattern
         :param pattern: the pattern used to query the Redis DB
@@ -44,4 +44,14 @@ class CoSimResults(CoSimDeploy):
                 res[key] = mdf.set_index(['time', 'index'])
             else:
                 res[key] = pd.Series(value[1], index=pd.to_datetime(value[0]))
+
+        if not dataframes:
+            key_to_del = []
+            for key, value in res.items():
+                if type(value) is not pd.Series:
+                    key_to_del.append(key)
+    
+            for key in key_to_del:
+                del res[key]
+
         return res
