@@ -11,7 +11,7 @@ file_formatter = logging.Formatter(
 
 file_handler = FileHandler("activity.log", "w")
 
-file_handler.setLevel(logging.DEBUG)
+file_handler.setLevel(logging.INFO)
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
