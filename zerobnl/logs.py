@@ -3,7 +3,7 @@ import logging
 from logging import FileHandler
 
 logger = logging.getLogger("ZEROBNL")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 file_formatter = logging.Formatter(
     "%(asctime)s :: %(levelname)s :: %(name)s -> %(filename)s :: %(funcName)s :: %(message)s"

@@ -48,7 +48,7 @@ class Master:
     def run(self):
         self.wait_for_nodes(sum(self.sequence))
         for idx, step in enumerate(self.steps):
-            logger.debug("STEP {}/{}".format(idx + 1, len(self.steps)))
+            logger.info("STEP {}/{}".format(idx + 1, len(self.steps)))
             for idx_group in range(len(self.sequence)):
                 self.send_current_state_for_update()
                 self.make_step(idx_group, step)
