@@ -12,4 +12,4 @@ The presented simulation is used as a proof-of-concept for the following paper a
 TODO: add DOI once published
 ```
 
-![Simulated system](./images/ues_mscpes?raw=true "Simulated system")
+![Simulated system](images/ues_mscpes.png?raw=true "Simulated system")
