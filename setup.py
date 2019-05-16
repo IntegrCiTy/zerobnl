@@ -14,7 +14,7 @@ from setuptools import find_packages, setup, Command
 NAME = "zerobnl"
 DESCRIPTION = "Distributed co-simulation tool based on ZeroMQ, Docker (Swarm and Compose)"
 URL = "https://github.com/IntegrCiTy/zerobnl"
-EMAIL = "zerobnl@????.ch"
+EMAIL = "info@crem.ch"
 AUTHOR = "Pablo Puerto"
 REQUIRES_PYTHON = ">=3.5.0"
 VERSION = None
