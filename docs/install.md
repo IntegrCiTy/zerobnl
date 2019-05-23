@@ -6,6 +6,19 @@ TODO: Docker support install windows ...
 
 ## Linux ([Windows version below](#Windows))
 
+Install Docker and Docker-Compose (More on [docker installation](https://docs.docker.com/install/linux/docker-ce/ubuntu/))
+
+```
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose
+```
+
+Manage Docker as a non-root user ([Docker - post installation steps](https://docs.docker.com/install/linux/linux-postinstall/))
+
+```
+$ sudo groupadd docker
+$ sudo usermod -aG docker $USER
+```
+
 Install git (if not already done) (More info on [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
 
 If you’re on a Debian-based distribution like Ubuntu, try apt-get:
