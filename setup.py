@@ -24,7 +24,7 @@ REQUIRED = [
     "docker==3.5.1",
     "pyyaml>=3.0",
     "redis>=3.0",
-    "numpy==1.15",
+    "numpy>=1.15",
     "networkx>=2.0",
     "pandas>=0.23",
 ]
