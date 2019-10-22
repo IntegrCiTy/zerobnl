@@ -1,14 +1,19 @@
 FROM python:3
 
-RUN pip install --upgrade pip
-
-ARG BRANCH=simple_feature
+ARG BRANCH
 RUN git clone --single-branch -b $BRANCH https://github.com/IntegrCiTy/zerobnl.git
 
-RUN cd zerobnl && pip install --no-cache-dir -r requirements.txt
-RUN cd zerobnl && python setup.py install
+RUN pip install --upgrade pip
 
-RUN pip install pandapower
+RUN cd zerobnl && pip install --no-cache-dir -r requirements.txt
+RUN cd zerobnl && pip install .
+
+# The next two lines will install extra packages on Ubuntu-based images.
+# These extra packages are required to build Python package "scipy".
+RUN apt-get update
+RUN /bin/bash -c 'if [[ `uname -a` == *"Debian"* ]]; then apt-get install -y gfortran libblas-dev liblapack-dev; fi'
+
+RUN pip install pandapower==1.6.1
 
 WORKDIR /code
 

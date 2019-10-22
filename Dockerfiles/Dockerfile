@@ -1,12 +1,12 @@
 FROM python:3
 
-RUN pip install --upgrade pip
-
-ARG BRANCH=develop
+ARG BRANCH
 RUN git clone --single-branch -b $BRANCH https://github.com/IntegrCiTy/zerobnl.git
 
+RUN pip install --upgrade pip
+
 RUN cd zerobnl && pip install --no-cache-dir -r requirements.txt
-RUN cd zerobnl && python setup.py install
+RUN cd zerobnl && pip install .
 
 WORKDIR /code
 
