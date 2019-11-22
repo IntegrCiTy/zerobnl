@@ -14,7 +14,7 @@ class CoSimCreator:
         self.environments = {}
 
         self.nodes = pd.DataFrame(
-            columns=["ToSet", "ToGet", "InitVal", "Parameters", "Wrapper", "Dockerfile", "Files", "Local"]
+            columns=["ToSet", "ToGet", "InitVal", "Parameters", "Wrapper", "Dockerfile", "Files", "Local", "Meta", "Env"]
         )
 
         self.links = pd.DataFrame(columns=["GetNode", "GetAttr", "SetNode", "SetAttr", "Unit"])
@@ -87,6 +87,8 @@ class CoSimCreator:
             self.environments[env]["Dockerfile"],
             files,
             local,
+            meta,
+            env
         ]
 
     def add_link(self, get_node, get_attr, set_node, set_attr):

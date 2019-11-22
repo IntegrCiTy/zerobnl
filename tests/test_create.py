@@ -22,11 +22,11 @@ def test_add_node():
     sim.create_meta_model("MetaBase", [("conso", "kW")], [("temp", "C")])
     sim.create_environment("EnvBase", "WrapBase", "DockBase")
     sim.add_node("Base0", "MetaBase", "EnvBase")
-    waited = [[("conso", "kW")], [("temp", "C")], {}, {}, "WrapBase", "DockBase", [], False]
+    waited = [[("conso", "kW")], [("temp", "C")], {}, {}, "WrapBase", "DockBase", [], False, "MetaBase", "EnvBase"]
     assert type(sim.nodes.loc["Base0"]) is pd.Series
     assert sim.nodes.loc["Base0"].values.tolist() == waited
     sim.add_node("Base1", "MetaBase", "EnvBase", init_values={"c": 0.5}, files=["f1.csv"], local=True)
-    waited = [[("conso", "kW")], [("temp", "C")], {"c": 0.5}, {}, "WrapBase", "DockBase", ["f1.csv"], True]
+    waited = [[("conso", "kW")], [("temp", "C")], {"c": 0.5}, {}, "WrapBase", "DockBase", ["f1.csv"], True, "MetaBase", "EnvBase"]
     assert sim.nodes.loc["Base1"].values.tolist() == waited
 
 
