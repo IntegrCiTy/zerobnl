@@ -8,7 +8,7 @@ RUN pip install --upgrade pip
 RUN cd zerobnl && pip install --no-cache-dir -r requirements.txt
 RUN cd zerobnl && pip install .
 
-# The next two lines will install extra packages on Ubuntu-based images.
+# The next two lines will install extra packages on Debian-based images.
 # These extra packages are required to build Python package "scipy".
 RUN apt-get update
 RUN /bin/bash -c 'if [[ `uname -a` == *"Debian"* ]]; then apt-get install -y gfortran libblas-dev liblapack-dev; fi'
