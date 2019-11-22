@@ -161,3 +161,14 @@ class CoSimDeploy(CoSimCreator):
 
         logger.info("Simulation finished in {} min and {} sec".format(int(stop // 60), int(round(stop % 60, 0))))
         logger.debug("FINISHED PROCESS")
+
+
+    def add_container_to_simulation(self, container_name):
+
+        if SIM_NET not in [net.name for net in self.docker_client.networks.list()]:
+            sim_net = self.docker_client.networks.create(SIM_NET, driver="bridge", attachable=True)
+            sim_net.connect(container_name)
+        else:
+            sim_net = self.docker_client.networks.get(SIM_NET)
+            if container_name not in [c.name for c in sim_net.containers]:
+                sim_net.connect(container_name)
