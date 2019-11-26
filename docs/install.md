@@ -51,7 +51,7 @@ Run the tests to verify the installation was successful:
 ```
 
 If everything works, you should see something like the following output:
-```bash
+```
 ================================ test session starts =================================
 platform linux -- Python 3.5.3, pytest-5.3.1, py-1.8.0, pluggy-0.13.1
 rootdir: /home/user/zerobnl
@@ -75,12 +75,12 @@ To run the examples, use [Jupyter Notebook](http://jupyter.org/) and navigate to
 ### Troubleshooting
 
 In case the Jupyter notebooks do not work properly within the virtual environment, try one of the following:
-* https://stackoverflow.com/questions/37891550/jupyter-notebook-running-kernel-in-different-env
-* https://anbasile.github.io/programming/2017/06/25/jupyter-venv/
+* [Jupyter notebook running kernel in different env](https://stackoverflow.com/questions/37891550/jupyter-notebook-running-kernel-in-different-env)
+* [Using jupyter notebooks with a virtual environment](https://anbasile.github.io/programming/2017/06/25/jupyter-venv/)
 
 ### Verified Linux Setups
 
-ZerOBNL has been successfully installed on the following Linux setups:
+[Version V1.0](https://github.com/IntegrCiTy/zerobnl/releases/tag/v1.0) of ZerOBNL  has been successfully installed and tested on the following Linux setups:
 
 **Ubuntu** (recommended Linux setup):
  * Ubuntu 18.04.3 LTS (bionic, GNU/Linux 4.15.0-70-generic x86_64)
@@ -134,7 +134,7 @@ Run the tests to verify the installation was successful:
 ```
 
 If everything works, you should see the following output:
-```winbatch
+```
 ================================ test session starts =================================
 platform win32 -- Python 3.6.4, pytest-4.4.1, py-1.8.0, pluggy-0.9.0
 rootdir: C:\integrcity\zerobnl
@@ -165,7 +165,7 @@ In this case, make sure that Docker can properly access the hard drive (see [her
 
 ### Verified Windows Setups
 
-ZerOBNL has been successfully installed on the following Windows setup:
+[Version V1.0](https://github.com/IntegrCiTy/zerobnl/releases/tag/v1.0) of ZerOBNL  has been successfully installed and tested on the following Windows setup:
  * Windows 10 (build 1607)
  * Docker Desktop for Windows 2.0.0.3
    * Docker Engine Community 18.09.02
