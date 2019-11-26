@@ -1,132 +1,126 @@
-# Easy install
+# Installation Instructions
 
-ZerOBNL is a Python package so you need [Python 3.X](https://www.python.org/downloads/).
+## Prerequisites
 
-TODO: Docker support install windows ...
+ZerOBNL requires the following software to be installed on your system (follow the links for instructions):
 
-## Linux ([Windows version below](#Windows))
+ * [Python 3](https://wiki.python.org/moin/BeginnersGuide/Download) (including the Python package manager [pip](https://pip.pypa.io/en/stable/))
+   * **Linux**: install via the native package management system
+ (e.g., *apt-get install python3 python3-pip*)
+   * **Windows**: download and install from the [Python homepage](https://www.python.org/download)
+ * [Docker Engine - Community](https://docs.docker.com/install/#supported-platforms)
+ * [Docker Compose](https://docs.docker.com/compose/install/)
+ * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
-Install Docker and Docker-Compose (More on [docker installation](https://docs.docker.com/install/linux/docker-ce/ubuntu/))
 
-```
-$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose
-```
+## Installation on Linux ([Instructions for Windows below](#Windows))
 
-Manage Docker as a non-root user ([Docker - post installation steps](https://docs.docker.com/install/linux/linux-postinstall/))
-
-```
-$ sudo groupadd docker
-$ sudo usermod -aG docker $USER
-```
-
-Install git (if not already done) (More info on [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
-
-If you’re on a Debian-based distribution like Ubuntu, try apt-get:
-
-```
-$ sudo apt-get install git-all
+It is recommended to install ZerOBNL in an isolated Python environment.
+This can be done with the help of the [virtualenv package](https://virtualenv.pypa.io/en/stable/), which can be installed with the help of *pip* from the command line:
+```bash
+$ pip3 install virtualenv
 ```
 
-Install virtualenv (if not already done) (More info on [virtualenv](https://virtualenv.pypa.io/en/stable/installation/))
-
-```
-$ pip install virtualenv
-```
-
-Create a Python (3.X) virtual env
-
-```
+Create a Python virtual environment called *zero*:
+```bash
 $ virtualenv -p python3 zero
 ```
 
-Activate the created virtual env (zero)
-
+Activate the virtual environment:
+```bash
+$ source zero/bin/activate
 ```
-$ source link/to/ict/bin/activate
-```
 
-Download source code
-
-```
+Download the ZerOBNL source code:
+```bash
 (zero)$ git clone https://github.com/IntegrCiTy/zerobnl.git
 ```
 
-Install dependencies (in the zerobnl folder)
-
-```
-(zero)$ pip install -r requirements.txt
-```
-
-Install zerobnl (in the zerobnl folder) as an editable project in current directory
-
-```
+Install ZerOBNL as an editable project from its root directory:
+```bash
+(zero)$ cd zerobnl
 (zero)$ pip install -e .
 ```
 
-Install [Jupyter Notebook](http://jupyter.org/) (recommended)
-```
+To run the examples, also install [Jupyter Notebook](http://jupyter.org/):
+```bash
 (zero)$ pip install jupyter
 ```
 
-### Jupyter with VirtualEnv
+### Troubleshooting
 
-- https://stackoverflow.com/questions/37891550/jupyter-notebook-running-kernel-in-different-env
-- https://anbasile.github.io/programming/2017/06/25/jupyter-venv/
+In case the Jupyter notebooks do not work properly within the virtual environment, try one of the following:
+* https://stackoverflow.com/questions/37891550/jupyter-notebook-running-kernel-in-different-env
+* https://anbasile.github.io/programming/2017/06/25/jupyter-venv/
 
-#### Define default Jupyter kernel:
+### Verified Linux Setups
 
-```bash
-source venv/bin/activate
-(venv) python -m ipykernel install --user
-(venv) jupyter notebook
-```
+ZerOBNL has been successfully installed on the following Linux setups:
 
-#### Or create a new one:
+**Ubuntu** (recommended Linux setup):
+ * Ubuntu 18.04.3 LTS (bionic, GNU/Linux 4.15.0-70-generic x86_64)
+ * Docker Engine Community 19.03.5
+ * Docker Compose 1.24.1
+ * Python 3.6.8
 
-```bash
-source venv/bin/activate
-(venv) ipython kernel install --user --name=projectname
-(venv) jupyter notebook
-```
+**Debian**:
+ * Debian 4.9.0-8-amd64 
+ * Docker Engine Community 18.09.6
+ * Docker Compose 1.24.1
+ * Python 3.5.3
 
-## <a name="Windows"></a> Windows
+
+## <a name="Windows"></a> Installation on Windows
 
 Use [Git for Windows](https://git-scm.com/download/win) to clone the [zerobnl repository](https://github.com/IntegrCiTy/zerobnl).
 For instance, when using *Git Bash* type the following on the command line:
-```
-$ git clone https://github.com/IntegrCiTy/zerobnl
+```winbatch
+> git clone https://github.com/IntegrCiTy/zerobnl
 ```
 
 Use *pip* in the Windows command line to install [virtualenv](https://virtualenv.pypa.io/en/stable/) and [virtualenvwrapper-win](https://pypi.python.org/pypi/virtualenvwrapper-win):
-```
-$ pip install virtualenv
-$ pip install virtualenvwrapper-win
+```winbatch
+> pip install virtualenv
+> pip install virtualenvwrapper-win
 ```
 
 Use *mkvirtualenv* in the Windows command line to create and start a Python (3.X) virtual environment called *zero* and acivate it:
-```
-$ mkvirtualenv -p C:\path\to\python35.exe zero
+```winbatch
+> mkvirtualenv -p C:\path\to\python.exe zero
 ```
 
 *Optional*: In the virtual environment, set the working directory to the *zerobnl* root directory:
-```
-(zero)$ setprojectdir C:\path\to\zerobnl
-```
-
-In the virtual environment, install dependencies (in the zerobnl folder):
-```
-(zero)$ pip install -r requirements.txt
+```winbatch
+(zero) setprojectdir C:\path\to\zerobnl
 ```
 
-Install zerobnl (in the zerobnl folder) using the `install` command
+Install ZerOBNL as an editable project from its root directory:
+```winbatch
+(zero) cd zerobnl
+(zero) pip install -e .
+```
 
-```
-(zero)$ python setup.py install
+To run the examples, also install [Jupyter Notebook](http://jupyter.org/):
+```winbatch
+(zero) pip install jupyter
 ```
 
-Install [Jupyter Notebook](http://jupyter.org/) (recommended)
+### Troubleshooting
+
+In case ZerOBNL does not produce any results, check file *nodes.log* for error messages like the following:
 ```
-(zero)$ pip install jupyter
+python: can't open file 'main.py': [Errno 2] No such file or directory
 ```
+In this case, make sure that Docker can properly access the hard drive (see [here](https://stackoverflow.com/questions/50018812/docker-for-windows-volumes-are-empty) for instructions).
+
+### Verified Windows Setups
+
+ZerOBNL has been successfully installed on the following Windows setup:
+ * Windows 10 (build 1607)
+ * Docker Desktop for Windows 2.0.0.3
+   * Docker Engine Community 18.09.02
+   * Docker Compose 1.23.2
+ * Python 3.6.4
+
 
 [HOME](./index.md)

@@ -164,16 +164,14 @@ Since you are working with Python you can directly use [matplotlib](https://matp
 
 - <a name="Dockerfile"></a> **Dockerfile**: 
 
-Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. You can refer to the Dockerfile [best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) for a tip-oriented guide and use this [file](https://github.com/IntegrCiTy/zerobnl/blob/master/Dockerfiles/Dockerfile) as template.
+  Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. You can refer to the Dockerfile [best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) for a tip-oriented guide and use this [file](https://github.com/IntegrCiTy/zerobnl/blob/master/Dockerfiles/Dockerfile) as template.
 
 - <a name="Wrapper"></a> **Wrapper**:
 
-TODO: def. Wrapper
+  A wrapper function is a subroutine whose main purpose is to call another subroutine or a system call with little or no additional computational overhead. Wrapper functions are used to make writing computer programs easier by abstracting away the details of a subroutine's underlying implementation. In the case of ZerOBNL wrappers are used to interface between the co-simulation master and the simulators.
 
 - <a name="CoSimGraph"></a> **Co-Simulation Graph**:
 
-TODO: def. Co-Simulation Graph
-
-TODO: add example image
+  The connection between the inputs and outputs of the individual nodes in a co-simulation can be represented in a co-simulation graph. Each node of the graph represents a co-simulation nodes, and each edge of the node represents a connection between an input and an output variable.
 
 [Home](./index.md)
