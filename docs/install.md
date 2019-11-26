@@ -42,9 +42,34 @@ Install ZerOBNL as an editable project from its root directory:
 (zero)$ pip install -e .
 ```
 
-To run the examples, also install [Jupyter Notebook](http://jupyter.org/):
+### Testing
+
+Run the tests to verify the installation was successful:
 ```bash
-(zero)$ pip install jupyter
+(zero)$ pip install pytest
+(zero)$ pytest
+```
+
+If everything works, you should see something like the following output:
+```bash
+================================ test session starts =================================
+platform linux -- Python 3.5.3, pytest-5.3.1, py-1.8.0, pluggy-0.13.1
+rootdir: /home/user/zerobnl
+collected 19 items
+
+tests/test_create.py .............                                             [ 68%]
+tests/test_deploy.py .....                                                     [ 94%]
+tests/test_results.py .                                                        [100%]
+
+=========================== 19 passed in 206.93s (0:03:26) ===========================
+```
+
+### Examples
+
+To run the examples, use [Jupyter Notebook](http://jupyter.org/) and navigate to the *examples* subfolder:
+```bash
+(zero)$ pip install jupyter matplotlib
+(zero)$ jupyter notebook &
 ```
 
 ### Troubleshooting
@@ -100,9 +125,34 @@ Install ZerOBNL as an editable project from its root directory:
 (zero) pip install -e .
 ```
 
-To run the examples, also install [Jupyter Notebook](http://jupyter.org/):
+### Testing
+
+Run the tests to verify the installation was successful:
 ```winbatch
-(zero) pip install jupyter
+(zero)$ pip install pytest
+(zero)$ pytest
+```
+
+If everything works, you should see the following output:
+```winbatch
+================================ test session starts =================================
+platform win32 -- Python 3.6.4, pytest-4.4.1, py-1.8.0, pluggy-0.9.0
+rootdir: C:\integrcity\zerobnl
+collected 19 items
+
+tests/test_create.py .............                                             [ 68%]
+tests/test_deploy.py .....                                                     [ 94%]
+tests/test_results.py .                                                        [100%]
+
+=========================== 19 passed in 206.93s (0:03:26) ===========================
+```
+
+### Examples
+
+To run the examples, use [Jupyter Notebook](http://jupyter.org/) and navigate to the *examples* subfolder:
+```winbatch
+(zero)$ pip install jupyter matplotlib
+(zero)$ jupyter notebook
 ```
 
 ### Troubleshooting
