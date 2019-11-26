@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.6
 
 ARG BRANCH
 RUN git clone --single-branch -b $BRANCH https://github.com/IntegrCiTy/zerobnl.git
