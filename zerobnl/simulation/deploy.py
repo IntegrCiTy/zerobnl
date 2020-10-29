@@ -75,7 +75,7 @@ class CoSimDeploy(CoSimCreator):
 
         _generate_and_add_master_file_to_orchestrator_folder(orch_folder)
 
-        dockerfile = os.path.join(here, "..", "..", "Dockerfiles", "Dockerfile")
+        dockerfile = os.path.join(here, "..", "Dockerfiles", "Dockerfile")
         shutil.copy(dockerfile, os.path.join(orch_folder, "Dockerfile"))
 
         config = {"SEQUENCE": [len(group) for group in self.sequence], "STEPS": self.steps}

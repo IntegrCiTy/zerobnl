@@ -29,6 +29,10 @@ REQUIRED = [
     "pandas>=0.23",
 ]
 
+PACKAGE_DATA = [
+    "Dockerfiles/Dockerfile"
+]
+
 EXTRAS = {
     "tests": ["pytest"],
     "formatting": ["black"],
@@ -63,6 +67,7 @@ setup(
     packages=find_packages(exclude=("tests", "examples", "docs")),
     install_requires=REQUIRED,
     extras_require=EXTRAS,
+    package_data={NAME : PACKAGE_DATA},
     include_package_data=True,
     license="Apache-2.0",
     classifiers=[
